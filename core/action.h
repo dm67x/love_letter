@@ -2,8 +2,8 @@
 #define ACTION_H
 
 #include "player.h"
-#include "card.h"
 
+class Card;
 class Action
 {
 
