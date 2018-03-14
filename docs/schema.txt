@@ -1,0 +1,25 @@
+IHM (click de départ)
+	 -----> Game.start()
+		 ----> Game.startRound()
+			 ----> Game.startTurn() -> Game.giveCard() au joueur courant
+
+IHM (click sur la carte que tu veux jouer)
+	------> Game.playCard(carte) -> Player.play(carte)
+
+////// Pour Garde
+IHM(click cible)
+	------> Game.pickTarget(joueur) -> rempli l'attribut target du singleton "Action"
+IHM(click sur la carte à deviner)
+	------> Game.guessCard(carte) -> rempli l'attribut carte à deviner du singleton "Action"
+IHM
+	------> Game.activeEffect() -> carte.activeEffect(Action)
+
+
+
+///// Actions
+
+
+
+
+
+Les interactions sera toujours entre l'IHM et le jeu (Class Game).
