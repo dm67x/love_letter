@@ -2,3 +2,4 @@ Q : "Attendez vous des diagrammes, ou des fiches de tests .. etc. ?"
 A : "Ca rentrera dans le bonus et vous rapportera des points." => il y tient vraiment à la partie GL, faut la faire.
 
 Jeu en Local : Pas obligatoire mais peut apporter des points bonus si bien fait. c'est un défi d'IHM. Ex : J1 joue, les autres ne regardent pas. Il finit, l'overlay apparaît "J1 a fini de jouer, tour de J2" => ses cartes sont grisées il doit cliquer pour les "dégriser".
+Régis a dit que on peut décider de ne pas développer un Jeu Local et faire uniquement un jeu Multijoueur. Mais réussir à faire les deux c'est un plus.
