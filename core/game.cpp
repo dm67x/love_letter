@@ -4,20 +4,21 @@
 
 using namespace std;
 
-Game::Game(int nb_players)
-{
-    if(nb_players < 2 || nb_players > 4){
-        // TODO
-    }
-    this->nb_players = nb_players;
-}
-
 // Shuffle the deck
 void listShuffle( list<Card*> &L )
 {
    vector<Card*> V( L.begin(), L.end() );
    shuffle( V.begin(), V.end(), mt19937{ random_device{}() } );
    L.assign( V.begin(), V.end() );
+}
+
+Game::Game(int nb_players)
+{
+    if(nb_players < 2 || nb_players > 4){
+        // TODO generate error
+    }
+    this->nb_players = nb_players;
+    current_player = 0;
 }
 
 // Init player tabs and maxpoints
@@ -65,8 +66,41 @@ void Game::startRound(){
     for(Player p : players){
         giveCard(p);
     }
+}
 
+// Someone plays
+// If he had the handmaid effect,
+void Game::startTurn(Card c){ //The card is given by the IHM
 
+    // Start turn
+    players[current_player].play(Card c);
+
+    current_player ++;
+    current_player %= nb_players;
+}
+
+void Game::pickTarget(){
+
+}
+
+void Game::guessCard(){
+
+}
+
+Player::play(Card c){
+    if(guard){
+        //call pick target => pick a player
+        //call pick card => display all cards, pick one
+
+        c.effect();
+        // how do we know the target ?
+    }
+    // test that the card is in current player's hand
+    // TODO
+
+    // Activate card effect
+
+    // Destroy card
 }
 
 // Update game information

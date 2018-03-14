@@ -1,11 +1,11 @@
-IHM (click de départ)
+﻿IHM (click de départ)
 	 -----> Game.start()
 		 ----> Game.startRound()
 			 ----> Game.startTurn() -> Game.giveCard() au joueur courant
 
 IHM (click sur la carte que tu veux jouer)
 	------> Game.playCard(carte) -> Player.play(carte)
-
+		-> Action.current = currentplayer
 ////// Pour Garde
 IHM(click cible)
 	------> Game.pickTarget(joueur) -> rempli l'attribut target du singleton "Action"

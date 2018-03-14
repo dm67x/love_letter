@@ -1,0 +1,3 @@
+14.03.18 : Pour un joueur il faut un booléen isProtected qui indique si il est protégé par une servante.
+		A chaque début de tour de joueur, si c'est TRUE, on le passe à FALSE.
+		En effet, la protection ne dure qu'un tour.
