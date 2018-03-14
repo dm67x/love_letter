@@ -1,7 +1,7 @@
 #include "card.h"
 
-Card::Card()
+Card::Card(std::string name, unsigned short value)
+    : value(value), name(name)
 {
-
 }
 
