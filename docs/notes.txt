@@ -3,15 +3,22 @@
 		En effet, la protection ne dure qu'un tour. (Jawed à toi de voir)
 
 	- Le joueur doit avoir les méthodes :
-		* void switchHand(Player * p) : qui échange la main du joueur courant avec celui passé en paramètre et vis-versa DONE
-		* void pickCard() : pioche une carte 
-		    MARIJA: Je ne comprends pas ce que cette methode doit faire???
-		* bool hasCard(Card * c) : verifie si le joueur a la carte "c" en main => VRAI sinon FAUX DONE
-		    RQ: rajouter une methode dans Card: bool isTheSameCardAs(Card *c) => VRAI si une carte=c, FAUX sinon
-		* void setProtection(bool value) : set sur le variable cité dans la premiere ligne (isProtected) DONE
+		* void switchHand(Player * p) : qui échange la main du joueur courant avec celui passé en paramètre et vis-versa => DONE
+		* void pickCard() : pioche une carte                                                                             => DONE
+		* bool hasCard(Card * c) : verifie si le joueur a la carte "c" en main => VRAI sinon FAUX                        => DONE
+		* void setProtection(bool value) : set sur le variable cité dans la premiere ligne (isProtected)                 => DONE
 		* Card * showHand(Player * p) : montre sa main à un joueur précis (ici "p")
-		    RQ: Je vois cette methode implementée en IHM, je vois pas ce que ça doit faire de + apart de renvoyer la liste des cartes du joueur.
-		* void discard() : défausse une carte (normalement sa derniere carte en main)
+		* void discard() : défausse une carte (normalement sa derniere carte en main)                                    => DONE
 			(** discard() et pickCard() peuvent être unis en une méthode repick() si jamais, mais pas utile :) )
-		* Card * getCard() : renvoie la carte que le joueur a en main
-		    Le joueur a 2 cartes en main, donc???
+		* Card * getCard() : renvoie la carte que le joueur a en main                                                    => DONE
+		
+		
+16.03.18 MARIJA:
+    
+    J'ai besoin d'une methode dans Card: 
+        bool isTheSameCardAs(Card * c) => VRAI si la carte de la classe et c sont identiques, FAUX sinon
+        
+    Remarque pour Memo:
+        "Card * showHand(Player * p) : montre sa main à un joueur précis (ici "p")": je n'ai pas compris ce que ça doit faire, 
+                                                                                     renvoyer ttes  les cartes?
+
