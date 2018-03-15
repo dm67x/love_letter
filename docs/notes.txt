@@ -1,13 +1,17 @@
-14.03.18 : Pour un joueur il faut un boolÈen isProtected qui indique si il est protÈgÈ par une servante.
-		A chaque dÈbut de tour de joueur, si c'est TRUE, on le passe ‡ FALSE.
-		En effet, la protection ne dure qu'un tour.
+14.03.18 : Pour un joueur il faut un bool√©en isProtected qui indique si il est prot√©g√© par une servante.
+		A chaque d√©but de tour de joueur, si c'est TRUE, on le passe √† FALSE.
+		En effet, la protection ne dure qu'un tour. (Jawed √† toi de voir)
 
-	- Le joueur doit avoir les mÈthodes :
-		* void switchHand(Player * p) : qui Èchange la main du joueur courant avec celui passÈ en paramËtre et vis-versa
-		* void pickCard() : pioche une carte
-		* bool hasCard(Card * c) : verifie si le joueur a la carte "c" en main => VRAI sinon FAUX
-		* void setProtection(bool value) : set sur le variable citÈ dans la premiere ligne (isProtected)
-		* Card * showHand(Player * p) : montre sa main ‡ un joueur prÈcis (ici "p")
-		* void discard() : dÈfausse une carte (normalement sa derniere carte en main)
-			(** discard() et pickCard() peuvent Ítre unis en une mÈthode repick() si jamais, mais pas utile :) )
+	- Le joueur doit avoir les m√©thodes :
+		* void switchHand(Player * p) : qui √©change la main du joueur courant avec celui pass√© en param√®tre et vis-versa DONE
+		* void pickCard() : pioche une carte 
+		    MARIJA: Je ne comprends pas ce que cette methode doit faire???
+		* bool hasCard(Card * c) : verifie si le joueur a la carte "c" en main => VRAI sinon FAUX DONE
+		    RQ: rajouter une methode dans Card: bool isTheSameCardAs(Card *c) => VRAI si une carte=c, FAUX sinon
+		* void setProtection(bool value) : set sur le variable cit√© dans la premiere ligne (isProtected) DONE
+		* Card * showHand(Player * p) : montre sa main √† un joueur pr√©cis (ici "p")
+		    RQ: Je vois cette methode implement√©e en IHM, je vois pas ce que √ßa doit faire de + apart de renvoyer la liste des cartes du joueur.
+		* void discard() : d√©fausse une carte (normalement sa derniere carte en main)
+			(** discard() et pickCard() peuvent √™tre unis en une m√©thode repick() si jamais, mais pas utile :) )
 		* Card * getCard() : renvoie la carte que le joueur a en main
+		    Le joueur a 2 cartes en main, donc???
