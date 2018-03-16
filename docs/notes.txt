@@ -27,4 +27,11 @@
 	Marija tu prends IA ?
 	Emine le(s) Main de test.
 	Mehmet IHM.
+	
+16.03.18 Emine:
+    J'ai besoin d'une méthode dans Game:
+        Player getCurrentPlayer() {
+            return players[currentPlayer];
+        }
+        Un truc du genre
 
