@@ -162,3 +162,8 @@ void Game::giveCard(Player p){
 bool Game::isOver(){
     return end;
 }
+
+// Return current player
+Player Game::getCurrentPlayer(){
+    return players[current_player];
+}
