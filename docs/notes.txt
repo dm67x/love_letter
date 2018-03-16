@@ -1,4 +1,4 @@
-14.03.18 : Pour un joueur il faut un booléen isProtected qui indique si il est protégé par une servante.
+﻿14.03.18 : Pour un joueur il faut un booléen isProtected qui indique si il est protégé par une servante.
 		A chaque début de tour de joueur, si c'est TRUE, on le passe à FALSE.
 		En effet, la protection ne dure qu'un tour. (Jawed à toi de voir)
 
@@ -21,4 +21,10 @@
     Remarque pour Memo:
         "Card * showHand(Player * p) : montre sa main à un joueur précis (ici "p")": je n'ai pas compris ce que ça doit faire, 
                                                                                      renvoyer ttes  les cartes?
+16.03.18 Jawed:
+	Pour la répartition des tâches, checkez le Board sur Git et assignez vous vos tâches. Passez en Closed celles qui sont faites.
+	Je me lance sur la partie Réseau.
+	Marija tu prends IA ?
+	Emine le(s) Main de test.
+	Mehmet IHM.
 
