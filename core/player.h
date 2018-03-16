@@ -26,9 +26,9 @@ public:
     bool isDead();
     bool hasCard(Card * c);
 
-    void setDead();
+    void setDead(bool value);
     void addPoint();
-    void addCard(Card c);
+    void pickCard(Card c);
     void switchHand(Player * p);
     void pickCard();
     void setProtection(bool value);
