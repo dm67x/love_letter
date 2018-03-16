@@ -8,7 +8,5 @@ Countess::Countess()
 
 void Countess::activeEffect(Action & a)
 {
-    Card * c = a.current->getCard();
-    if (c->getValue() == 5 || c->getValue() == 6)
-        break;
+    // If you have King or Prince in your hand with Countess, you must play Countess
 }
