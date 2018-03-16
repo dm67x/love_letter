@@ -2,6 +2,7 @@
 
 Action::Action()
 {
+    empty();
 }
 
 Action * Action::instance = NULL;
