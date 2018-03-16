@@ -22,9 +22,9 @@ bool isDead()
     return dead;
 }
 
-void setDead()
+void setDead(bool value)
 {
-    dead=true;
+    dead=value;
 }
 
 void addPoint()
@@ -62,7 +62,7 @@ bool hasCard(Card * c)
 }
 
 //add the newly picked card last in the list
-void addCard(Card c)
+void pickCard(Card c)
 {
     cards.push_back(c);
 }
