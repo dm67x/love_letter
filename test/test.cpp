@@ -1,13 +1,21 @@
+#include <cstdlib>
+#include <ctime>
+#include <iostream>
+
 #include "test.h"
 
 using namespace std;
 
+/* Number of players randomized since this is test
+ * core class, same with cards choice
+ */
 int main()
 {
-    // Create a game with 2 players
+    srand((unsigned)time(0));
 
-    // nbPlayers given by IHM
-    int nbPlayers = 2;
+    // nbPlayers between 2 and 4
+    // normally given by IHM
+    int nbPlayers = (rand()%4)+2;
 
     Game game = new Game(nbPlayers);
     game.start();
@@ -20,8 +28,10 @@ int main()
         int i = 0;
         while(i != nbPlayers)
         {
-            // Card given by IHM
-            // so there is still an error here
+            // normally given by IHM
+            // can randomize it but needs current player
+            // to get current player's cards
+            // so there is an error here
             game.startTurn();
 
             // Should I update after each turn ?
