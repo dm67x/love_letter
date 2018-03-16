@@ -28,17 +28,15 @@ int main()
         int i = 0;
         while(i != nbPlayers)
         {
-            // normally given by IHM
-            // can randomize it but needs current player
-            // to get current player's cards
-            // so there is an error here
-            game.startTurn();
-
-            // Should I update after each turn ?
-            game.update();
+            // normally card given by IHM
+            game.startTurn(game.getCurrentPlayer().getCard());
             i++;
         }
+
+        game.update();
     }
+
+    // Game's finished
 
     return 0;
 }
