@@ -20,6 +20,7 @@ public:
     void pickTarget(Player p);
     void guessCard(Card * c);
     bool isOver();
+    Player getCurrentPlayer();
 
 private:
     Player * players;//to implement
