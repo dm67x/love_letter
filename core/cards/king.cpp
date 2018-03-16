@@ -1,4 +1,5 @@
 #include "king.h"
+#include "../action.h"
 
 King::King()
     : Card("King", 6, "Trade hands with another player of your choice.")

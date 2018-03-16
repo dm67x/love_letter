@@ -1,4 +1,5 @@
 #include "action.h"
+#include <cstdlib>
 
 Action::Action()
 {

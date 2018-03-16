@@ -1,4 +1,5 @@
 #include "handmaid.h"
+#include "../action.h"
 
 Handmaid::Handmaid()
     : Card("Handmaid", 4, "Until your next turn, \
