@@ -5,12 +5,11 @@ using namespace std;
 int main()
 {
     // Create a game with 2 players
+
+    // nbPlayers given by IHM
     int nbPlayers = 2;
 
-    // Invalid conversion from 'Game*' to int
-    // wtf ?
     Game game = new Game(nbPlayers);
-
     game.start();
 
     // Game loop
