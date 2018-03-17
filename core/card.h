@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "action.h"
+class Action;
 
 class Card
 {
@@ -22,6 +22,7 @@ public:
     unsigned short getValue();
     std::string getName();
     std::string getDescription();
+    bool isTheSameCardAs(Card & c);
 
 };
 

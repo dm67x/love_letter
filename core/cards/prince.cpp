@@ -1,4 +1,5 @@
 #include "prince.h"
+#include "../action.h"
 
 Prince::Prince()
     : Card("Prince", 5, "Choose any player (including yourself) to discard \

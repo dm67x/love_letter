@@ -20,10 +20,11 @@ public:
     void pickTarget(Player p);
     void guessCard(Card * c);
     bool isOver();
+    Player getCurrentPlayer();
 
 private:
-    Player * players;//to implement
-    std::list <Card *> cards;//to implement
+    Player * players;
+    std::list <Card *> cards;
     int max_points;
     int nb_players;
     int nb_cards;

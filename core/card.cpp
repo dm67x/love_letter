@@ -19,3 +19,8 @@ std::string Card::getDescription()
 {
     return description;
 }
+
+bool Card::isTheSameCardAs(Card & c)
+{
+    return c.getValue() == getValue();
+}

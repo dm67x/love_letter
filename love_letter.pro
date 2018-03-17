@@ -6,14 +6,12 @@ HEADERS += \
     core/cards/priest.h \
     core/player.h \
     core/cards/baron.h \
-    core/cards/countess.h \
-    core/cards/guard.h \
+    test/test.h \
     core/cards/handmaid.h \
-    core/cards/king.h \
-    core/cards/priest.h \
     core/cards/prince.h \
-    core/cards/princess.h \
-    core/cards/all.h
+    core/cards/king.h \
+    core/cards/countess.h \
+    core/cards/princess.h
 
 SOURCES += \
     core/game.cpp \
@@ -23,10 +21,9 @@ SOURCES += \
     core/cards/priest.cpp \
     core/player.cpp \
     core/cards/baron.cpp \
-    core/cards/countess.cpp \
-    core/cards/guard.cpp \
+    test/test.cpp \
     core/cards/handmaid.cpp \
-    core/cards/king.cpp \
-    core/cards/priest.cpp \
     core/cards/prince.cpp \
+    core/cards/king.cpp \
+    core/cards/countess.cpp \
     core/cards/princess.cpp

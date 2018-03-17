@@ -1,4 +1,5 @@
 #include "guard.h"
+#include "../action.h"
 
 Guard::Guard()
     : Card("Guard", 1, "Name a non-Guard card and choose another player. \

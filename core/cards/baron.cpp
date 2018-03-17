@@ -1,4 +1,5 @@
 #include "baron.h"
+#include "../action.h"
 
 Baron::Baron()
     : Card("Baron", 3, "You and another player secretly compare hands. \
