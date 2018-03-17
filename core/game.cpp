@@ -31,7 +31,9 @@ Game::Game(int nb_players){
 // Init cards and randomize the deck
 void Game::start(){
     // PLAYERS
-    players = new Player[nb_players];
+    for(int i = 0; i < nb_players; i++){
+        players[i] = new Player(""+i);
+    }
     if(nb_players == 2){
         max_points = 7;
     }else if(nb_players == 3){
@@ -65,7 +67,7 @@ void Game::start(){
 void Game::startRound(){
     // Each player pick one card
     for(int i = 0; i < nb_players; i++){
-        if(!players[i].isDead()){ //Don't give a card to someone who's dead
+        if(!players[i]->isDead()){ //Don't give a card to someone who's dead
             giveCard(players[i]);
         }
     }
@@ -75,13 +77,13 @@ void Game::startRound(){
 // If he had the handmaid effect, remove it.
 void Game::startTurn(Card * c){ //The card is given by the IHM
     // Check if current player is dead
-    if(!players[current_player].isDead()){
+    if(!players[current_player]->isDead()){
         // Remove Handmaid effect
-        if(players[current_player].isProtected()){
-            players[current_player].setProtected(false);
+        if(players[current_player]->hasProtection()){
+            players[current_player]->setProtection(false);
         }
         // Start turn
-        players[current_player].play(c);
+        players[current_player]->play(c);
     }
 
     // Set next player turn
@@ -91,8 +93,8 @@ void Game::startTurn(Card * c){ //The card is given by the IHM
 
 // For cards that need to pick an other player as Target
 // Set action.target
-void Game::pickTarget(Player p){
-    action->target = &p;
+void Game::pickTarget(Player * p){
+    action->target = p;
 }
 
 // Specific for Guard : try to guess an other player's card
@@ -105,7 +107,7 @@ void Game::guessCard(Card * c){
 // Check if round/game is over
 void Game::update(){
     for(int i = 0; i < nb_players; i++){
-        if(players[i].isDead()){
+        if(players[i]->isDead()){
             nb_dead++;
         }
     }
@@ -121,7 +123,7 @@ void Game::update(){
 // => someone reached max point
 void Game::checkEnd(){
     for(int i = 0; i < nb_players; i++){
-        if(players[i].getPoints() == max_points){
+        if(players[i]->getPoints() == max_points){
             end = true;
         }
     }
@@ -134,26 +136,26 @@ void Game::givePoint(){
     // No more cards to pick
     if(nb_cards == 0){
         for(int i = 0; i < nb_players; i++){
-            if(players[i].getCard().getValue() > val){
-                val = players[i].getCard().getValue();
+            if(players[i]->showHand()->getValue() > val){
+                val = players[i]->showHand()->getValue();
             }else{
-                players[i].setDead(true);
+                players[i]->setDead(true);
             }
         }
     }
 
     // Give point to the only player alive
     for(int i = 0; i < nb_players; i++){
-        if(!players[i].isDead()){
-            players[i].addPoint();
+        if(!players[i]->isDead()){
+            players[i]->addPoint();
         }
     }
 
 }
 
 // Give card to Player p
-void Game::giveCard(Player p){
-    p.addCard(cards.back());
+void Game::giveCard(Player * p){
+    p->pickCard(cards.back());
     cards.pop_back();
     nb_cards--;
 }
@@ -164,6 +166,6 @@ bool Game::isOver(){
 }
 
 // Return current player
-Player Game::getCurrentPlayer(){
+Player * Game::getCurrentPlayer(){
     return players[current_player];
 }
