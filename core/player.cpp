@@ -1,87 +1,80 @@
 #include "player.h"
 #include <algorithm>
-#include <list>
 
 Player::Player(std::string name)
       : name(name)
 {
 }
 
-std::string Player::getName()
-{
+std::string Player::getName(){
     return name;
 }
 
-std::list<Card> getCards()
-{
+std::list<Card *> getCards(){
     return cards;
 }
 
-bool isDead()
-{
-    return dead;
-}
-
-void setDead(bool value)
-{
-    dead=value;
-}
-
-void addPoint()
-{
-    points++;
-}
-
-int getPoints()
-{
+int getPoints(){
     return points;
 }
 
-void setProtection(bool value)
-{
-    isProtected=value;
+bool isDead(){
+    return dead;
 }
 
-// add a method bool isTheSameCardAs(Card * c) to compare one card with a given card c
-bool hasCard(Card * c)
-{
+bool hasProtection(){
+    return isProtected;
+}
+
+//checks if player has card c in hand
+bool hasCard(Card * c){
     bool res;
-    if (cards.empty())
-    {
+    if (cards.empty()){
         res=false;
-    }
-    else
-    {
+    }else{
         if(cards.front.isTheSameCardAs(c)  ||
-           cards.back.isTheSameCardAs(c))
-        {
+           cards.back.isTheSameCardAs(c)){
                res=true;
         }
     }
     return res;
 }
 
+
+void setDead(bool value){
+    dead=value;
+}
+
+void addPoint(){
+    points++;
+}
+
 //add the newly picked card last in the list
-void pickCard(Card c)
-{
+void pickCard(Card * c){
     cards.push_back(c);
 }
 
 //switch cards with another player p
-void switchHand(Player * p)
-{
+void switchHand(Player * p){
     cards.swap (p->getCards());
 }
 
+
+void setProtection(bool value){
+    isProtected=value;
+}
+
+
 //discard the only card the plays has in their hands
-//normally used to implement the effect of the Prince just before picking a new card
-void discard()
-{
+//normally used to implement the effect
+//of the Prince just before picking a new card
+void discard(){
     cards.pop_front();
 }
 
 //play a chosen card
-//precond: c is in the list of cards and is chosen by the player (determined through the GUI)
+//precond: c is in the list of cards and is chosen by the player
+//(determined through the GUI)
 void play(Card * c){
     if(cards.front.isTheSameCardAs(c))
         cards.pop_front();
@@ -89,10 +82,10 @@ void play(Card * c){
 }
 
 //returns the current and only card that the player has in his hand
-Card * getCard(){
+//can be used to implement the effect of the Priest
+//the player p to whom we show cards we're gonna get him through the GUI
+Card * showHand(){
     return cards.front();
 }
-
-Card * showHand(Player * p);
 
 
