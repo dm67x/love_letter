@@ -1,8 +1,8 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "card.h"
 #include <list>
+#include "card.h"
 
 
 class Player
@@ -10,10 +10,11 @@ class Player
 
 private:
     std::string name;
-    std::list<Card> cards;
+    std::list<Card *> cards;
     int points                  = 0;
+    bool dead                   = false;
     bool isProtected            = false;
-    bool isDead                 = false;
+
 
 
 public:
@@ -24,21 +25,18 @@ public:
     int getPoints();
 
     bool isDead();
+    bool hasProtection(); //player protected from the handmaid
     bool hasCard(Card * c);
 
     void setDead(bool value);
     void addPoint();
-    void pickCard(Card c);
+    void pickCard(Card * c);
     void switchHand(Player * p);
-    void pickCard();
     void setProtection(bool value);
     void discard();
-    void throwCard(Card * c);
+    void play(Card * c);
 
-    Card * getCard();
     Card * showHand(Player * p);
-
-
 };
 
 #endif // PLAYER_H
