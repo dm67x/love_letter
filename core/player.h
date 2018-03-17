@@ -10,7 +10,7 @@ class Player
 
 private:
     std::string name;
-    std::list<Card *> cards;
+    std::list<Card &> cards;
     int points                  = 0;
     bool dead                   = false;
     bool isProtected            = false;
@@ -26,17 +26,17 @@ public:
 
     bool isDead();
     bool hasProtection(); //player protected from the handmaid
-    bool hasCard(Card * c);
+    bool hasCard(Card &c);
 
     void setDead(bool value);
     void addPoint();
-    void pickCard(Card * c);
-    void switchHand(Player * p);
+    void pickCard(Card &c);
+    void switchHand(Player &p);
     void setProtection(bool value);
     void discard();
-    void play(Card * c);
+    void play(Card &c);
 
-    Card * showHand(Player * p);
+    Card * showHand();
 };
 
 #endif // PLAYER_H
