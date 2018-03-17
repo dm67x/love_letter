@@ -1,16 +1,16 @@
 #include "player.h"
-#include <algorithm>
+
 
 Player::Player(std::string name)
       : name(name)
 {
 }
 
-std::string Player::getName(){
+string Player::getName(){
     return name;
 }
 
-std::list<Card &> getCards(){
+list<Card *> getCards(){
     return cards;
 }
 
@@ -77,15 +77,15 @@ void discard(){
 //(determined through the GUI)
 void play(Card &c){
     if(cards.front.isTheSameCardAs(c))
-        cards.pop_front();
-    else cards.pop_back();
+        cards->pop_front();
+    else cards->pop_back();
 }
 
 //returns the current and only card that the player has in his hand
 //can be used to implement the effect of the Priest
 //the player p to whom we show cards we're gonna get him through the GUI
 Card * showHand(){
-    return cards.front();
+    return cards->front();
 }
 
 
