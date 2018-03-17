@@ -2,25 +2,25 @@
 #define PLAYER_H
 
 #include <list>
+#include <string.h>
 #include "card.h"
 
+using namespace std;
 
 class Player
 {
 
 private:
-    std::string name;
-    std::list<Card &> cards;
+    string name;
+    list<Card *> cards;
     int points                  = 0;
     bool dead                   = false;
     bool isProtected            = false;
 
-
-
 public:
-    Player(std::string name);
-    std::string getName();
-    std::list<Card> getCards();
+    Player(string name);
+    string getName();
+    list<Card *> getCards();
 
     int getPoints();
 
