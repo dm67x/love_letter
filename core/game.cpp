@@ -83,7 +83,7 @@ void Game::startTurn(Card * c){ //The card is given by the IHM
             players[current_player]->setProtection(false);
         }
         // Start turn
-        players[current_player]->play(c);
+        players[current_player]->play(*c);
     }
 
     // Set next player turn
@@ -155,7 +155,7 @@ void Game::givePoint(){
 
 // Give card to Player p
 void Game::giveCard(Player * p){
-    p->pickCard(cards.back());
+    p->pickCard(*cards.back());
     cards.pop_back();
     nb_cards--;
 }
