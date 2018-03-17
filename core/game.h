@@ -3,6 +3,7 @@
 #include <list>
 #include "card.h"
 #include "player.h"
+#include "action.h"
 
 
 class Game
@@ -16,14 +17,14 @@ public:
     void update();
     void checkEnd();
     void givePoint();
-    void giveCard(Player p);
-    void pickTarget(Player p);
+    void giveCard(Player * p);
+    void pickTarget(Player * p);
     void guessCard(Card * c);
     bool isOver();
-    Player getCurrentPlayer();
+    Player *getCurrentPlayer();
 
 private:
-    Player * players;
+    Player * players[];
     std::list <Card *> cards;
     int max_points;
     int nb_players;
