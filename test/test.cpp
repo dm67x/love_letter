@@ -6,9 +6,7 @@
 
 using namespace std;
 
-/* Number of players randomized since this is test
- * core class, same with cards choice
- */
+// Number of players randomized since this is test core class
 int main()
 {
     srand((unsigned)time(0));
@@ -17,7 +15,7 @@ int main()
     // normally given by IHM
     int nbPlayers = (rand()%4)+2;
 
-    Game game = new Game(nbPlayers);
+    Game game(nbPlayers);
     game.start();
 
     // Game loop
