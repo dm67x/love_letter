@@ -1,39 +1,18 @@
 #include "game.h"
-#include "cards/all.h"
 
-#include <algorithm>
-#include <vector>
-
-using namespace std;
-
-// Shuffle the deck
-void listShuffle( list<Card*> &L ){
-   vector<Card*> V( L.begin(), L.end() );
-   shuffle( V.begin(), V.end(), mt19937{ random_device{}() } );
-   L.assign( V.begin(), V.end() );
-}
 
 // Start new Game with nb_players
-Game::Game(int nb_players){
-    if(nb_players < 2 || nb_players > 4){
-        // TODO generate error
-    }
+Game::Game(unsigned int nb_players){
+
+    action = Action::getInstance();
+
+    //init class fields
     this->nb_players = nb_players;
     current_player = 0;
     nb_dead = 0;
-    nb_cards = 16;
+    game_end = false;
 
-    //action
-    action = Action::getInstance();
-}
-
-// Init player tabs and maxpoints
-// Init cards and randomize the deck
-void Game::start(){
-    // PLAYERS
-    for(int i = 0; i < nb_players; i++){
-        players[i] = new Player(""+i);
-    }
+    // init max_points
     if(nb_players == 2){
         max_points = 7;
     }else if(nb_players == 3){
@@ -42,96 +21,121 @@ void Game::start(){
         max_points = 4;
     }
 
-    // CARDS
-    // Initialize Classic Deck
-    cards = {new Guard(), new Guard(), new Guard(),
-                new Guard(), new Guard(), new Priest(),
-                new Priest(), new Baron(), new Baron(),
-                new Handmaid(), new Handmaid(), new Prince(),
-                new Prince(), new King(), new Countess(),
-                new Princess()};
+    // init players
+    for (unsigned int i = 1; i <= nb_players; i++)
+            players.push_back(new Player("p" + (i + 1)));
+}
 
-    // Randomize
-    listShuffle(cards);
+Game::~Game()
+{
+    delete deck;
+    delete action;
 
-    //Drop cards if needed
-    if(nb_players == 2){
-        nb_cards -= 3;
-        for(int i = 0; i < 3; i++){
-            cards.pop_back();
-        }
+    for (std::vector<Player *>::iterator i = players.begin(); i != players.end(); i++) {
+        delete *i;
     }
 }
 
-// Start a round
-void Game::startRound(){
-    // Each player pick one card
-    for(int i = 0; i < nb_players; i++){
-        if(!players[i]->isDead()){ //Don't give a card to someone who's dead
-            giveCard(players[i]);
-        }
-    }
-}
 
-// Someone plays
-// If he had the handmaid effect, remove it.
-void Game::startTurn(Card * c){ //The card is given by the IHM
-    // Check if current player is dead
-    if(!players[current_player]->isDead()){
-        // Remove Handmaid effect
-        if(players[current_player]->hasProtection()){
-            players[current_player]->setProtection(false);
-        }
-        // Start turn
-        players[current_player]->play(*c);
+//start new round
+void Game::startRound()
+{
+    if (deck) delete deck;
+
+    if (nb_players == 2)
+        deck = new Deck(13);
+    else
+        deck = new Deck(16);
+
+    // init players and give them a card
+    for (std::vector<Player *>::iterator i = players.begin(); i != players.end(); i++) {
+        (*i)->setDead(false);
+        (*i)->setProtection(false);
+        (*i)->pickCard(*deck);
     }
 
-    // Set next player turn
-    current_player ++;
-    current_player %= nb_players;
+    nb_dead = 0;
+    current_player = 0;
+    round_end = false;
 }
 
-// For cards that need to pick an other player as Target
+unsigned int Game::getMaxPoints(){
+    return max_points;
+}
+
+
+Player * Game::startTurn()
+{
+    nb_dead = 0;
+    Player * p = players[current_player];
+    while (p->isDead())
+    {
+        nb_dead++;
+        current_player = (current_player + 1) % nb_players;
+        p = players[current_player];
+    }
+
+    update();
+
+    current_player = (current_player + 1) % nb_players;
+    if(p->hasProtection())
+        p->setProtection(false);
+    action->clear();
+    action->current = p;
+    return p;
+}
+
+Deck * Game::getDeck()
+{
+    return deck;
+}
+
+
+// For cards that need to pick another player as Target
 // Set action.target
-void Game::pickTarget(Player * p){
-    action->target = p;
+void Game::pickTarget(int target_index)
+{
+    action->target = players[target_index];
 }
+
 
 // Specific for Guard : try to guess an other player's card
 // Set action.c1
-void Game::guessCard(Card * c){
-    action->c1 = c;
+void Game::guessCard(string name)
+{
+    action->guess = name;
 }
+
+//check if the round is over
+bool Game::roundOver()
+{
+    return round_end;
+}
+
 
 // Update game information
 // Check if round/game is over
-void Game::update(){
-    for(int i = 0; i < nb_players; i++){
-        if(players[i]->isDead()){
-            nb_dead++;
-        }
-    }
-    // Round is over
-    if(nb_dead = nb_players - 1 || nb_cards == 0){
-        givePoint();
-    }
-
-    checkEnd();
-}
-
-// Check whether or not game is over
-// => someone reached max point
-void Game::checkEnd(){
-    for(int i = 0; i < nb_players; i++){
-        if(players[i]->getPoints() == max_points){
-            end = true;
+void Game::update()
+{
+    if (nb_dead == nb_players - 1)
+    {
+        round_end = true;
+        for (std::vector<Player *>::iterator i = players.begin(); i != players.end(); i++)
+        {
+            if (!(*i)->isDead()) {
+                (*i)->givePoint();
+                if ((*i)->getPoints() == max_points)
+                    game_end = true;
+            }
         }
     }
 }
 
+
+// TODO REMOVE -> keep it until proven unuseful
 // Give point to last player alive
 // Or the one who has the greatest card
-void Game::givePoint(){
+/*void Game::givePoint(){
     int val = 0;
     // No more cards to pick
     if(nb_cards == 0){
@@ -151,18 +155,11 @@ void Game::givePoint(){
         }
     }
 
-}
+}*/
 
-// Give card to Player p
-void Game::giveCard(Player * p){
-    p->pickCard(*cards.back());
-    cards.pop_back();
-    nb_cards--;
-}
-
-// True if game is over
-bool Game::isOver(){
-    return end;
+// check if game is over
+bool Game::gameOver(){
+    return game_end;
 }
 
 // Return current player

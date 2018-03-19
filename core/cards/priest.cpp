@@ -6,6 +6,7 @@ Priest::Priest()
 {
 }
 
-void Priest::activeEffect(Action & a) {
-    a.target->showHand(a.current);
+void Priest::activeEffect() {
+    Action * action = Action::getInstance();
+    action->target->getCard(/*a.current*/);
 }

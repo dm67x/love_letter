@@ -9,7 +9,7 @@ class Prince : public Card
 public:
     Prince();
 
-    void activeEffect(Action & a);
+    void activeEffect();
 
 };
 

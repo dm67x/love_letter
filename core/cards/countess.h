@@ -9,7 +9,7 @@ class Countess : public Card
 public:
     Countess();
 
-    void activeEffect(Action & a);
+    void activeEffect();
 
 };
 

@@ -1,11 +1,6 @@
 #include "action.h"
 #include <cstdlib>
 
-Action::Action()
-{
-    empty();
-}
-
 Action * Action::instance = NULL;
 
 Action * Action::getInstance()
@@ -15,10 +10,13 @@ Action * Action::getInstance()
     return instance;
 }
 
-void Action::empty()
+void Action::clear()
 {
-    current = NULL;
-    target = NULL;
-    c1 = NULL;
-    c2 = NULL;
+    current = target = NULL;
+    guess.empty();
+}
+
+Action::Action()
+{
+    clear();
 }

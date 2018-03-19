@@ -9,7 +9,7 @@ class King : public Card
 public:
     King();
 
-    void activeEffect(Action & a);
+    void activeEffect();
 
 };
 

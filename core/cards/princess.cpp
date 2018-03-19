@@ -7,6 +7,9 @@ Princess::Princess()
 }
 
 // Active if you discard Princess
-void Princess::activeEffect(Action & a) {
-    a.current->setDead(true);
+void Princess::activeEffect()
+{
+    Action * action = Action::getInstance();
+    action->current->setDead(true);
 }
+
