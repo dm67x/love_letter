@@ -16,19 +16,16 @@ int main()
     int nbPlayers = (rand()%4)+2;
 
     Game game(nbPlayers);
-    game.start();
 
     // Game loop
-    while(game.isOver())
+    while(!game.gameOver())
     {
         game.startRound();
 
-        int i = 0;
-        while(i != nbPlayers)
+        while(!game.roundOver())
         {
             // normally card given by IHM
-            game.startTurn(game.getCurrentPlayer().getCard());
-            i++;
+            game.startTurn();
         }
 
         game.update();

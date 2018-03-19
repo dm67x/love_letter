@@ -7,6 +7,15 @@
 #include "deck.h"
 #include "cards/all.h"
 
+Deck * Deck::instance = NULL;
+
+// Argument can be ignored if instance already exist
+Deck * Deck::getInstance(unsigned int number_of_cards)
+{
+    if (instance == NULL)
+        instance = new Deck(number_of_cards);
+    return instance;
+}
 
 Deck::Deck(unsigned int number_of_cards)
 {
@@ -29,10 +38,6 @@ Deck::Deck(unsigned int number_of_cards)
     cards.push_back(new Guard());
 }
 
-Deck::~Deck()
-{
-}
-
 Card * Deck::pickCard()
 {
     Card * c = cards.front();
@@ -41,8 +46,10 @@ Card * Deck::pickCard()
 }
 
 // Shuffle the deck
-void listShuffle(){
-   vector<Card*> V( deck.begin(), deck.end() );
+void listShuffle()
+{
+   // deck was not declared in this scope
+   /*vector<Card*> V( deck.begin(), deck.end() );
    shuffle( V.begin(), V.end(), mt19937{ random_device{}() } );
-   deck.assign( V.begin(), V.end() );
+   deck.assign( V.begin(), V.end() );*/
 }

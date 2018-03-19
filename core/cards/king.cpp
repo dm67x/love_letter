@@ -9,5 +9,5 @@ King::King()
 void King::activeEffect() {
     // Switch your hand with another player
     Action * action = Action::getInstance();
-    action.current->switchHand(action.target);
+    action->current->switchHand(*action->target);
 }

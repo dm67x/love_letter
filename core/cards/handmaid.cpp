@@ -10,5 +10,5 @@ Handmaid::Handmaid()
 void Handmaid::activeEffect()
 {
     Action * action = Action::getInstance();
-    action.current->setProtection(true);
+    action->current->setProtection(true);
 }

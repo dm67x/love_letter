@@ -43,9 +43,9 @@ void Game::startRound()
     if (deck) delete deck;
 
     if (nb_players == 2)
-        deck = new Deck(13);
+        deck = Deck::getInstance(13);
     else
-        deck = new Deck(16);
+        deck = Deck::getInstance(16);
 
     // init players and give them a card
     for (std::vector<Player *>::iterator i = players.begin(); i != players.end(); i++) {
@@ -82,6 +82,7 @@ Player * Game::startTurn()
         p->setProtection(false);
     action->clear();
     action->current = p;
+    action->deck = deck;
     return p;
 }
 
