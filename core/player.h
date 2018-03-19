@@ -1,9 +1,11 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include <list>
+#include <stack>
 #include <string.h>
 #include "card.h"
+#include "deck.h"
+
 
 using namespace std;
 
@@ -12,31 +14,33 @@ class Player
 
 private:
     string name;
-    list<Card *> cards;
-    int points                  = 0;
-    bool dead                   = false;
-    bool isProtected            = false;
+    Card * cards[2];
+    stack<Card *> played_cards;
+    bool dead;
+    bool protection;
+    unsigned int points;
+
 
 public:
+
     Player(string name);
     string getName();
-    list<Card *> getCards();
 
-    int getPoints();
+    unsigned int getPoints();
 
     bool isDead();
     bool hasProtection(); //player protected from the handmaid
-    bool hasCard(Card &c);
+    bool hasCard(string cardName);
 
+    void givePoint();
     void setDead(bool value);
-    void addPoint();
-    void pickCard(Card &c);
+    void pickCard(Deck & d);
     void switchHand(Player &p);
     void setProtection(bool value);
     void discard();
-    void play(Card &c);
+    void play(int index);
 
-    Card * showHand();
+    Card * getCard(int i=0);
 };
 
 #endif // PLAYER_H

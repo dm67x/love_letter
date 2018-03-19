@@ -11,7 +11,11 @@ HEADERS += \
     core/cards/prince.h \
     core/cards/king.h \
     core/cards/countess.h \
-    core/cards/princess.h
+    core/cards/princess.h \
+    core/ia.h \
+    core/utils.h \
+    core/deck.h \
+    core/cards/all.h
 
 SOURCES += \
     core/game.cpp \
@@ -26,4 +30,7 @@ SOURCES += \
     core/cards/prince.cpp \
     core/cards/king.cpp \
     core/cards/countess.cpp \
-    core/cards/princess.cpp
+    core/cards/princess.cpp \
+    core/ia.cpp \
+    core/utils.cpp \
+    core/deck.cpp

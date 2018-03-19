@@ -3,26 +3,27 @@
 
 #include <string>
 
-class Action;
+using namespace std;
 
 class Card
 {
 
 private:
     unsigned short value;
-    std::string name;
-    std::string description;
+    string name;
+    string description;
 
 protected:
-    Card(std::string name, unsigned short value, std::string description);
+    Card(string name, unsigned short value, string description);
 
 public:
-    virtual void activeEffect(Action & a) = 0;
-
+    virtual void activeEffect() = 0;
     unsigned short getValue();
-    std::string getName();
-    std::string getDescription();
-    bool isTheSameCardAs(Card & c);
+    string getName();
+    string getDescription();
+
+
+
 
 };
 

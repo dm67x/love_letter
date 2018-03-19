@@ -1,6 +1,6 @@
 #include "card.h"
 
-Card::Card(std::string name, unsigned short value, std::string description)
+Card::Card(string name, unsigned short value, string description)
     : value(value), name(name), description(description)
 {
 }
@@ -10,17 +10,14 @@ unsigned short Card::getValue()
     return value;
 }
 
-std::string Card::getName()
+string Card::getName()
 {
     return name;
 }
 
-std::string Card::getDescription()
+string Card::getDescription()
 {
     return description;
 }
 
-bool Card::isTheSameCardAs(Card & c)
-{
-    return c.getValue() == getValue();
-}
+

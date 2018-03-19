@@ -6,7 +6,8 @@ King::King()
 {
 }
 
-void King::activeEffect(Action & a) {
+void King::activeEffect() {
     // Switch your hand with another player
-    a.current->switchHand(a.target);
+    Action * action = Action::getInstance();
+    action.current->switchHand(action.target);
 }

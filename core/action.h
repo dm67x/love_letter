@@ -2,26 +2,21 @@
 #define ACTION_H
 
 #include "player.h"
-#include "card.h"
 
 class Action
 {
 
-public:
-    static Action * getInstance();
-
 private:
     Action();
-
     static Action * instance;
 
 public:
-    Player * current;
-    Player * target;
-    Card * c1;
-    Card * c2;
+    static Action * getInstance();
+    void clear();
 
-    void empty();
+    std::string guess;
+    Player * current, * target;
+
 
 };
 

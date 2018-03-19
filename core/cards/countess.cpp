@@ -6,7 +6,7 @@ Countess::Countess()
 {
 }
 
-void Countess::activeEffect(Action & a)
+void Countess::activeEffect()
 {
     // If you have King or Prince in your hand with Countess, you must play Countess
 }

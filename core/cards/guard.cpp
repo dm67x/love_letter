@@ -7,10 +7,13 @@ Guard::Guard()
 {
 }
 
-void Guard::activeEffect(Action & a)
+void Guard::activeEffect()
 {
-    if (a.c1->getValue() != 1 && a.target->hasCard(a.c1)) {
-        a.target->setDead(true);
-    }
+   Action * action = Action::getInstance();
+   Player * target = action->target;
+
+   if (action->guess != "Guard" && target->hasCard(action->guess))
+       target->setDead(true);
 }
+
 

@@ -7,7 +7,8 @@ Handmaid::Handmaid()
 {
 }
 
-void Handmaid::activeEffect(Action & a)
+void Handmaid::activeEffect()
 {
-    a.current->setProtection(true);
+    Action * action = Action::getInstance();
+    action.current->setProtection(true);
 }

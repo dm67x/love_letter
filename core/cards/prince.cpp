@@ -7,8 +7,10 @@ Prince::Prince()
 {
 }
 
-void Prince::activeEffect(Action & a)
+void Prince::activeEffect()
 {
-    a.target->discard(); // Discard a card
-    a.target->pickCard(); // Draw a new card
+
+    Action * action = Action::getInstance();
+    action.target->discard(); // Discard a card
+    action.target->pickCard(); // Draw a new card
 }

@@ -1,38 +1,49 @@
 #ifndef GAME_H
 #define GAME_H
-#include <list>
-#include "card.h"
+
+#include <vector>
+#include "deck.h"
 #include "player.h"
 #include "action.h"
 
+using namespace std;
 
 class Game
 {
 
-public:
-    Game(int nb_players);
-    void start();
-    void startRound();
-    void startTurn(Card * c);
-    void update();
-    void checkEnd();
-    void givePoint();
-    void giveCard(Player * p);
-    void pickTarget(Player * p);
-    void guessCard(Card * c);
-    bool isOver();
-    Player *getCurrentPlayer();
-
 private:
-    Player * players[];
-    std::list <Card *> cards;
-    int max_points;
-    int nb_players;
-    int nb_cards;
-    int current_player; // index of current player
-    int nb_dead; // count how many are dead
-    bool end;
+    vector<Player *> players;
+    Deck * deck;
     Action * action;
+
+    int current_player; // index of current player
+    unsigned int nb_players;
+    unsigned int max_points;
+    unsigned int nb_dead; // count how many are dead
+
+    bool game_end; //game finished
+    bool round_end; //round_finished
+
+public:
+    Game(unsigned int nb_players);
+    ~Game();
+
+    void startRound();
+    void update();
+    void pickTarget(int target_index);
+    void guessCard(string name);
+
+    Player * startTurn();
+    Player *getCurrentPlayer();
+    Deck * getDeck();
+
+    unsigned int getMaxPoints();
+
+    bool roundOver(); //isFinished
+    bool gameOver(); //isEnd
+
+
+
 
 };
 

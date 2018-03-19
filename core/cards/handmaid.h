@@ -9,7 +9,7 @@ class Handmaid : public Card
 public:
     Handmaid();
 
-    void activeEffect(Action & a);
+    void activeEffect();
 
 };
 

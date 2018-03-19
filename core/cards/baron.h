@@ -9,7 +9,7 @@ class Baron : public Card
 public:
     Baron();
 
-    void activeEffect(Action & a);
+    void activeEffect();
 
 };
 

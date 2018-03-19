@@ -1,16 +1,16 @@
 #ifndef GUARD_H
 #define GUARD_H
 
-#include "../card.h"
+#include "../Card.h"
 
 class Guard : public Card
 {
 
 public:
     Guard();
-
-    void activeEffect(Action & a);
+    void activeEffect();
 
 };
+
 
 #endif // GUARD_H

@@ -8,8 +8,7 @@ class Priest : public Card
 
 public:
     Priest();
-
-    void activeEffect(Action & a);
+    void activeEffect();
 
 };
 

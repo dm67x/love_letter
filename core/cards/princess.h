@@ -8,8 +8,7 @@ class Princess : public Card
 
 public:
     Princess();
-
-    void activeEffect(Action & a);
+    void activeEffect();
 
 };
 
