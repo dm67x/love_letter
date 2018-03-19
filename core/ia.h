@@ -2,13 +2,15 @@
 #define IA_H
 
 #include "card.h"
+#include "player.h"
+
 using namespace std;
 
 class IA : public Player
 {
 
 private:
-    static int id = 1;
+    static int id; // = 1
     int numberOfOpponents;
 
 public:

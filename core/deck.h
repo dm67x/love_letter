@@ -4,19 +4,17 @@
 #include <list>
 #include "card.h"
 
-using namespace std;
-
 class Deck
 {
 
 private:
     list<Card *> cards;
     unsigned int number_of_cards;
+    Deck(unsigned int number_of_cards);
+    static Deck * instance;
 
 public:
-    Deck(unsigned int number_of_cards);
-    ~Deck();
-
+    static Deck * getInstance(unsigned int number_of_cards);
     Card * pickCard();
 
 };

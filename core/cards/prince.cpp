@@ -11,6 +11,6 @@ void Prince::activeEffect()
 {
 
     Action * action = Action::getInstance();
-    action.target->discard(); // Discard a card
-    action.target->pickCard(); // Draw a new card
+    action->target->discard(); // Discard a card
+    action->target->pickCard(*Deck::getInstance(0)); // Draw a new card
 }

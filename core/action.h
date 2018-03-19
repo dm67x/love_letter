@@ -16,7 +16,7 @@ public:
 
     std::string guess;
     Player * current, * target;
-
+    Deck * deck;
 
 };
 

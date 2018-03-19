@@ -2,6 +2,7 @@
 #define UTILS_H
 
 #include <list>
+#include "card.h"
 
 class Utils
 {
