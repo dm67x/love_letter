@@ -1,0 +1,36 @@
+Network part, used for multiplayer games.
+Using TCP.
+Linux Friendly (no use of Winsockets or what :) ).
+
+When a Client click on "Multiplayer" through the GUI,
+we will call MultiplayerGame.cpp, not Game.cpp.
+
+2 options :
+ - The Server creates its own game. Each time a Client wants do to smth,
+    he tells the Server. Server do the play on his own game, then Broadcast
+    the information.
+    It is the most secure way to do it. As Clients can't cheat.
+    However, it is more complicated to implement.
+
+ - Here, Clients play on their own game, then they send the information
+    of what happend to the Server, which Broadcast it to the others.
+    In this version, each Client executes the actions on his own instance
+    of the game. Which also means if someone can modify the code, he can
+    do whatever he wants. Although this looks bad, it is more simple to
+    implement. That's why we chose this option.
+
+Each action is played on Client side, then he sends new players/game 's information
+to the server, which sends it to the others clients. Here the server only stocks information.
+
+Where is the server ?
+    - Good question.
+        For now, we admit that each Client can host the server. He only has to
+        give his ip to the others who wants to join.
+
+    Additional :
+        - He can also define maximum player numbers
+        - Set password to be able to host private games
+
+Hosting the server is basically calling "./server" on the Client machine.
+
+
