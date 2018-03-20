@@ -9,7 +9,6 @@ Player::Player(string name){
         protection = false;
         cards[0] = NULL;
         cards[1] = NULL;
-
 }
 
 string Player::getName(){
@@ -51,11 +50,13 @@ void Player::setDead(bool value){
 //pick a card from deck
 void Player::pickCard(Deck & d)
 {
-    if (cards[0] == NULL) {
-        cards[0] = d.pickCard();
-    }
-    else {
-        cards[1] = d.pickCard();
+    Card *c = d.pickCard();
+    if (!cards[0])
+        cards[1] = c;
+    else cards[0] = c;
+    // if picked card is a countess and if you have King or Prince in hand, you must discard the countess
+    if(c->getValue() == 7 && (cards[0]->getValue() == 6 || cards[0]->getValue() == 5 )){
+        play(1);
     }
 }
 
@@ -75,6 +76,7 @@ void Player::setProtection(bool value){
 //normally used to implement the effect
 //of the Prince just before picking a new card
 void Player::discard(){
+    played_cards.push(cards[0]);
     cards[0] = NULL;
 }
 
@@ -86,6 +88,21 @@ void Player::play(int index)
     cards[index]->activeEffect();
     played_cards.push(cards[index]);
     cards[index] = NULL;
+    if (index == 0) {
+        cards[0] = cards[1];
+        cards[1] = NULL;
+    }
+}
+
+void Player::emptyCardsList()
+{
+    played_cards.empty();
+    cards[0] = cards[1] = NULL;
+}
+
+stack<Card *> Player::getPlayedCards()
+{
+    return played_cards;
 }
 
 

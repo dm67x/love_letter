@@ -1,7 +1,7 @@
 #ifndef GUARD_H
 #define GUARD_H
 
-#include "../Card.h"
+#include "../card.h"
 
 class Guard : public Card
 {
