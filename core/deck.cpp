@@ -10,16 +10,29 @@
 Deck * Deck::instance = NULL;
 
 // Argument can be ignored if instance already exist
-Deck * Deck::getInstance(unsigned int number_of_cards)
+Deck * Deck::getInstance()
 {
     if (instance == NULL)
-        instance = new Deck(number_of_cards);
+        instance = new Deck();
     return instance;
 }
 
-Deck::Deck(unsigned int number_of_cards)
+Deck::Deck()
 {
-    this->number_of_cards = number_of_cards;
+    clear();
+}
+
+Card * Deck::pickCard()
+{
+    if (number_of_cards == 0) return NULL;
+    Card * c = cards.front();
+    cards.pop_front();
+    return c;
+}
+
+void Deck::clear()
+{
+    number_of_cards = 16;
     cards.push_back(new Guard());
     cards.push_back(new Guard());
     cards.push_back(new Guard());
@@ -38,11 +51,9 @@ Deck::Deck(unsigned int number_of_cards)
     cards.push_back(new Guard());
 }
 
-Card * Deck::pickCard()
+unsigned int Deck::count()
 {
-    Card * c = cards.front();
-    cards.pop_front();
-    return c;
+    return number_of_cards;
 }
 
 // Shuffle the deck

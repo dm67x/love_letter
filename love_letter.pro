@@ -1,3 +1,5 @@
+QMAKE_CXXFLAGS += -std=c++11
+
 HEADERS += \
     core/game.h \
     core/card.h \

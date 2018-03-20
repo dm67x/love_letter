@@ -16,7 +16,11 @@ void Baron::activeEffect()
     unsigned short v2 = action->target->getCard()->getValue();
     if (v1 < v2) {
         action->current->setDead(true);
+        action->current->discard();
+
     } else if (v1 > v2) {
         action->target->setDead(true);
+        action->target->discard();
+
     }
 }

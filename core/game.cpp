@@ -5,10 +5,12 @@
 Game::Game(unsigned int nb_players){
 
     action = Action::getInstance();
+    deck = Deck::getInstance();
 
     //init class fields
     this->nb_players = nb_players;
     current_player = 0;
+    current_winner = -1;
     nb_dead = 0;
     game_end = false;
 
@@ -40,12 +42,17 @@ Game::~Game()
 //start new round
 void Game::startRound()
 {
-    if (deck) delete deck;
+    deck->clear();
+    deck->pickCard(); //
 
-    if (nb_players == 2)
-        deck = Deck::getInstance(13);
-    else
-        deck = Deck::getInstance(16);
+    if (nb_players == 2) {
+        //
+        deck->pickCard();
+        deck->pickCard();
+        deck->pickCard();
+    } else {
+        deck->pickCard();
+    }
 
     // init players and give them a card
     for (std::vector<Player *>::iterator i = players.begin(); i != players.end(); i++) {
@@ -55,12 +62,24 @@ void Game::startRound()
     }
 
     nb_dead = 0;
-    current_player = 0;
+    // the winner from the last round starts the new round
+    if (current_winner != -1)
+        current_player = current_winner;
+    // if first round, the player 0 starts the round
+    else current_player = 0;
     round_end = false;
 }
 
 unsigned int Game::getMaxPoints(){
     return max_points;
+}
+
+void Game::setCurrentWinner(int index){
+    current_winner = index;
+}
+
+int Game::getCurrentWinner(){
+    return current_winner;
 }
 
 
@@ -117,46 +136,57 @@ bool Game::roundOver()
 // Update game information
 // Check if round/game is over
 void Game::update()
-{
-    if (nb_dead == nb_players - 1)
+{    
+    if (nb_dead == nb_players - 1 || deck->count() == 0)
     {
+        Player * winner = NULL;
         round_end = true;
         for (std::vector<Player *>::iterator i = players.begin(); i != players.end(); i++)
         {
+            // init winner to current player index
+            if (!winner) winner = (*i);
+            // if winner is initialized
+            else {
+                // if "i" has bigger card value than "winner", "i" wins the game
+                if (winner->getCard()->getValue() < (*i)->getCard()->getValue()) {
+                    winner->setDead(true);
+                    winner = (*i);
+                }
+                // if it's a tie
+                else if (winner->getCard()->getValue() == (*i)->getCard()->getValue()) {
+                    int sum_w = 0, sum_i = 0;
+                    // Sum of played cards of "winner"
+                    while (winner->getPlayedCards().size() != 0) {
+                        Card * c = winner->getPlayedCards().top();
+                        sum_w += c->getValue();
+                        winner->getPlayedCards().pop();
+                    }
+
+                    // Sum of played cards of "i"
+                    while ((*i)->getPlayedCards().size() != 0) {
+                        Card * c = (*i)->getPlayedCards().top();
+                        sum_i += c->getValue();
+                        (*i)->getPlayedCards().pop();
+                    }
+
+                    if (sum_w < sum_i) {
+                        winner->setDead(true);
+                        winner = *i;
+                    }
+                }
+            }
+
+            (*i)->emptyCardsList();
+
             if (!(*i)->isDead()) {
                 (*i)->givePoint();
                 if ((*i)->getPoints() == max_points)
+                    current_winner = i - players.begin();
                     game_end = true;
             }
         }
     }
 }
-
-
-// TODO REMOVE -> keep it until proven unuseful
-// Give point to last player alive
-// Or the one who has the greatest card
-/*void Game::givePoint(){
-    int val = 0;
-    // No more cards to pick
-    if(nb_cards == 0){
-        for(int i = 0; i < nb_players; i++){
-            if(players[i]->showHand()->getValue() > val){
-                val = players[i]->showHand()->getValue();
-            }else{
-                players[i]->setDead(true);
-            }
-        }
-    }
-
-    // Give point to the only player alive
-    for(int i = 0; i < nb_players; i++){
-        if(!players[i]->isDead()){
-            players[i]->addPoint();
-        }
-    }
-
-}*/
 
 // check if game is over
 bool Game::gameOver(){

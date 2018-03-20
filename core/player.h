@@ -39,6 +39,8 @@ public:
     void setProtection(bool value);
     void discard();
     void play(int index);
+    void emptyCardsList();
+    stack<Card *> getPlayedCards();
 
     Card * getCard(int i=0);
 };
