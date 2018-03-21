@@ -3,7 +3,7 @@
 TCPClient::TCPClient()
 {
 	sock = -1;
-	port = 0;
+    port = 8888;
 	address = "";
 }
 
@@ -12,7 +12,7 @@ bool TCPClient::setup(string address , int port)
 {
   	if(sock == -1)
 	{
-		sock = socket(AF_INET , SOCK_STREAM , 0);
+        sock = socket(AF_INET , SOCK_STREAM , IPPROTO_TCP);
 		if (sock == -1)
 		{
       			cout << "Could not create socket" << endl;
