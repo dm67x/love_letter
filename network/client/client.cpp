@@ -13,8 +13,8 @@ void sig_exit(int s)
 int main(int argc, char *argv[])
 {
 	signal(SIGINT, sig_exit);
-
-	tcp.setup("127.0.0.1",11999);
+    
+    tcp.setup("127.0.0.1",8888);
 	while(1)
 	{
 		srand(time(NULL));

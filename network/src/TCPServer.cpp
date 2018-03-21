@@ -25,7 +25,7 @@ void* TCPServer::Task(void *arg)
 
 void TCPServer::setup(int port)
 {
-	sockfd=socket(AF_INET,SOCK_STREAM,0);
+    sockfd=socket(AF_INET,SOCK_STREAM, IPPROTO_TCP);
  	memset(&serverAddress,0,sizeof(serverAddress));
 	serverAddress.sin_family=AF_INET;
 	serverAddress.sin_addr.s_addr=htonl(INADDR_ANY);
