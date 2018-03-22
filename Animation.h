@@ -6,7 +6,7 @@ class Animation
 {
 
 protected:
-	float time;
+	float time, current_time;
 	sf::Sprite * object_to_animate;
 	bool stop_anim;
 
