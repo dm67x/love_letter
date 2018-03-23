@@ -9,7 +9,7 @@ Card::Card(sf::Vector2f position)
 	: Sprite()
 {
 	animation = NULL;
-	texture.loadFromFile("../data/guard.jpg");
+    texture.loadFromFile("data/guard.jpg");
 	texture.setSmooth(true);
 	this->position = position;
 	animation_start = false;

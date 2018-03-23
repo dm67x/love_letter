@@ -1,4 +1,5 @@
-#pragma once
+#ifndef PICK_ANIMATION_H
+#define PICK_ANIMATION_H
 
 #include "../Animation.h"
 
@@ -19,3 +20,5 @@ public:
 	void stop();
 
 };
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CARD_H
+#define CARD_H
 
 #include <SFML\Graphics.hpp>
 #include "Animation.h"
@@ -22,3 +23,5 @@ public:
 	void update(float dt);
 
 };
+
+#endif
