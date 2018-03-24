@@ -14,10 +14,12 @@ DEPENDPATH += lib/SFML/include
 HEADERS += \
     Animation.h \
     Card.h \
-    Animations/PickAnimation.h
+    Animations/PickAnimation.h \
+    Player.h
 
 SOURCES += \
     Animation.cpp \
     Card.cpp \
     Main.cpp \
-    Animations/PickAnimation.cpp
+    Animations/PickAnimation.cpp \
+    Player.cpp
