@@ -1,28 +1,45 @@
 #include "Animation.h"
 
-Animation::Animation(float time, sf::Sprite * object_to_animate)
+Animation::Animation(float time, sf::Sprite * object)
 {
 	this->time = time;
-	current_time = 0.0f;
-	this->object_to_animate = object_to_animate;
-	stop_anim = true;
+    current = 0.0f;
+    this->object = object;
+    state = NOT_LAUNCH;
+}
+
+Animation::~Animation()
+{
 }
 
 void Animation::start()
 {
+    state = START;
 }
 
 void Animation::update(float dt)
 {
-	if (!stop_anim) {
-		current_time += dt;
-		if (current_time >= time) {
+    if (state == START || state == PLAYING) {
+        state = PLAYING;
+        current += dt;
+        if (current >= time) {
 			stop();
 		}
-	}
+    }
 }
 
 void Animation::stop()
 {
-	stop_anim = true;
+    state = STOP;
+    current = 0.0f;
+}
+
+enum ANIM_STATE Animation::getState()
+{
+    return state;
+}
+
+void Animation::setState(ANIM_STATE state)
+{
+    this->state = state;
 }

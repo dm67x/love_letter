@@ -9,18 +9,17 @@ class Card : public sf::Sprite
 
 private:
 	sf::Texture texture;
-	Animation * animation;
-	sf::Vector2f position;
-	bool animation_start;
+    Animation * animation;
 
 public:
 	Card();
 	Card(sf::Vector2f position);
 	~Card();
 
-	void setAnimation(Animation * anim);
-	void clearAnimation();
-	void update(float dt);
+    void setAnimation(Animation * anim);
+    void clearAnimation();
+    void update(float dt);
+    bool mouseInside(sf::Vector2i mouse_position);
 
 };
 

@@ -1,4 +1,4 @@
-LIBS += -Llib/SFML/lib
+LIBS += -L./lib/SFML/lib
 LIBS += \
     -lsfml-graphics \
     -lfreetype \
@@ -8,13 +8,15 @@ LIBS += \
     -lsfml-system \
     -lwinmm
 
-INCLUDEPATH += lib/SFML/include
-DEPENDPATH += lib/SFML/include
+INCLUDEPATH += ./lib/SFML/include
+DEPENDPATH += ./lib/SFML/include
 
 HEADERS += \
     Animation.h \
     Card.h \
     Animations/PickAnimation.h \
+    Board.h \
+    Animations/HoverAnimation.h \
     Player.h
 
 SOURCES += \
@@ -22,4 +24,6 @@ SOURCES += \
     Card.cpp \
     Main.cpp \
     Animations/PickAnimation.cpp \
+    Board.cpp \
+    Animations/HoverAnimation.cpp \
     Player.cpp

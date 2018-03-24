@@ -1,23 +1,25 @@
 #ifndef PICK_ANIMATION_H
 #define PICK_ANIMATION_H
 
-#include "../Animation.h"
+#include "Animation.h"
 
 class PickAnimation : public Animation
 {
 
 private:
-	float scale_factor, origin_scale_factor, scale_objective, speed, scale_speed;
-	sf::Vector2f position, original_position, to_position;
+    const float target_scale = 0.75f;
+    float scale_speed;
+    float move_speed;
+    float scale;
+    float current_scale;
+    sf::Vector2f position;
+    float current_position_y;
 
 public:
-	PickAnimation(sf::Sprite * object_to_animate);
-	PickAnimation(sf::Sprite * object_to_animate, sf::Vector2f to_position);
-	PickAnimation(float anim_speed, sf::Sprite * object_to_animate, sf::Vector2f to_position);
+    PickAnimation(sf::Sprite * object);
+    PickAnimation(sf::Sprite * object, sf::Vector2f to_position);
 
-	void start();
 	void update(float dt);
-	void stop();
 
 };
 

@@ -3,20 +3,26 @@
 
 #include <SFML\Graphics.hpp>
 
+enum ANIM_STATE { NOT_LAUNCH, START, STOP, PLAYING };
+
 class Animation
 {
 
 protected:
-	float time, current_time;
-	sf::Sprite * object_to_animate;
-	bool stop_anim;
+    float time; // animation time
+    float current; // current animation time
+    enum ANIM_STATE state; // animation state
+    sf::Sprite * object; // object to animate
 
 public:
-	Animation(float time, sf::Sprite * object_to_animate);
+    Animation(float time, sf::Sprite * object);
+    virtual ~Animation();
 
-	virtual void start();
+    void start();
 	virtual void update(float dt);
-	virtual void stop();
+    void stop();
+    enum ANIM_STATE getState();
+    void setState(enum ANIM_STATE state);
 
 };
 
