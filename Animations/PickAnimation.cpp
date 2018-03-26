@@ -8,24 +8,18 @@ PickAnimation::PickAnimation(sf::Sprite * object)
 PickAnimation::PickAnimation(sf::Sprite * object, sf::Vector2f to_position)
     : Animation(1.0f, object)
 {
-    position = object->getPosition();
-    scale = object->getScale().x;
-    current_scale = scale;
-    current_position_y = position.y;
-
-    // Calculate speed of scale and move animations
-    move_speed = fabs(position.y - to_position.y) / time;
-    scale_speed = (target_scale - scale) / time;
+    move_animation = new MoveAnimation(1.0f, object, to_position);
+    scale_animation = new ScaleAnimation(1.0f, object, sf::Vector2f(0.5f, 0.5f));
 }
 
 void PickAnimation::update(float dt)
 {
-	Animation::update(dt);
+    Animation::update(dt);
     if (state == PLAYING) {
-        current_scale = scale + current * scale_speed;
-        current_position_y = position.y + current * move_speed;
+        move_animation->start();
+        scale_animation->start();
 
-        object->setPosition(sf::Vector2f(position.x, current_position_y));
-        object->setScale(current_scale, current_scale);
+        move_animation->update(dt);
+        scale_animation->update(dt);
     }
 }

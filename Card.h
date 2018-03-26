@@ -22,7 +22,6 @@ public:
     void clearAnimation();
     Animation * getAnimation();
     void update(float dt);
-    bool mouseInside(sf::Vector2i mouse_position);
     void reveal();
     void mask();
 

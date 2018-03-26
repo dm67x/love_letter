@@ -67,17 +67,3 @@ void Card::update(float dt)
     else
         setTexture(*dos_card);
 }
-
-bool Card::mouseInside(sf::Vector2i mouse_position)
-{
-    sf::Vector2f position = getPosition();
-    sf::Vector2u textureSize = texture.getSize();
-
-    float top = position.y - (textureSize.y / 2) * getScale().y;
-    float bottom = position.y + (textureSize.y / 2) * getScale().y;
-    float left = position.x - (textureSize.x / 2) * getScale().x;
-    float right = position.x + (textureSize.x / 2) * getScale().x;
-
-    return mouse_position.x >= left && mouse_position.x <= right &&
-            mouse_position.y >= top && mouse_position.y <= bottom;
-}

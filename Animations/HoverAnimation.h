@@ -1,16 +1,13 @@
 #ifndef HOVER_ANIMATION_H
 #define HOVER_ANIMATION_H
 
-#include "Animation.h"
+#include "ScaleAnimation.h"
 
 class HoverAnimation : public Animation
 {
 
 private:
-    const float target_scale = 1.0f;
-    float scale_speed;
-    float current_scale;
-    float scale;
+    ScaleAnimation * scale_animation;
 
 public:
     HoverAnimation(sf::Sprite * object);

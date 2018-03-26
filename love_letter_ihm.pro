@@ -18,7 +18,10 @@ HEADERS += \
     Board.h \
     Animations/HoverAnimation.h \
     Deck.h \
-    Hand.h
+    Hand.h \
+    Animations/MoveAnimation.h \
+    Animations/ScaleAnimation.h \
+    Utils.h
 
 SOURCES += \
     Animation.cpp \
@@ -28,4 +31,7 @@ SOURCES += \
     Board.cpp \
     Animations/HoverAnimation.cpp \
     Deck.cpp \
-    Hand.cpp
+    Hand.cpp \
+    Animations/MoveAnimation.cpp \
+    Animations/ScaleAnimation.cpp \
+    Utils.cpp

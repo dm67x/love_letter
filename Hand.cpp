@@ -1,4 +1,6 @@
 #include "Hand.h"
+#include "Animations/HoverAnimation.h"
+#include "Utils.h"
 
 Hand::Hand(sf::Vector2f position)
     : Hand(position, 0)
@@ -44,10 +46,39 @@ Card * Hand::getCard(unsigned short index)
 
 void Hand::update(sf::RenderWindow &window, float dt)
 {
-    if (cards[0])
+    if (cards[0]) {
+        sf::FloatRect rect;
+        sf::Vector2f position = cards[0]->getPosition(), scale = cards[0]->getScale();
+        sf::Vector2u size = cards[0]->getTexture()->getSize();
+
+        rect.top = position.y - (size.y / 2) * scale.y;
+        rect.left = position.x - (size.x / 2) * scale.x;
+        rect.width = position.x + (size.x / 2) * scale.x;
+        rect.height = position.y + (size.y / 2) * scale.y;
+
+        if (Utils::mouseInside(card_transforms[0].transformRect(rect), sf::Mouse::getPosition(window)))
+            cards[0]->setAnimation(new HoverAnimation(cards[0]));
+        else
+            cards[0]->setAnimation(new ScaleAnimation(cards[0], sf::Vector2f(0.5f, 0.5f)));
         cards[0]->update(dt);
-    if (cards[1])
+    }
+
+    if (cards[1]) {
+        sf::FloatRect rect;
+        sf::Vector2f position = cards[1]->getPosition(), scale = cards[1]->getScale();
+        sf::Vector2u size = cards[1]->getTexture()->getSize();
+
+        rect.top = position.y - (size.y / 2) * scale.y;
+        rect.left = position.x - (size.x / 2) * scale.x;
+        rect.width = position.x + (size.x / 2) * scale.x;
+        rect.height = position.y + (size.y / 2) * scale.y;
+
+        if (Utils::mouseInside(card_transforms[1].transformRect(rect), sf::Mouse::getPosition(window)))
+            cards[1]->setAnimation(new HoverAnimation(cards[1]));
+        else
+            cards[1]->setAnimation(new ScaleAnimation(cards[1], sf::Vector2f(0.5f, 0.5f)));
         cards[1]->update(dt);
+    }
 }
 
 void Hand::draw(sf::RenderWindow &window)

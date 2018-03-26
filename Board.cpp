@@ -1,6 +1,6 @@
 #include "Board.h"
 #include "Animations/PickAnimation.h"
-#include "Animations/HoverAnimation.h"
+#include "Utils.h"
 
 Board * Board::instance = NULL;
 
@@ -44,8 +44,14 @@ void Board::update(sf::RenderWindow & window, float dt)
 {
     Card * c = deck->top();
     if (c) {
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Left) &&
-                c->mouseInside(sf::Mouse::getPosition(window)) && !c->getAnimation()) {
+        sf::FloatRect rect;
+        rect.top = c->getPosition().y - (c->getTexture()->getSize().y / 2) * c->getScale().y;
+        rect.left = c->getPosition().x - (c->getTexture()->getSize().x / 2) * c->getScale().x;
+        rect.width = c->getPosition().x + (c->getTexture()->getSize().x / 2) * c->getScale().x;
+        rect.height = c->getPosition().y + (c->getTexture()->getSize().y / 2) * c->getScale().y;
+
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && Utils::mouseInside(rect, sf::Mouse::getPosition(window))
+                && !c->getAnimation()) {
             c->setAnimation(new PickAnimation(c, hands[0]->getPosition()));
             c->reveal();
         }
