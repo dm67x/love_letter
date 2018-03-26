@@ -1,5 +1,6 @@
+/* test server
 #include <iostream>
-#include "TCPServer.h"
+#include "../src/TCPServer.h"
 
 TCPServer tcp;
 
@@ -33,3 +34,4 @@ int main()
     }
     return 0;
 }
+*/

@@ -1,27 +1,19 @@
 #include "multiplayergame.h"
 #include <iostream>
 #include <signal.h>
-#include "TCPClient.h"
 
-MultiplayerGame::MultiplayerGame() : Game(nb)
+MultiplayerGame::MultiplayerGame(unsigned int nb) : Game(nb)
 {
-
-}
-
-// SIGINT HANDLER
-void sig_exit(int s)
-{
-    tcp.exit();
-    exit(0);
+    //updateServer();
 }
 
 // Serialize infos for update
-string serialize(){
+string MultiplayerGame::serialize(){
     string s = "nbp:"+nb_players;
     // Add player's cards
-    for(int i = 0; i < nb_players; i++){
+    for(unsigned int i = 0; i < nb_players; i++){
         for(int j = 0; j < 2; j++){
-            s += ";"+players[i].getCard(j).getName().at(0);
+            s += ";"+players[i]->getCard(j)->getName().at(0);
         }
         s += "!";
     }
@@ -30,14 +22,11 @@ string serialize(){
 
 // Send my infos to the Server
 void MultiplayerGame::updateServer(){
-    TCPClient tcp;
-
-    signal(SIGINT, sig_exit);
+    //signal(SIGINT, sig_exit); TODO
 
     tcp.setup("127.0.0.1",8888);
 
-    srand(time(NULL));
-    tcp.Send(to_string(rand()%25000));
+    tcp.Send(serialize());
     string rec = tcp.receive();
     if( rec != "" )
     {
@@ -45,6 +34,15 @@ void MultiplayerGame::updateServer(){
     }
     sleep(1);
 }
+
+
+// SIGINT HANDLER => TODO
+void MultiplayerGame::sig_exit(int s)
+{
+    tcp.exit();
+    exit(0);
+}
+
 
 // 1. Server creates new game(nb_players)
 // 2. Shuffle the Deck, give cards to players

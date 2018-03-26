@@ -11,7 +11,7 @@ using namespace std;
 class Game
 {
 
-private:
+protected:
     vector<Player *> players;
     Deck * deck;
     Action * action;

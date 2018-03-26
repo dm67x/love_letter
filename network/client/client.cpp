@@ -1,3 +1,4 @@
+/* test client
 #include <iostream>
 #include <signal.h>
 #include "../src/TCPClient.h"
@@ -28,3 +29,4 @@ int main(int argc, char *argv[])
 	}
 	return 0;
 }
+*/
