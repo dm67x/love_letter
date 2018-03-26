@@ -7,7 +7,7 @@ class PickAnimation : public Animation
 {
 
 private:
-    const float target_scale = 0.75f;
+    const float target_scale = 0.5f;
     float scale_speed;
     float move_speed;
     float scale;

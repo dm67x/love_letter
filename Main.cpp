@@ -2,7 +2,11 @@
 
 int main(void)
 {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "LoveLetter - IHM", sf::Style::Close);
+#if FULLSCREEN
+    sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "LoveLetter - IHM", sf::Style::Fullscreen);
+#else
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Love Letter - IHM", sf::Style::Close);
+#endif
     window.setFramerateLimit(60);
 
     Board * board = Board::getInstance();
@@ -32,7 +36,7 @@ int main(void)
 
 		clock.restart();
 
-		window.clear();
+        window.clear(sf::Color::White);
         board->draw(window);
 		window.display();
 	}

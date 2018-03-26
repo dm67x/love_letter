@@ -2,15 +2,18 @@
 #define BOARD_H
 
 #include <SFML/Graphics.hpp>
-#include <list>
-#include "Card.h"
+#include "Deck.h"
+#include "Hand.h"
+#include <vector>
 
 class Board
 {
 
 private:
     static Board * instance;
-    std::list<Card *> deck;
+    Deck * deck;
+    std::vector<Hand *> hands;
+    unsigned short current_player;
 
 private:
     Board();
@@ -18,6 +21,7 @@ private:
 
 public:
     static Board * getInstance();
+
     //void addPlayer(Player * player);
 
     void update(sf::RenderWindow & window, float dt);

@@ -13,46 +13,63 @@ Board * Board::getInstance()
 
 Board::Board()
 {
-    for (int i = 0; i < 16; i++) {
-        Card * c = new Card(sf::Vector2f(400, 300));
-        c->setScale(0.25f, 0.25f);
-        deck.push_back(c);
+    deck = new Deck(sf::Vector2f(400, 300));
+    hands.push_back(new Hand(sf::Vector2f(400, 600)));
+    hands.push_back(new Hand(sf::Vector2f(800, 300), -90));
+    hands.push_back(new Hand(sf::Vector2f(400, 0), 180));
+    hands.push_back(new Hand(sf::Vector2f(0, 300), 90));
+
+    current_player = 0;
+
+    for (int i = 0; i < 4; i++) {
+        Card * c = deck->pickCard();
+        c->setPosition(hands[i]->getPosition());
+        c->setScale(0.5f, 0.5f);
+        hands[i]->addCard(c);
+    }
+
+    for (int i = 0; i < 2; i++) {
+        Card * c = hands[current_player]->getCard(i);
+        if (c)
+            c->reveal();
     }
 }
 
 Board::~Board()
 {
+    delete deck;
 }
 
 void Board::update(sf::RenderWindow & window, float dt)
 {
-    Card * c = deck.front();
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) &&
-            c->mouseInside(sf::Mouse::getPosition(window))) {
-        c->setAnimation(new PickAnimation(c, sf::Vector2f(0, 600)));
+    Card * c = deck->top();
+    if (c) {
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left) &&
+                c->mouseInside(sf::Mouse::getPosition(window)) && !c->getAnimation()) {
+            c->setAnimation(new PickAnimation(c, hands[0]->getPosition()));
+            c->reveal();
+        }
+        c->update(dt);
+        if (c->getAnimation() && c->getAnimation()->getState() == STOP) {
+            deck->pickCard();
+            hands[0]->addCard(c);
+        }
     }
 
-    // If pick animation end
-    /*if (c->getAnimation() && c->getAnimation()->getState() == STOP) {
-        if (c->mouseInside(sf::Mouse::getPosition(window))) {
-            if (!c->getAnimation()->isRevertEnabled())
-                c->setAnimation(new HoverAnimation(c));
-        } else if (c->getAnimation()->isRevertEnabled()) {
-            c->getAnimation()->setState(REVERT);
-        }
-    }*/
-
-    c->update(dt);
+    for (int i = 0; i < 4; i++) {
+        hands[i]->update(window, dt);
+    }
 }
 
 void Board::draw(sf::RenderWindow &window)
 {
-    window.draw(*deck.front());
+    deck->draw(window);
+    for (std::vector<Hand *>::iterator it = hands.begin(); it != hands.end(); it++)
+        (*it)->draw(window);
 }
 
 void Board::clear()
 {
-
 }
 
 

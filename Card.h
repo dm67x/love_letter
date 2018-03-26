@@ -1,7 +1,7 @@
 #ifndef CARD_H
 #define CARD_H
 
-#include <SFML\Graphics.hpp>
+#include <SFML/Graphics.hpp>
 #include "Animation.h"
 
 class Card : public sf::Sprite
@@ -10,6 +10,8 @@ class Card : public sf::Sprite
 private:
 	sf::Texture texture;
     Animation * animation;
+    static sf::Texture * dos_card;
+    bool show;
 
 public:
 	Card();
@@ -18,8 +20,11 @@ public:
 
     void setAnimation(Animation * anim);
     void clearAnimation();
+    Animation * getAnimation();
     void update(float dt);
     bool mouseInside(sf::Vector2i mouse_position);
+    void reveal();
+    void mask();
 
 };
 

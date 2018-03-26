@@ -1,7 +1,7 @@
 #ifndef ANIMATION_H
 #define ANIMATION_H
 
-#include <SFML\Graphics.hpp>
+#include <SFML/Graphics.hpp>
 
 enum ANIM_STATE { NOT_LAUNCH, START, STOP, PLAYING };
 

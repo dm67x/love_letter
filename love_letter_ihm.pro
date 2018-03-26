@@ -17,7 +17,8 @@ HEADERS += \
     Animations/PickAnimation.h \
     Board.h \
     Animations/HoverAnimation.h \
-    Player.h
+    Deck.h \
+    Hand.h
 
 SOURCES += \
     Animation.cpp \
@@ -26,4 +27,5 @@ SOURCES += \
     Animations/PickAnimation.cpp \
     Board.cpp \
     Animations/HoverAnimation.cpp \
-    Player.cpp
+    Deck.cpp \
+    Hand.cpp
