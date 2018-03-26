@@ -1,6 +1,6 @@
 #include <iostream>
 #include <signal.h>
-#include "TCPClient.h"
+#include "../src/TCPClient.h"
 
 TCPClient tcp;
 
