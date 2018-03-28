@@ -43,3 +43,9 @@ void Animation::setState(ANIM_STATE state)
 {
     this->state = state;
 }
+
+float Animation::in_cubic_ease(float t, float b, float c, float d)
+{
+    t /= d;
+    return b+c*t*t*t;
+}

@@ -52,7 +52,7 @@ void Board::update(sf::RenderWindow & window, float dt)
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && Utils::mouseInside(rect, sf::Mouse::getPosition(window))
                 && !c->getAnimation()) {
-            c->setAnimation(new PickAnimation(c, hands[0]->getPosition()));
+            c->setAnimation(new PickAnimation(c, hands[0]->freeZonePosition()));
             c->reveal();
         }
         c->update(dt);

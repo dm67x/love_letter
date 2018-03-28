@@ -22,6 +22,8 @@ public:
     void addCard(Card * c);
     sf::Vector2f getPosition();
     Card * getCard(unsigned short index = 0);
+    Card * pickCard(unsigned short index);
+    sf::Vector2f freeZonePosition();
 
     void update(sf::RenderWindow & window, float dt);
     void draw(sf::RenderWindow & window);

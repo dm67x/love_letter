@@ -8,7 +8,7 @@ Card::Card(Core::Card * card)
 }
 
 Card::Card(Core::Card * card, sf::Vector2f position)
-	: Sprite()
+    : Sprite()
 {
     this->card = card;
     animation = NULL;

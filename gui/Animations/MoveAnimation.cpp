@@ -9,14 +9,16 @@ MoveAnimation::MoveAnimation(float duration, sf::Sprite * object, sf::Vector2f t
     : Animation(duration, object)
 {
     where = to;
+    position = object->getPosition();
 }
 
 void MoveAnimation::update(float dt)
 {
     Animation::update(dt);
     if (state == PLAYING) {
-        position = object->getPosition();
-        move_speed = (where - position) / time;
-        object->move(current * move_speed);
+        float ease = Animation::in_cubic_ease(time, 0.005, 1.000, 1.000);
+        move_speed = (where - position) / ease;
+        updated_position = position + current * move_speed;
+        object->setPosition(updated_position);
     }
 }

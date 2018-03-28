@@ -24,6 +24,8 @@ public:
     enum ANIM_STATE getState();
     void setState(enum ANIM_STATE state);
 
+    static float in_cubic_ease(float t, float b, float c, float d);
+
 };
 
 #endif
