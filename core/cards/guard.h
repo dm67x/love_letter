@@ -1,7 +1,9 @@
-#ifndef GUARD_H
-#define GUARD_H
+#ifndef GUARD_CORE_H
+#define GUARD_CORE_H
 
 #include "../card.h"
+
+namespace Core {
 
 class Guard : public Card
 {
@@ -12,5 +14,7 @@ public:
 
 };
 
+}
 
-#endif // GUARD_H
+
+#endif // GUARD_CORE_H

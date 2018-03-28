@@ -1,6 +1,8 @@
 #include "guard.h"
 #include "../action.h"
 
+namespace Core {
+
 Guard::Guard()
     : Card("Guard", 1, "Name a non-Guard card and choose another player. \
         If that player has that card, he or she is out of the round.")
@@ -14,6 +16,8 @@ void Guard::activeEffect()
 
    if (action->guess != "Guard" && target->hasCard(action->guess))
        target->setDead(true);
+}
+
 }
 
 

@@ -1,11 +1,12 @@
-#ifndef PLAYER_H
-#define PLAYER_H
+#ifndef PLAYER_CORE_H
+#define PLAYER_CORE_H
 
 #include <stack>
 #include <string.h>
 #include "card.h"
 #include "deck.h"
 
+namespace Core {
 
 using namespace std;
 
@@ -43,6 +44,9 @@ public:
     stack<Card *> getPlayedCards();
 
     Card * getCard(int i=0);
+
 };
 
-#endif // PLAYER_H
+}
+
+#endif // PLAYER_CORE_H

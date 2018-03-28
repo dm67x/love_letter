@@ -1,6 +1,7 @@
 #include "player.h"
 #include "utils.h"
 
+namespace Core {
 
 Player::Player(string name){
         this->name = name;
@@ -113,5 +114,4 @@ Card * Player::getCard(int i){
     return cards[i];
 }
 
-
-
+}

@@ -1,7 +1,9 @@
-#ifndef COUNTESS_H
-#define COUNTESS_H
+#ifndef COUNTESS_CORE_H
+#define COUNTESS_CORE_H
 
 #include "../card.h"
+
+namespace Core {
 
 class Countess : public Card
 {
@@ -13,4 +15,6 @@ public:
 
 };
 
-#endif // COUNTESS_H
+}
+
+#endif // COUNTESS_CORE_H

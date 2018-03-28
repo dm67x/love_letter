@@ -1,7 +1,9 @@
-#ifndef KING_H
-#define KING_H
+#ifndef KING_CORE_H
+#define KING_CORE_H
 
 #include "../card.h"
+
+namespace Core {
 
 class King : public Card
 {
@@ -13,4 +15,6 @@ public:
 
 };
 
-#endif // KING_H
+}
+
+#endif // KING_CORE_H

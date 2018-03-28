@@ -1,9 +1,11 @@
-#ifndef CARD_H
-#define CARD_H
+#ifndef CARD_CORE_H
+#define CARD_CORE_H
 
 #include <string>
 
 using namespace std;
+
+namespace Core {
 
 class Card
 {
@@ -22,9 +24,8 @@ public:
     string getName();
     string getDescription();
 
-
-
-
 };
 
-#endif // CARD_H
+}
+
+#endif // CARD_CORE_H

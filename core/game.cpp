@@ -1,5 +1,6 @@
 #include "game.h"
 
+namespace Core {
 
 // Start new Game with nb_players
 Game::Game(unsigned int nb_players){
@@ -196,4 +197,6 @@ bool Game::gameOver(){
 // Return current player
 Player * Game::getCurrentPlayer(){
     return players[current_player];
+}
+
 }

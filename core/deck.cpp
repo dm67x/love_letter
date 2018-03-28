@@ -1,4 +1,3 @@
-
 #include <random>
 #include <algorithm>
 #include <iterator>
@@ -6,6 +5,8 @@
 
 #include "deck.h"
 #include "cards/all.h"
+
+namespace Core {
 
 Deck * Deck::instance = NULL;
 
@@ -38,17 +39,19 @@ void Deck::clear()
     cards.push_back(new Guard());
     cards.push_back(new Guard());
     cards.push_back(new Guard());
-    cards.push_back(new Guard());
-    cards.push_back(new Guard());
-    cards.push_back(new Guard());
-    cards.push_back(new Guard());
-    cards.push_back(new Guard());
-    cards.push_back(new Guard());
-    cards.push_back(new Guard());
-    cards.push_back(new Guard());
-    cards.push_back(new Guard());
+    cards.push_back(new Priest());
+    cards.push_back(new Priest());
+    cards.push_back(new Baron());
+    cards.push_back(new Baron());
+    cards.push_back(new Handmaid());
+    cards.push_back(new Handmaid());
+    cards.push_back(new Prince());
+    cards.push_back(new Prince());
+    cards.push_back(new King());
+    cards.push_back(new Countess());
     cards.push_back(new Princess());
-    cards.push_back(new Guard());
+
+    shuffle_d();
 }
 
 unsigned int Deck::count()
@@ -56,11 +59,17 @@ unsigned int Deck::count()
     return number_of_cards;
 }
 
-// Shuffle the deck
-void listShuffle()
+list<Card *> Deck::getCards()
 {
-   // deck was not declared in this scope
-   /*vector<Card*> V( deck.begin(), deck.end() );
+    return cards;
+}
+
+// Shuffle the deck
+void Deck::shuffle_d()
+{
+   vector<Card*> V( cards.begin(), cards.end() );
    shuffle( V.begin(), V.end(), mt19937{ random_device{}() } );
-   deck.assign( V.begin(), V.end() );*/
+   cards.assign( V.begin(), V.end() );
+}
+
 }

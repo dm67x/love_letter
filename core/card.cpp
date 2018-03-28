@@ -1,5 +1,7 @@
 #include "card.h"
 
+namespace Core {
+
 Card::Card(string name, unsigned short value, string description)
     : value(value), name(name), description(description)
 {
@@ -18,6 +20,8 @@ string Card::getName()
 string Card::getDescription()
 {
     return description;
+}
+
 }
 
 
