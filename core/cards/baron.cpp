@@ -11,19 +11,14 @@ Baron::Baron()
 
 void Baron::activeEffect()
 {
-
     Action * action = Action::getInstance();
 
     unsigned short v1 = action->current->getCard()->getValue();
     unsigned short v2 = action->target->getCard()->getValue();
     if (v1 < v2) {
-        action->current->setDead(true);
-        action->current->discard();
-
+        action->current->kill();
     } else if (v1 > v2) {
-        action->target->setDead(true);
-        action->target->discard();
-
+        action->target->kill();
     }
 }
 

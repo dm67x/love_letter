@@ -2,6 +2,7 @@
 #define ACTION_CORE_H
 
 #include "player.h"
+#include "deck.h"
 
 namespace Core {
 

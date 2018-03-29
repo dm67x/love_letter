@@ -1,117 +1,106 @@
 #include "player.h"
 #include "utils.h"
+#include "deck.h"
 
 namespace Core {
 
 Player::Player(string name){
-        this->name = name;
-        dead = false;
-        points = 0;
-        protection = false;
-        cards[0] = NULL;
-        cards[1] = NULL;
+    this->name = name;
+    dead = shield = false;
+    points = 0;
+    hand[0] = NULL;
+    hand[1] = NULL;
 }
 
-string Player::getName(){
-    return name;
-}
-
-unsigned int Player::getPoints(){
-    return points;
-}
-
-bool Player::isDead(){
-    return this->dead;
-}
-
-bool Player::hasProtection(){
-    return protection;
-}
-
-//checks if player has card c in hand
-bool Player::hasCard(string card_name)
+Player::~Player()
 {
-    if (cards[0])
-        return cards[0]->getName() == card_name;
-    return cards[1]->getName() == card_name;
+    delete hand[0];
+    delete hand[1];
+    for (std::list<Card *>::iterator it = played_cards.begin(); it != played_cards.end(); it++)
+        delete (*it);
 }
 
-void Player::givePoint(){
+void Player::kill()
+{
+    dead = true;
+    // discard last card in hand because "i'm dead"
+    if (hand[0])
+        discard();
+}
+
+void Player::reincarnate()
+{
+    dead = false;
+}
+
+void Player::pickCard()
+{
+    Card * picked_card = Deck::getInstance()->pickCard();
+    if (hand[0] == NULL)
+        hand[0] = picked_card;
+    else
+        hand[1] = picked_card;
+
+    // if picked_card is the countess and you have king or prince in hand you must discard countess
+    if (hand[0]->getValue() == 7 && (hand[1]->getValue() == 5 || hand[1]->getValue() == 6))
+        discard(0);
+    else if (hand[1]->getValue() == 7 && (hand[0]->getValue() == 5 || hand[0]->getValue() == 6))
+        discard(1);
+}
+
+void Player::switchHand(Player & p)
+{
+    if (!p.isDead() && !isDead()) {
+        Card * my_card = hand[0];
+        hand[0] = p.getCard();
+        p.setCard(my_card);
+    }
+}
+
+void Player::setCard(Card * c)
+{
+    hand[0] = c;
+}
+
+void Player::givePoint()
+{
     points++;
 }
 
-
-
-void Player::setDead(bool value){
-    dead=value;
+void Player::activateShield()
+{
+    shield = true;
 }
 
-
-
-//pick a card from deck
-void Player::pickCard(Deck & d)
+void Player::deactivateShield()
 {
-    Card *c = d.pickCard();
-    if (!cards[0])
-        cards[1] = c;
-    else cards[0] = c;
-    // if picked card is a countess and if you have King or Prince in hand, you must discard the countess
-    if(c->getValue() == 7 && (cards[0]->getValue() == 6 || cards[0]->getValue() == 5 )){
-        play(1);
+    shield = false;
+}
+
+void Player::discard(int index)
+{
+    if (index == -1 && hand[0] != NULL) {
+        // Don't active effect of card
+        played_cards.push_back(hand[0]);
+        hand[0] = NULL;
+    } else if (index >= 0 && hand[index] != NULL) {
+        hand[index]->activeEffect();
+        played_cards.push_back(hand[index]);
+        hand[index] = NULL;
+        // Change position of card in position 1 to 0
+        if (index == 0 && hand[1] != NULL) {
+            hand[0] = hand[1];
+            hand[1] = NULL;
+        }
     }
 }
 
-
-//switch cards with another player p
-void Player::switchHand(Player &p){
-    Utils::myswap(cards[0],p.getCard());
-}
-
-
-void Player::setProtection(bool value){
-    protection = value;
-}
-
-
-//discard the only card the player has in his hands
-//normally used to implement the effect
-//of the Prince just before picking a new card
-void Player::discard(){
-    played_cards.push(cards[0]);
-    cards[0] = NULL;
-}
-
-//play a chosen card
-//precond: c is in the list of cards and is chosen by the player
-//(determined through the GUI)
-void Player::play(int index)
+void Player::clear()
 {
-    cards[index]->activeEffect();
-    played_cards.push(cards[index]);
-    cards[index] = NULL;
-    if (index == 0) {
-        cards[0] = cards[1];
-        cards[1] = NULL;
-    }
-}
-
-void Player::emptyCardsList()
-{
-    played_cards.empty();
-    cards[0] = cards[1] = NULL;
-}
-
-stack<Card *> Player::getPlayedCards()
-{
-    return played_cards;
-}
-
-
-//returns the current and only card that the player has in his hand
-//can be used to implement the effect of the Priest
-//the player p to whom we show cards we're gonna get him through the GUI
-Card * Player::getCard(int i){
-    return cards[i];
+    hand[0] = hand[1] = NULL;
+    played_cards.clear();
+    dead = shield = false;
+    points = 0;
 }
 
 }

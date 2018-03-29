@@ -14,7 +14,6 @@ HEADERS += \
     cards/king.h \
     cards/countess.h \
     cards/princess.h \
-    utils.h \
     deck.h \
     cards/all.h
 
@@ -31,5 +30,4 @@ SOURCES += \
     cards/king.cpp \
     cards/countess.cpp \
     cards/princess.cpp \
-    utils.cpp \
     deck.cpp

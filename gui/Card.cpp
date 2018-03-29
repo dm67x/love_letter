@@ -20,6 +20,18 @@ Card::Card(Core::Card * card, sf::Vector2f position)
         texture.loadFromFile("data/guard.jpg");
         break;
 
+    case 2:
+        break;
+
+    case 3:
+        break;
+
+    case 4:
+        break;
+
+    case 5:
+        break;
+
     default:
         texture.loadFromFile("data/custom_dos.jpg");
         break;

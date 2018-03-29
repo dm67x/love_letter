@@ -23,17 +23,26 @@ Deck::Deck()
     clear();
 }
 
+// Shuffle the deck
+void Deck::shuffle_me()
+{
+   vector<Card*> V( cards.begin(), cards.end() );
+   shuffle( V.begin(), V.end(), mt19937{ random_device{}() } );
+   cards.assign( V.begin(), V.end() );
+}
+
+// Pick card from deck
 Card * Deck::pickCard()
 {
-    if (number_of_cards == 0) return NULL;
+    if (cards.size() == 0) return NULL;
     Card * c = cards.front();
     cards.pop_front();
     return c;
 }
 
+// Reset
 void Deck::clear()
 {
-    number_of_cards = 16;
     cards.push_back(new Guard());
     cards.push_back(new Guard());
     cards.push_back(new Guard());
@@ -51,25 +60,13 @@ void Deck::clear()
     cards.push_back(new Countess());
     cards.push_back(new Princess());
 
-    shuffle_d();
+    shuffle_me();
 }
 
-unsigned int Deck::count()
+// Remove card from deck
+void Deck::removeCard()
 {
-    return number_of_cards;
-}
-
-list<Card *> Deck::getCards()
-{
-    return cards;
-}
-
-// Shuffle the deck
-void Deck::shuffle_d()
-{
-   vector<Card*> V( cards.begin(), cards.end() );
-   shuffle( V.begin(), V.end(), mt19937{ random_device{}() } );
-   cards.assign( V.begin(), V.end() );
+    removed_cards.push_back(pickCard());
 }
 
 }

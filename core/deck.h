@@ -10,18 +10,21 @@ class Deck
 {
 
 private:
-    list<Card *> cards;
-    unsigned int number_of_cards;
-    Deck();
+    std::list<Card *> cards;
+    std::list<Card *> removed_cards;
     static Deck * instance;
-    void shuffle_d();
+
+    Deck();
+    void shuffle_me();
 
 public:
+    inline std::list<Card *> getCards() const { return cards; }
+    inline std::list<Card *> getRemovedCards() const { return removed_cards; }
+
     static Deck * getInstance();
     Card * pickCard();
+    void removeCard();
     void clear();
-    unsigned int count();
-    list<Card *> getCards();
 
 };
 

@@ -12,7 +12,7 @@ Princess::Princess()
 void Princess::activeEffect()
 {
     Action * action = Action::getInstance();
-    action->current->setDead(true);
+    action->current->kill();
 }
 
 }

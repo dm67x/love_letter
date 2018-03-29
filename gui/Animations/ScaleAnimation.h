@@ -10,6 +10,7 @@ private:
     sf::Vector2f scale_speed;
     sf::Vector2f scale;
     sf::Vector2f updated_scale;
+    sf::Vector2f to;
 
 public:
     ScaleAnimation(sf::Sprite * object, sf::Vector2f to);

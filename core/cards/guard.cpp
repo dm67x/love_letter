@@ -14,8 +14,8 @@ void Guard::activeEffect()
    Action * action = Action::getInstance();
    Player * target = action->target;
 
-   if (action->guess != "Guard" && target->hasCard(action->guess))
-       target->setDead(true);
+   if (action->guess != "Guard" && target->getCard()->getName() == action->guess)
+       target->kill();
 }
 
 }

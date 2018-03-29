@@ -74,7 +74,7 @@ void Hand::update(sf::RenderWindow &window, float dt)
         rect.height = position.y + (size.y / 2) * scale.y;
 
         if (Utils::mouseInside(rect, sf::Mouse::getPosition(window)))
-            cards[0]->setAnimation(new ScaleAnimation(cards[0], sf::Vector2f(0.75f, 0.75f)));
+            cards[0]->setAnimation(new ScaleAnimation(cards[0], sf::Vector2f(0.6f, 0.6f)));
         else
             cards[0]->setAnimation(new ScaleAnimation(cards[0], sf::Vector2f(0.5f, 0.5f)));
         cards[0]->update(dt);
@@ -92,7 +92,7 @@ void Hand::update(sf::RenderWindow &window, float dt)
         rect.height = position.y + (size.y / 2) * scale.y;
 
         if (Utils::mouseInside(rect, sf::Mouse::getPosition(window)))
-            cards[1]->setAnimation(new ScaleAnimation(cards[1], sf::Vector2f(0.75f, 0.75f)));
+            cards[1]->setAnimation(new ScaleAnimation(cards[1], sf::Vector2f(0.6f, 0.6f)));
         else
             cards[1]->setAnimation(new ScaleAnimation(cards[1], sf::Vector2f(0.5f, 0.5f)));
         cards[1]->update(dt);

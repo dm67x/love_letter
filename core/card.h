@@ -19,10 +19,13 @@ protected:
     Card(string name, unsigned short value, string description);
 
 public:
+    virtual ~Card();
+
+    inline unsigned short getValue() const { return value; }
+    inline string getName() const { return name; }
+    inline string getDescription() const { return description; }
+
     virtual void activeEffect() = 0;
-    unsigned short getValue();
-    string getName();
-    string getDescription();
 
 };
 
