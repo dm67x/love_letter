@@ -1,23 +1,26 @@
 TEMPLATE = app
 CONFIG += window
+DEFINES +=
 
-win32: LIBS += -L$$PWD/lib/SFML/windows/lib -lsfml-graphics -lfreetype -lsfml-window -lopengl32 -lgdi32 -lsfml-system -lwinmm
-unix: LIBS += -L$$PWD/lib/SFML/linux/lib -lsfml-graphics -lsfml-window -lsfml-system
+win32: LIBS += -L$$PWD/../lib/SFML/windows/lib -lsfml-graphics -lfreetype -lsfml-window -lopengl32 -lgdi32 -lsfml-system -lwinmm
+unix: LIBS += -L$$PWD/../lib/SFML/linux/lib -lsfml-graphics -lsfml-window -lsfml-system
 
-INCLUDEPATH += $$PWD/lib/SFML/include
-DEPENDPATH += $$PWD/lib/SFML/include
+INCLUDEPATH += $$PWD/../lib/SFML/include
+DEPENDPATH += $$PWD/../lib/SFML/include
 
 SOURCES += \
-    Board.cpp \
-    Card.cpp \
-    Deck.cpp \
-    Hand.cpp \
-    Utils.cpp \
     Animations/MoveAnimation.cpp \
     Animations/PickAnimation.cpp \
     Animations/ScaleAnimation.cpp \
     Animation.cpp \
-    Main.cpp
+    Main.cpp \
+    MainWindow.cpp \
+    Screen.cpp \
+    ScreenManager.cpp \
+    Screens/MenuScreen.cpp \
+    Button.cpp \
+    Screens/PlayScreen.cpp \
+    Screens/CreditsScreen.cpp
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../core/release/ -lcore
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../core/debug/ -lcore
@@ -33,12 +36,14 @@ else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/
 else:unix:!macx: PRE_TARGETDEPS += $$OUT_PWD/../core/libcore.a
 
 HEADERS += \
-    Board.h \
-    Card.h \
-    Deck.h \
-    Hand.h \
-    Utils.h \
     Animations/MoveAnimation.h \
     Animations/PickAnimation.h \
     Animations/ScaleAnimation.h \
-    Animation.h
+    Animation.h \
+    MainWindow.h \
+    Screen.h \
+    ScreenManager.h \
+    Screens/MenuScreen.h \
+    Button.h \
+    Screens/PlayScreen.h \
+    Screens/CreditsScreen.h

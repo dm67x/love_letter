@@ -1,45 +1,56 @@
-#include "Board.h"
+#include "ScreenManager.h"
+#include "MainWindow.h"
+#include "core/game.h"
+#include "Screens/MenuScreen.h"
+#include "Screens/PlayScreen.h"
+#include "Screens/CreditsScreen.h"
 
 int main(void)
 {
-#if FULLSCREEN
-    sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "LoveLetter - IHM", sf::Style::Fullscreen);
-#else
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Love Letter - IHM", sf::Style::Close);
-#endif
-    //window.setFramerateLimit(60);
+    MainWindow * window = MainWindow::getInstance();
+    window->setFramerateLimit(60);
+    window->setFullscreen();
 
-    Board * board = Board::getInstance();
+#if FULLSCREEN
+    window->setFullscreen();
+#endif
+
+    Core::Game * game = new Core::Game(4);
+
+    // ScreenManager
+    ScreenManager * screenManager = ScreenManager::getInstance();
+
+    // Add screens
+    screenManager->add(new MenuScreen());
+    screenManager->add(new PlayScreen());
+    screenManager->add(new CreditsScreen());
 
     sf::Clock clock;
-    while (window.isOpen())
+    while (window->isOpen())
     {
         sf::Event evt;
-        if (window.pollEvent(evt))
+        if (window->pollEvent(evt))
         {
             switch (evt.type)
             {
             case sf::Event::Closed:
-                window.close();
-                break;
-
-            case sf::Event::KeyPressed:
-                if (evt.key.code == sf::Keyboard::Escape)
-                    window.close();
+                window->close();
                 break;
             }
         }
 
         sf::Time elapsed = clock.getElapsedTime();
 
-        board->update(window, elapsed.asSeconds());
+        screenManager->getCurrent()->update(elapsed.asSeconds());
 
         clock.restart();
 
-        window.clear();
-        board->draw(window);
-        window.display();
+        window->clear();
+        screenManager->getCurrent()->draw(*window);
+        window->display();
     }
+
+    delete screenManager;
 
     return 0;
 }
