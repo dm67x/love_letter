@@ -31,6 +31,8 @@ public:
     Game(unsigned int nb_players);
     ~Game();
 
+    inline vector<Player *> getPlayers() const { return players; }
+
     void startRound();
     void update();
     void pickTarget(int target_index);

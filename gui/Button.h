@@ -7,23 +7,23 @@ class Button
 {
 
 private:
-    std::string text;
     void (*functionPtr)(void);
-    sf::Texture texture, hover_texture;
-    sf::Sprite sprite;
-    sf::Font font;
-    sf::Text d_text; // draw text
     sf::Vector2f position;
 
-public:
-    Button(std::string text, sf::Vector2f position);
-    ~Button();
+protected:
+    sf::FloatRect rect;
 
-    sf::Vector2f getPosition() const { return position; }
+public:
+    Button(sf::Vector2f position);
+    virtual ~Button();
+
+    inline sf::Vector2f getPosition() const { return position; }
+    inline sf::FloatRect getBounds() const { return rect; }
+    bool mouseInside();
 
     void onClick(void (*functionPtr)());
-    void update();
-    void draw(sf::RenderWindow & window);
+    virtual void update();
+    virtual void draw(sf::RenderWindow & window) = 0;
 
 };
 

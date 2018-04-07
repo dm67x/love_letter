@@ -1,0 +1,41 @@
+#ifndef CARD_H
+#define CARD_H
+
+#include <SFML/Graphics.hpp>
+#include "core/card.h"
+#include "Animation.h"
+
+class Card : public sf::Drawable
+{
+
+private:
+    Core::Card * card; // card from lib core, title, value and description
+    sf::Sprite card_sprite;
+    sf::Texture texture; // texture of card
+    sf::Texture back_texture; // texture for the back of cards (dos de carte)
+    sf::Text title, description, value; // title, description, value
+    sf::Font font; // font to use
+    bool is_reveal; // if true show card (title, description...) else show card's back
+    Animation * animation; // animation on card
+
+public:
+    Card(Core::Card * card);
+    ~Card();
+
+    inline Animation * getAnimation() const { return animation; }
+
+    void setAnimation(Animation * anim);
+    void clearAnimation();
+    void reveal();
+    void mask();
+
+    void setPosition(float px, float py);
+    void setPosition(sf::Vector2f position);
+    void setScale(float sx, float sy);
+
+    void update(float dt);
+    void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+
+};
+
+#endif // CARD_H

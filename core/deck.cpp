@@ -43,6 +43,7 @@ Card * Deck::pickCard()
 // Reset
 void Deck::clear()
 {
+    cards.clear();
     cards.push_back(new Guard());
     cards.push_back(new Guard());
     cards.push_back(new Guard());

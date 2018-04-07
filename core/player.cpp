@@ -41,9 +41,9 @@ void Player::pickCard()
         hand[1] = picked_card;
 
     // if picked_card is the countess and you have king or prince in hand you must discard countess
-    if (hand[0]->getValue() == 7 && (hand[1]->getValue() == 5 || hand[1]->getValue() == 6))
+    if (hand[0] && hand[0]->getValue() == 7 && (hand[1]->getValue() == 5 || hand[1]->getValue() == 6))
         discard(0);
-    else if (hand[1]->getValue() == 7 && (hand[0]->getValue() == 5 || hand[0]->getValue() == 6))
+    else if (hand[1] && hand[1]->getValue() == 7 && (hand[0]->getValue() == 5 || hand[0]->getValue() == 6))
         discard(1);
 }
 

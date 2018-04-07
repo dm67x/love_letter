@@ -19,6 +19,12 @@ private:
     sf::Sprite love_letter;
     sf::Texture love_letter_texture;
 
+    // Background
+    sf::Sprite background;
+    sf::Texture bg_texture;
+
+    const float space = 20.0f;
+
 public:
     CreditsScreen();
     ~CreditsScreen();

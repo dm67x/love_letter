@@ -23,6 +23,12 @@ private:
     Button * quit_button;
     static void quitButtonClicked();
 
+    const float space_between_menu = 70.0f;
+
+    // Background
+    sf::Sprite background;
+    sf::Texture bg_texture;
+
 public:
     MenuScreen();
     ~MenuScreen();

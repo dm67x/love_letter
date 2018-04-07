@@ -1,5 +1,6 @@
 TEMPLATE = app
 CONFIG += window
+CONFIG -= qt
 DEFINES +=
 
 win32: LIBS += -L$$PWD/../lib/SFML/windows/lib -lsfml-graphics -lfreetype -lsfml-window -lopengl32 -lgdi32 -lsfml-system -lwinmm
@@ -19,8 +20,14 @@ SOURCES += \
     ScreenManager.cpp \
     Screens/MenuScreen.cpp \
     Button.cpp \
-    Screens/PlayScreen.cpp \
-    Screens/CreditsScreen.cpp
+    Screens/CreditsScreen.cpp \
+    Screens/SingleplayerScreen.cpp \
+    Elements/Card.cpp \
+    Elements/Deck.cpp \
+    Elements/Hand.cpp \
+    Elements/PlayerZone.cpp \
+    Board.cpp \
+    Buttons/MenuButton.cpp
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../core/release/ -lcore
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../core/debug/ -lcore
@@ -45,5 +52,11 @@ HEADERS += \
     ScreenManager.h \
     Screens/MenuScreen.h \
     Button.h \
-    Screens/PlayScreen.h \
-    Screens/CreditsScreen.h
+    Screens/CreditsScreen.h \
+    Screens/SingleplayerScreen.h \
+    Elements/Card.h \
+    Elements/Deck.h \
+    Elements/Hand.h \
+    Elements/PlayerZone.h \
+    Board.h \
+    Buttons/MenuButton.h

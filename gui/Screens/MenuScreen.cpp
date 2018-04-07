@@ -1,6 +1,7 @@
 #include "MenuScreen.h"
 #include "ScreenManager.h"
 #include "MainWindow.h"
+#include "Buttons/MenuButton.h"
 
 MenuScreen::MenuScreen()
     : Screen("menu")
@@ -20,27 +21,35 @@ void MenuScreen::loadContent()
 
     sf::Vector2u size = getSize();
 
-    // Love Letter logo
-    love_letter_texture.loadFromFile("data/love-letter-logo.png");
-    love_letter.setTexture(love_letter_texture);
-    love_letter.setOrigin(love_letter_texture.getSize().x / 2,
-                          love_letter_texture.getSize().y / 2);
-    love_letter.setPosition(size.x / 2, 100);
+    // Background
+    bg_texture.loadFromFile("data/back_menu_credits.jpg");
+    background.setTexture(bg_texture);
+    background.setOrigin(bg_texture.getSize().x / 2.0f, bg_texture.getSize().y / 2.0f);
+    background.setPosition(size.x / 2.0f, size.y / 2.0f);
+    background.setScale(size.x / (bg_texture.getSize().x * 1.0f),
+                        size.y / (bg_texture.getSize().y * 1.0f));
 
-    singleplayer_button = new Button("SinglePlayer",
-                                     sf::Vector2f(size.x / 2, 100 + love_letter_texture.getSize().y));
+    // Singleplayer button
+    singleplayer_button = new MenuButton("Singleplayer",
+        sf::Vector2f(size.x / 2, 375.0f * background.getScale().y));
     singleplayer_button->onClick(&singleplayerButtonClicked);
+    sf::FloatRect sp_button_rect = singleplayer_button->getBounds();
 
-    multiplayer_button = new Button("Multiplayer",
-                                    sf::Vector2f(size.x / 2, singleplayer_button->getPosition().y + 100));
+    // Multiplayer button
+    multiplayer_button = new MenuButton("Multiplayer",
+        sf::Vector2f(size.x / 2, sp_button_rect.top + sp_button_rect.height + space_between_menu));
     multiplayer_button->onClick(&multiplayerButtonClicked);
+    sf::FloatRect mp_button_rect = multiplayer_button->getBounds();
 
-    credits_button = new Button("Credits",
-                                sf::Vector2f(size.x / 2, multiplayer_button->getPosition().y + 100));
+    // Credits button
+    credits_button = new MenuButton("Credits",
+        sf::Vector2f(size.x / 2, mp_button_rect.top + mp_button_rect.height + space_between_menu));
     credits_button->onClick(&creditsButtonClicked);
+    sf::FloatRect credits_button_rect = credits_button->getBounds();
 
-    quit_button = new Button("Exit",
-                             sf::Vector2f(size.x / 2, credits_button->getPosition().y + 100));
+    // Exit button
+    quit_button = new MenuButton("Exit",
+        sf::Vector2f(size.x / 2, credits_button_rect.top + credits_button_rect.height + space_between_menu));
     quit_button->onClick(&quitButtonClicked);
 }
 
@@ -54,8 +63,9 @@ void MenuScreen::update(float dt)
 
 void MenuScreen::draw(sf::RenderWindow &window)
 {
-    window.clear(sf::Color(255, 135, 120));
-    window.draw(love_letter);
+    window.clear(sf::Color::Black);
+
+    window.draw(background);
     singleplayer_button->draw(window);
     multiplayer_button->draw(window);
     credits_button->draw(window);
@@ -64,7 +74,7 @@ void MenuScreen::draw(sf::RenderWindow &window)
 
 void MenuScreen::singleplayerButtonClicked()
 {
-    ScreenManager::getInstance()->switchTo("play");
+    ScreenManager::getInstance()->switchTo("singleplayer");
 }
 
 void MenuScreen::multiplayerButtonClicked()

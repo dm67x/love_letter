@@ -1,28 +1,24 @@
 #include "ScreenManager.h"
 #include "MainWindow.h"
-#include "core/game.h"
 #include "Screens/MenuScreen.h"
-#include "Screens/PlayScreen.h"
+#include "Screens/SingleplayerScreen.h"
 #include "Screens/CreditsScreen.h"
 
 int main(void)
 {
     MainWindow * window = MainWindow::getInstance();
     window->setFramerateLimit(60);
-    window->setFullscreen();
 
 #if FULLSCREEN
     window->setFullscreen();
 #endif
-
-    Core::Game * game = new Core::Game(4);
 
     // ScreenManager
     ScreenManager * screenManager = ScreenManager::getInstance();
 
     // Add screens
     screenManager->add(new MenuScreen());
-    screenManager->add(new PlayScreen());
+    screenManager->add(new SingleplayerScreen());
     screenManager->add(new CreditsScreen());
 
     sf::Clock clock;
@@ -51,6 +47,7 @@ int main(void)
     }
 
     delete screenManager;
+    delete window;
 
     return 0;
 }
