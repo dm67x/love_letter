@@ -13,8 +13,10 @@ Player::Player(string name){
 
 Player::~Player()
 {
-    delete hand[0];
-    delete hand[1];
+    if (hand[0])
+        delete hand[0];
+    if (hand[1])
+        delete hand[1];
     for (std::list<Card *>::iterator it = played_cards.begin(); it != played_cards.end(); it++)
         delete (*it);
 }

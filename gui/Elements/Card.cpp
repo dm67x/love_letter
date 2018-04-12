@@ -2,7 +2,7 @@
 #include <sstream>
 
 Card::Card(Core::Card *card)
-    : Drawable()
+    : sf::Transformable(), sf::Drawable()
 {
     this->card = card;
     is_reveal = false;
@@ -18,7 +18,7 @@ Card::Card(Core::Card *card)
     card_sprite.setOrigin(texture.getSize().x / 2.0f, texture.getSize().y / 2.0f);
 
     // Load font
-    font.loadFromFile("data/BLKCHCRY.TTF");
+    font.loadFromFile("data/Another day in Paradise.ttf");
 
     // title
     title.setFont(font);
@@ -77,21 +77,6 @@ void Card::mask()
     is_reveal = false;
 }
 
-void Card::setPosition(float px, float py)
-{
-    card_sprite.setPosition(px, py);
-}
-
-void Card::setPosition(sf::Vector2f position)
-{
-    card_sprite.setPosition(position);
-}
-
-void Card::setScale(float sx, float sy)
-{
-    card_sprite.setScale(sx, sy);
-}
-
 void Card::update(float dt)
 {
     (void)dt;
@@ -99,6 +84,7 @@ void Card::update(float dt)
 
 void Card::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
+    states.transform *= getTransform();
     target.draw(card_sprite, states);
     if (is_reveal) {
         target.draw(title, states);

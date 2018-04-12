@@ -7,7 +7,33 @@ Board::Board(Core::Game *game, sf::Vector2f position)
 
     // Players zones
     std::vector<Core::Player *> players = game->getPlayers();
-    unsigned int nb_players = players.size();
+    Core::Player * current = game->getCurrentPlayer();
+
+    int i = 0;
+    while (players.size() > 0) {
+        if (current == players.back()) {
+            zones.push_back(new PlayerZone(players.back(), BOTTOM));
+        } else {
+            switch (i) {
+            case 0:
+                zones.push_back(new PlayerZone(players.back(), TOP));
+                break;
+
+            case 1:
+                zones.push_back(new PlayerZone(players.back(), LEFT));
+                break;
+
+            case 2:
+                zones.push_back(new PlayerZone(players.back(), RIGHT));
+                break;
+
+            default: break;
+            }
+
+            i++;
+        }
+        players.pop_back();
+    }
 }
 
 Board::~Board()

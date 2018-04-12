@@ -1,8 +1,8 @@
 #include "Hand.h"
 
-Hand::Hand(sf::Vector2f position)
+Hand::Hand()
+    : sf::Transformable(), sf::Drawable()
 {
-    this->position = position;
     cards[0] = NULL;
     cards[1] = NULL;
 }
@@ -18,6 +18,9 @@ Hand::~Hand()
 
 void Hand::addCard(Card *card)
 {
+    //card->setPosition(getPosition());
+    card->setScale(0.5f, 0.5f);
+    card->reveal();
     if (cards[0] == NULL)
         cards[0] = card;
     else
@@ -33,11 +36,11 @@ void Hand::update(float dt)
         cards[1]->update(dt);
 }
 
-void Hand::draw(sf::RenderWindow &window)
+void Hand::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
+    states.transform *= getTransform();
     if (cards[0])
-        window.draw(*cards[0]);
-
+        target.draw(*cards[0], states);
     if (cards[1])
-        window.draw(*cards[1]);
+        target.draw(*cards[1], states);
 }

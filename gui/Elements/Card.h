@@ -5,7 +5,7 @@
 #include "core/card.h"
 #include "Animation.h"
 
-class Card : public sf::Drawable
+class Card : public sf::Transformable, public sf::Drawable
 {
 
 private:
@@ -28,10 +28,6 @@ public:
     void clearAnimation();
     void reveal();
     void mask();
-
-    void setPosition(float px, float py);
-    void setPosition(sf::Vector2f position);
-    void setScale(float sx, float sy);
 
     void update(float dt);
     void draw(sf::RenderTarget &target, sf::RenderStates states) const;

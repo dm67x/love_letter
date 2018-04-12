@@ -26,7 +26,7 @@ Game::Game(unsigned int nb_players){
 
     // init players
     for (unsigned int i = 1; i <= nb_players; i++)
-            players.push_back(new Player("p" + (i + 1)));
+            players.push_back(new Player("player " + std::to_string(i)));
 }
 
 Game::~Game()

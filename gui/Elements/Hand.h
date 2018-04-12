@@ -3,7 +3,7 @@
 
 #include "Card.h"
 
-class Hand
+class Hand : public sf::Transformable, public sf::Drawable
 {
 
 private:
@@ -11,12 +11,12 @@ private:
     Card * cards[2];
 
 public:
-    Hand(sf::Vector2f position);
+    Hand();
     ~Hand();
 
     void addCard(Card * card);
     void update(float dt);
-    void draw(sf::RenderWindow & window);
+    void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 
 };
 
