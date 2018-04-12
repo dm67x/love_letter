@@ -1,7 +1,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
-#include "../network/MultiplayerGame.h"
+//#include "../network/MultiplayerGame.h"
 
 #include "test.h"
 
@@ -10,6 +10,7 @@ using namespace std;
 // Number of players randomized since this is test core class
 int main()
 {
+    /*
     // Get number_of_players
         unsigned int nop;
         std::cout << "Combien de joueur ? " << std::endl;
@@ -51,6 +52,6 @@ int main()
                 game->update();
             }
         }
-
+    */
 }
 

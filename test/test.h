@@ -1,7 +1,7 @@
 #ifndef TEST_H
 #define TEST_H
 
-#include "core/game.h"
+//#include "core/game.h"
 
 class Test
 {

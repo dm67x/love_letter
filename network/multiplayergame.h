@@ -14,6 +14,9 @@ public:
     void sig_exit(int s);
     void tcpExit();
 
+    void createServer();
+    void joinServer(string ip);
+
 private:
     TCPClient tcp;
 

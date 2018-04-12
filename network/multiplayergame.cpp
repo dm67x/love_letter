@@ -7,7 +7,7 @@ MultiplayerGame::MultiplayerGame(unsigned int nb) : Game(nb)
     //updateServer();
 }
 
-// Serialize infos for update
+// Serialize infos for update TODO
 string MultiplayerGame::serialize(){
     string s = "nbp:"+nb_players;
     // Add player's cards
