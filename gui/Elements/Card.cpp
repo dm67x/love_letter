@@ -24,10 +24,10 @@ Card::Card(Core::Card *card)
     title.setFont(font);
     title.setFillColor(sf::Color::Black);
     title.setString(card->getName());
-    title.setCharacterSize(24);
+    title.setCharacterSize(30);
     sf::FloatRect title_rect = title.getLocalBounds();
     title.setOrigin(title_rect.left + title_rect.width / 2, title_rect.top + title_rect.height / 2);
-    // TODO SET POSITION
+    title.setPosition(getPosition() - sf::Vector2f(0.0f, 175.0f));
 
     // description
     description.setFont(font);
@@ -38,7 +38,7 @@ Card::Card(Core::Card *card)
     description.setOrigin(desc_rect.left + desc_rect.width / 2, desc_rect.top + desc_rect.height / 2);
     // TODO SET POSITION
 
-    // description
+    // value
     value.setFont(font);
     value.setFillColor(sf::Color::Black);
     std::ostringstream oss;

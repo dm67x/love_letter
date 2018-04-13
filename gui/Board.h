@@ -13,6 +13,10 @@ private:
     Core::Game * game;
     std::vector<PlayerZone *> zones;
     Deck * deck;
+    sf::Transform transform;
+    sf::Vector2f position;
+    PlayerZone * current_player_zone;
+    unsigned int current_zone;
 
 public:
     Board(Core::Game * game, sf::Vector2f position);
@@ -20,7 +24,7 @@ public:
 
     void addPlayer(PlayerZone * player);
     void clear();
-    void rotate();
+    void nextTurn();
 
     void update(float dt);
     void draw(sf::RenderWindow & window);

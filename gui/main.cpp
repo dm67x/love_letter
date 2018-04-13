@@ -37,7 +37,7 @@ int main(void)
 
         sf::Time elapsed = clock.getElapsedTime();
 
-        screenManager->getCurrent()->update(elapsed.asSeconds());
+        screenManager->getCurrent()->update(evt, elapsed.asSeconds());
 
         clock.restart();
 

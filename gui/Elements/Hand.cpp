@@ -5,6 +5,9 @@ Hand::Hand()
 {
     cards[0] = NULL;
     cards[1] = NULL;
+
+    transforms[0].translate(-80.0f, 0.0f);
+    transforms[1].translate(80.0f, 0.0f);
 }
 
 Hand::~Hand()
@@ -18,13 +21,27 @@ Hand::~Hand()
 
 void Hand::addCard(Card *card)
 {
-    //card->setPosition(getPosition());
     card->setScale(0.5f, 0.5f);
-    card->reveal();
-    if (cards[0] == NULL)
+    if (!cards[0])
         cards[0] = card;
     else
         cards[1] = card;
+}
+
+void Hand::reveal()
+{
+    if (cards[0])
+        cards[0]->reveal();
+    if (cards[1])
+        cards[1]->reveal();
+}
+
+void Hand::mask()
+{
+    if (cards[0])
+        cards[0]->mask();
+    if (cards[1])
+        cards[1]->mask();
 }
 
 void Hand::update(float dt)
@@ -39,8 +56,15 @@ void Hand::update(float dt)
 void Hand::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
     states.transform *= getTransform();
-    if (cards[0])
-        target.draw(*cards[0], states);
-    if (cards[1])
-        target.draw(*cards[1], states);
+    if (cards[0]) {
+        sf::RenderStates cards_zero_states = states;
+        cards_zero_states.transform *= transforms[0];
+        target.draw(*cards[0], cards_zero_states);
+    }
+
+    if (cards[1]) {
+        sf::RenderStates cards_one_states = states;
+        cards_one_states.transform *= transforms[1];
+        target.draw(*cards[1], cards_one_states);
+    }
 }

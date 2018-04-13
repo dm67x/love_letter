@@ -34,7 +34,7 @@ public:
     ~MenuScreen();
 
     void loadContent();
-    void update(float dt);
+    void update(sf::Event evt, float dt);
     void draw(sf::RenderWindow & window);
 
 };

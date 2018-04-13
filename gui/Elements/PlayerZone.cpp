@@ -2,6 +2,7 @@
 #include "MainWindow.h"
 
 PlayerZone::PlayerZone(Core::Player *player, enum ZONES zone)
+    : sf::Transformable(), sf::Drawable()
 {
     this->zone = zone;
     this->player = player;
@@ -41,7 +42,6 @@ PlayerZone::PlayerZone(Core::Player *player, enum ZONES zone)
     name_transform.translate(-position);
 
     hand = new Hand();
-    //hand->setPosition(position);
     hand->addCard(new Card(player->getCard()));
 
     font.loadFromFile("data/Another day in Paradise.ttf");
@@ -66,8 +66,9 @@ void PlayerZone::update(float dt)
     hand->update(dt);
 }
 
-void PlayerZone::draw(sf::RenderWindow &window)
+void PlayerZone::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-    window.draw(*hand, hand_transform);
-    window.draw(player_name, name_transform);
+    states.transform *= getTransform();
+    target.draw(*hand, states.transform * hand_transform);
+    target.draw(player_name, states.transform * name_transform);
 }

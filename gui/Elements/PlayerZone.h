@@ -6,7 +6,7 @@
 
 enum ZONES { TOP, BOTTOM, LEFT, RIGHT };
 
-class PlayerZone
+class PlayerZone : public sf::Transformable, public sf::Drawable
 {
 
 private:
@@ -23,8 +23,10 @@ public:
     PlayerZone(Core::Player * player, enum ZONES zone);
     ~PlayerZone();
 
+    inline Hand * getHand() const { return hand; }
+
     void update(float dt);
-    void draw(sf::RenderWindow & window);
+    void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 
 };
 

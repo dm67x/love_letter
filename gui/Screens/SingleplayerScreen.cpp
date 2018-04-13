@@ -29,16 +29,20 @@ void SingleplayerScreen::loadContent()
     board = new Board(game, sf::Vector2f(getSize().x / 2.0f, getSize().y / 2.0f));
 }
 
-void SingleplayerScreen::update(float dt)
+void SingleplayerScreen::update(sf::Event evt, float dt)
 {
     (void)dt;
     //game->update();
+    board->update(dt);
 
     if (game->roundOver())
         // set winner screen and restart round
 
     if (game->gameOver())
         ScreenManager::getInstance()->switchTo("menu");
+
+    if (evt.type == sf::Event::KeyPressed && evt.key.code == sf::Keyboard::T)
+        board->nextTurn();
 }
 
 void SingleplayerScreen::draw(sf::RenderWindow &window)

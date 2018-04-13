@@ -34,7 +34,7 @@ void Player::reincarnate()
     dead = false;
 }
 
-void Player::pickCard()
+Card * Player::pickCard()
 {
     Card * picked_card = Deck::getInstance()->pickCard();
     if (hand[0] == NULL)
@@ -47,6 +47,8 @@ void Player::pickCard()
         discard(0);
     else if (hand[1] && hand[1]->getValue() == 7 && (hand[0]->getValue() == 5 || hand[0]->getValue() == 6))
         discard(1);
+
+    return picked_card;
 }
 
 void Player::switchHand(Player & p)

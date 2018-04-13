@@ -53,7 +53,7 @@ void MenuScreen::loadContent()
     quit_button->onClick(&quitButtonClicked);
 }
 
-void MenuScreen::update(float dt)
+void MenuScreen::update(sf::Event evt, float dt)
 {
     singleplayer_button->update();
     multiplayer_button->update();

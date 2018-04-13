@@ -28,12 +28,12 @@ public:
     inline unsigned short getPoints() const { return points; }
     inline bool hasShield() const { return shield; }
     inline bool isDead() const { return dead; }
-    inline Card * getCard() const { return hand[0]; }
+    inline Card * getCard(int i = 0) const { return hand[i]; }
 
     // OTHERS
     void kill(); // dead = true
     void reincarnate(); // dead = false
-    void pickCard(); // pick card from Deck
+    Card * pickCard(); // pick card from Deck
     void switchHand(Player & p); // switch hand with player "p"
     void setCard(Card * c); // set hand card
     void givePoint(); // give one point to player

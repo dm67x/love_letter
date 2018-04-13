@@ -21,7 +21,7 @@ Deck::Deck(Core::Deck * deck, sf::Vector2f position)
 Card *Deck::pickCard()
 {
     Card * top = cards.back();
-    deck->pickCard(); // remove card from core deck too
+    //deck->pickCard(); // remove card from core deck too
     cards.pop_back();
     return top;
 }
