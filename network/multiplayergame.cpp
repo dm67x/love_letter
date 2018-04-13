@@ -81,7 +81,7 @@ void MultiplayerGame::updateServer(){
 
 
 // SIGINT HANDLER => TODO
-void MultiplayerGame::sig_exit(int s)
+void MultiplayerGame::sig_exit()
 {
     tcp.exit();
     exit(0);

@@ -6,11 +6,8 @@ DEPENDPATH += $$PWD/../core
 
 unix: PRE_TARGETDEPS += $$OUT_PWD/../core/libcore.a
 
-
-CONFIG += -std=c++11
-
 TEMPLATE = lib
-CONFIG += staticlib static
+CONFIG += -std=c++11
 
 HEADERS += \
     server/server_multiple_connections.h \

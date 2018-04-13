@@ -11,7 +11,7 @@ public:
     MultiplayerGame(unsigned int nb);
     void updateServer();
     string serialize();
-    void sig_exit(int s);
+    void sig_exit();
     void tcpExit();
 
     void createServer();

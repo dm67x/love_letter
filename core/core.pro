@@ -1,6 +1,5 @@
 # MAKE THIS A LIBRARY
 TEMPLATE = lib
-CONFIG += staticlib static
 # ADD C++11 FOR COMPILING
 QMAKE_CXXFLAGS += -std=c++11
 CONFIG += -std=c++11
