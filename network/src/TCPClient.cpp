@@ -73,7 +73,7 @@ string TCPClient::receive(int size)
 	if( recv(sock , buffer , size, 0) < 0)
   	{
 	    	cout << "receive failed!" << endl;
-		return nullptr;
+        return NULL;
   	}
 	buffer[size-1]='\0';
   	reply = buffer;
@@ -88,7 +88,7 @@ string TCPClient::read()
     		if( recv(sock , buffer , sizeof(buffer) , 0) < 0)
     		{
       			cout << "receive failed!" << endl;
-			return nullptr;
+            return NULL;
     		}
 		reply += buffer[0];
 	}

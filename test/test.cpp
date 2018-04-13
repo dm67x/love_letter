@@ -1,8 +1,8 @@
+// TEST NETWORK : CLIENT 1 : HOST SERVER
+
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
-//#include "../network/MultiplayerGame.h"
-
 #include "test.h"
 
 using namespace std;
@@ -10,6 +10,12 @@ using namespace std;
 // Number of players randomized since this is test core class
 int main()
 {
+    unsigned int nb = 2;
+    MultiplayerGame * game = new MultiplayerGame(nb);
+    // host server
+    game->createServer();
+    printf("Hello guys");
+
     /*
     // Get number_of_players
         unsigned int nop;

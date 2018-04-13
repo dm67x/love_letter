@@ -1,9 +1,16 @@
+# CORE LIBRARY
 unix: LIBS += -L$$OUT_PWD/../core/ -lcore
 
 INCLUDEPATH += $$PWD/../core
 DEPENDPATH += $$PWD/../core
 
 unix: PRE_TARGETDEPS += $$OUT_PWD/../core/libcore.a
+
+
+CONFIG += -std=c++11
+
+TEMPLATE = lib
+CONFIG += staticlib static
 
 HEADERS += \
     server/server_multiple_connections.h \
@@ -18,6 +25,9 @@ SOURCES += \
     server/server_multiple_connections.cpp \
     src/TCPClient.cpp \
     src/TCPServer.cpp \
-    multiplayergame.cpp
+    multiplayergame.cpp \
+    getting_ip_example.cpp
+
+
 
 
