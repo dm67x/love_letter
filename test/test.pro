@@ -2,7 +2,8 @@ HEADERS += \
     test.h
 
 SOURCES += \
-    test.cpp
+    test_host.cpp \
+    test_client1.cpp
 
 QMAKE_CXXFLAGS += -std=c++11
 CONFIG += -std=c++11
