@@ -79,7 +79,7 @@ void MenuScreen::singleplayerButtonClicked()
 
 void MenuScreen::multiplayerButtonClicked()
 {
-
+    ScreenManager::getInstance()->switchTo("multiplayer");
 }
 
 void MenuScreen::creditsButtonClicked()
