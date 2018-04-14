@@ -11,12 +11,25 @@ private:
     sf::Sprite love_letter;
     sf::Texture love_letter_texture;
 
-    // TODO: Zone de texte
+    sf::Text number_players_choice_text;
+    sf::Color number_players_choice_color;
+
+    Button * two_players_button;
+    static void two_playersButtonClicked();
+    Button * three_players_button;
+    static void three_playersButtonClicked();
+    Button * four_players_button;
+    static void four_playersButtonClicked();
+
+    static int players_number;
+
+    sf::Font font;
 
     Button * play_button;
     static void playButtonClicked();
 
     const float space_between_menu = 70.0f;
+    const float space_players_choice = 30.0f;
 
     // Background
     sf::Sprite background;
