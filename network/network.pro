@@ -14,7 +14,8 @@ HEADERS += \
     src/socket.h \
     src/TCPClient.h \
     src/TCPServer.h \
-    multiplayergame.h
+    multiplayergame.h \
+    client/client.h
 
 SOURCES += \
     client/client.cpp \

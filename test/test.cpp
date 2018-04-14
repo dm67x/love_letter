@@ -14,7 +14,7 @@ int main()
     MultiplayerGame * game = new MultiplayerGame(nb);
     // host server
     game->createServer();
-    printf("Hello guys");
+    printf("\nHello guys\n");
 
     /*
     // Get number_of_players

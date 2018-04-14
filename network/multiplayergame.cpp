@@ -10,7 +10,7 @@ MultiplayerGame::MultiplayerGame(unsigned int nb) : Game(nb)
 
 // Creates server => starts server.out
 void MultiplayerGame::createServer(){
-    /*
+    /* USELESS
     // GETTING MY OWN IP
     struct ifaddrs * ifAddrStruct=NULL;
     struct ifaddrs * ifa=NULL;
@@ -45,7 +45,12 @@ void MultiplayerGame::createServer(){
     system(line.c_str());
     */
 
-    system("./server/server");
+    std::system("../../love_letter/network/server/server");
+    //system("pause");
+
+}
+
+void MultiplayerGame::joinServer(string ip){
 
 }
 

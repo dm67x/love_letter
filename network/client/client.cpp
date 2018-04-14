@@ -1,26 +1,31 @@
-/* test client
+/*
 #include <iostream>
 #include <signal.h>
+#include <string>
+//#include "client.h"
+
 #include "../src/TCPClient.h"
 
-TCPClient tcp;
+TCPClient * tcp = new TCPClient();
 
 void sig_exit(int s)
 {
-	tcp.exit();
+    tcp->exit();
 	exit(0);
 }
 
-int main(int argc, char *argv[])
+int main()
 {
-	signal(SIGINT, sig_exit);
+    //tcp = new TCPClient();
+
+    signal(SIGINT, sig_exit);
     
-    tcp.setup("127.0.0.1",8888);
+    tcp->setup("127.0.0.1",8888);
 	while(1)
 	{
 		srand(time(NULL));
-		tcp.Send(to_string(rand()%25000));
-		string rec = tcp.receive();
+        tcp->Send(to_string(rand()%25000));
+        string rec = tcp->receive();
 		if( rec != "" )
 		{
 			cout << "Server Response:" << rec << endl;
@@ -29,4 +34,5 @@ int main(int argc, char *argv[])
 	}
 	return 0;
 }
+
 */
