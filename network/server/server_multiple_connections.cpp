@@ -12,11 +12,11 @@
 #define TRUE   1
 #define FALSE  0
 #define PORT 8888
-
+/*
 int main(int argc , char *argv[])
 {
     int opt = TRUE;
-    int master_socket , addrlen , new_socket , client_socket[30] , max_clients = 30 , activity, i , valread , sd;
+    int master_socket , addrlen , new_socket , client_socket[30] , max_clients = 5 , activity, i , valread , sd;
     int max_sd;
     struct sockaddr_in address;
 
@@ -170,3 +170,4 @@ int main(int argc , char *argv[])
 
     return 0;
 }
+*/

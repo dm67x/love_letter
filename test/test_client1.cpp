@@ -6,7 +6,7 @@
 #include "test.h"
 
 using namespace std;
-
+/*
 int main()
 {
     unsigned int nb = 2;
@@ -69,7 +69,7 @@ int main()
         }
     }
 
-    /*
+
     // Get number_of_players
         unsigned int nop;
         std::cout << "Combien de joueur ? " << std::endl;
@@ -111,6 +111,6 @@ int main()
                 game->update();
             }
         }
-    */
-}
 
+}
+*/

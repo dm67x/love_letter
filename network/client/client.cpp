@@ -1,4 +1,3 @@
-/*
 #include <iostream>
 #include <signal.h>
 #include <string>
@@ -35,4 +34,4 @@ int main()
 	return 0;
 }
 
-*/
+

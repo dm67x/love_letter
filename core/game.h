@@ -34,6 +34,7 @@ public:
     void pickTarget(int target_index);
     void guessCard(string name);
     void setCurrentWinner(int index);
+    int getCurrentPlayerIndex();
 
     int getCurrentWinner();
 

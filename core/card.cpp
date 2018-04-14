@@ -19,5 +19,3 @@ string Card::getDescription()
 {
     return description;
 }
-
-

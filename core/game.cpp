@@ -197,3 +197,8 @@ bool Game::gameOver(){
 Player * Game::getCurrentPlayer(){
     return players[current_player];
 }
+
+// Return current player index
+int Game::getCurrentPlayerIndex(){
+    return current_player;
+}
