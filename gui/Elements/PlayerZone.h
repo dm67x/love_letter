@@ -18,6 +18,7 @@ private:
     Core::Player * player;
     sf::Text player_name;
     sf::Font font;
+    sf::Text score_number;
 
 public:
     PlayerZone(Core::Player * player, enum ZONES zone);

@@ -53,6 +53,15 @@ PlayerZone::PlayerZone(Core::Player *player, enum ZONES zone)
     player_name.setOrigin(player_name_rect.left + player_name_rect.width / 2.0f,
                           player_name_rect.top + player_name_rect.height / 2.0f);
     player_name.setPosition(position - sf::Vector2f(200.0f, 20.0f));
+
+    // Score configuration
+    score_number.setFont(font);
+    score_number.setString(std::to_string(player->getPoints()));
+    score_number.setCharacterSize(20);
+    sf::FloatRect score_number_rect = score_number.getLocalBounds();
+    score_number.setOrigin(score_number_rect.left + score_number_rect.width / 2.0f,
+                           score_number_rect.top + score_number_rect.height / 2.0f);
+    score_number.setPosition(position - sf::Vector2f(-200.0f, 20.0f));
 }
 
 PlayerZone::~PlayerZone()
@@ -71,4 +80,5 @@ void PlayerZone::draw(sf::RenderTarget &target, sf::RenderStates states) const
     states.transform *= getTransform();
     target.draw(*hand, states.transform * hand_transform);
     target.draw(player_name, states.transform * name_transform);
+    target.draw(score_number, states.transform * name_transform);
 }
