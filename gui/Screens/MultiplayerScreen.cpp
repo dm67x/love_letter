@@ -4,7 +4,7 @@
 #include "Buttons/MenuButton.h"
 
 MultiplayerScreen::MultiplayerScreen()
-    : Screen("multiplayer")
+    : Screen("multiplayermenu")
 {
 }
 

@@ -2,6 +2,7 @@
 #include "MainWindow.h"
 #include "Screens/MenuScreen.h"
 #include "Screens/SingleplayerScreen.h"
+#include "Screens/SingleplayermenuScreen.h"
 #include "Screens/MultiplayerScreen.h"
 #include "Screens/CreditsScreen.h"
 
@@ -20,6 +21,7 @@ int main(void)
     // Add screens
     screenManager->add(new MenuScreen());
     screenManager->add(new SingleplayerScreen());
+    screenManager->add(new SingleplayermenuScreen());
     screenManager->add(new MultiplayerScreen());
     screenManager->add(new CreditsScreen());
 

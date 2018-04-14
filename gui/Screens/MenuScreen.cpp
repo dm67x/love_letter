@@ -74,12 +74,12 @@ void MenuScreen::draw(sf::RenderWindow &window)
 
 void MenuScreen::singleplayerButtonClicked()
 {
-    ScreenManager::getInstance()->switchTo("singleplayer");
+    ScreenManager::getInstance()->switchTo("singleplayermenu");
 }
 
 void MenuScreen::multiplayerButtonClicked()
 {
-    ScreenManager::getInstance()->switchTo("multiplayer");
+    ScreenManager::getInstance()->switchTo("multiplayermenu");
 }
 
 void MenuScreen::creditsButtonClicked()
