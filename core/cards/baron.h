@@ -1,7 +1,9 @@
-#ifndef BARON_H
-#define BARON_H
+#ifndef BARON_CORE_H
+#define BARON_CORE_H
 
 #include "../card.h"
+
+namespace Core {
 
 class Baron : public Card
 {
@@ -13,4 +15,6 @@ public:
 
 };
 
-#endif // BARON_H
+}
+
+#endif // BARON_CORE_H

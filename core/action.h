@@ -1,7 +1,10 @@
-#ifndef ACTION_H
-#define ACTION_H
+#ifndef ACTION_CORE_H
+#define ACTION_CORE_H
 
 #include "player.h"
+#include "deck.h"
+
+namespace Core {
 
 class Action
 {
@@ -20,4 +23,6 @@ public:
 
 };
 
-#endif // ACTION_H
+}
+
+#endif // ACTION_CORE_H

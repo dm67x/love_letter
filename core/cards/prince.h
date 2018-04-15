@@ -1,7 +1,9 @@
-#ifndef PRINCE_H
-#define PRINCE_H
+#ifndef PRINCE_CORE_H
+#define PRINCE_CORE_H
 
 #include "../card.h"
+
+namespace Core {
 
 class Prince : public Card
 {
@@ -13,4 +15,6 @@ public:
 
 };
 
-#endif // PRINCE_H
+}
+
+#endif // PRINCE_CORE_H

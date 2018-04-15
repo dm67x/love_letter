@@ -1,6 +1,8 @@
 #include "action.h"
 #include <cstdlib>
 
+namespace Core {
+
 Action * Action::instance = NULL;
 
 Action * Action::getInstance()
@@ -19,4 +21,6 @@ void Action::clear()
 Action::Action()
 {
     clear();
+}
+
 }

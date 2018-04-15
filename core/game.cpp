@@ -1,5 +1,6 @@
 #include "game.h"
 
+namespace Core {
 
 // Start new Game with nb_players
 Game::Game(unsigned int nb_players){
@@ -25,7 +26,7 @@ Game::Game(unsigned int nb_players){
 
     // init players
     for (unsigned int i = 1; i <= nb_players; i++)
-            players.push_back(new Player("p" + (i + 1)));
+            players.push_back(new Player("player " + std::to_string(i)));
 }
 
 Game::~Game()
@@ -43,22 +44,22 @@ Game::~Game()
 void Game::startRound()
 {
     deck->clear();
-    deck->pickCard(); //
+    deck->removeCard(); // remove one card from deck
 
     if (nb_players == 2) {
-        //
-        deck->pickCard();
-        deck->pickCard();
-        deck->pickCard();
+        // remove three more cards if two players in game
+        deck->removeCard();
+        deck->removeCard();
+        deck->removeCard();
     } else {
-        deck->pickCard();
+        // remove one more card
+        deck->removeCard();
     }
 
     // init players and give them a card
     for (std::vector<Player *>::iterator i = players.begin(); i != players.end(); i++) {
-        (*i)->setDead(false);
-        (*i)->setProtection(false);
-        (*i)->pickCard(*deck);
+        (*i)->clear();
+        (*i)->pickCard();
     }
 
     nb_dead = 0;
@@ -97,8 +98,8 @@ Player * Game::startTurn()
     update();
 
     current_player = (current_player + 1) % nb_players;
-    if(p->hasProtection())
-        p->setProtection(false);
+    if(p->hasShield())
+        p->deactivateShield();
     action->clear();
     action->current = p;
     action->deck = deck;
@@ -137,7 +138,7 @@ bool Game::roundOver()
 // Check if round/game is over
 void Game::update()
 {    
-    if (nb_dead == nb_players - 1 || deck->count() == 0)
+    if (nb_dead == nb_players - 1 || deck->getCards().size() == 0)
     {
         Player * winner = NULL;
         round_end = true;
@@ -149,34 +150,32 @@ void Game::update()
             else {
                 // if "i" has bigger card value than "winner", "i" wins the game
                 if (winner->getCard()->getValue() < (*i)->getCard()->getValue()) {
-                    winner->setDead(true);
+                    winner->kill();
                     winner = (*i);
                 }
                 // if it's a tie
                 else if (winner->getCard()->getValue() == (*i)->getCard()->getValue()) {
                     int sum_w = 0, sum_i = 0;
                     // Sum of played cards of "winner"
-                    while (winner->getPlayedCards().size() != 0) {
-                        Card * c = winner->getPlayedCards().top();
-                        sum_w += c->getValue();
-                        winner->getPlayedCards().pop();
+                    for (std::list<Card *>::iterator card_it = winner->getPlayedCards().begin();
+                         card_it != winner->getPlayedCards().end(); card_it++) {
+                        sum_w += (*card_it)->getValue();
                     }
 
                     // Sum of played cards of "i"
-                    while ((*i)->getPlayedCards().size() != 0) {
-                        Card * c = (*i)->getPlayedCards().top();
-                        sum_i += c->getValue();
-                        (*i)->getPlayedCards().pop();
+                    for (std::list<Card *>::iterator card_it = (*i)->getPlayedCards().begin();
+                         card_it != (*i)->getPlayedCards().end(); card_it++) {
+                        sum_i += (*card_it)->getValue();
                     }
 
                     if (sum_w < sum_i) {
-                        winner->setDead(true);
+                        winner->kill();
                         winner = *i;
                     }
                 }
             }
 
-            (*i)->emptyCardsList();
+            (*i)->clear();
 
             if (!(*i)->isDead()) {
                 (*i)->givePoint();
@@ -198,7 +197,4 @@ Player * Game::getCurrentPlayer(){
     return players[current_player];
 }
 
-// Return current player index
-int Game::getCurrentPlayerIndex(){
-    return current_player;
 }

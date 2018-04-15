@@ -1,7 +1,9 @@
-#ifndef HANDMAID_H
-#define HANDMAID_H
+#ifndef HANDMAID_CORE_H
+#define HANDMAID_CORE_H
 
 #include "../card.h"
+
+namespace Core {
 
 class Handmaid : public Card
 {
@@ -13,4 +15,6 @@ public:
 
 };
 
-#endif // HANDMAID_H
+}
+
+#endif // HANDMAID_CORE_H

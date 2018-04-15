@@ -1,6 +1,5 @@
-#ifndef ALL_H
-#define ALL_H
-
+#ifndef ALL_CARDS_CORE_H
+#define ALL_CARDS_CORE_H
 
 #include "baron.h"
 #include "countess.h"
@@ -11,4 +10,4 @@
 #include "prince.h"
 #include "princess.h"
 
-#endif // ALL_H
+#endif // ALL_CARDS_CORE_H

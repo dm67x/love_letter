@@ -1,40 +1,33 @@
-# MAKE THIS A LIBRARY
 TEMPLATE = lib
-# ADD C++11 FOR COMPILING
-QMAKE_CXXFLAGS += -std=c++11
-CONFIG += -std=c++11
+CONFIG += staticlib static
 
 HEADERS += \
-    cards/all.h \
-    cards/baron.h \
-    cards/countess.h \
-    cards/guard.h \
-    cards/handmaid.h \
-    cards/king.h \
-    cards/priest.h \
-    cards/prince.h \
-    cards/princess.h \
-    action.h \
-    card.h \
-    deck.h \
     game.h \
-    ia.h \
+    card.h \
+    action.h \
+    cards/guard.h \
+    cards/priest.h \
     player.h \
-    utils.h
+    cards/baron.h \
+    cards/handmaid.h \
+    cards/prince.h \
+    cards/king.h \
+    cards/countess.h \
+    cards/princess.h \
+    deck.h \
+    cards/all.h
 
 SOURCES += \
-    cards/baron.cpp \
-    cards/countess.cpp \
-    cards/guard.cpp \
-    cards/handmaid.cpp \
-    cards/king.cpp \
-    cards/priest.cpp \
-    cards/prince.cpp \
-    cards/princess.cpp \
-    action.cpp \
-    card.cpp \
-    deck.cpp \
     game.cpp \
-    ia.cpp \
+    card.cpp \
+    action.cpp \
+    cards/guard.cpp \
+    cards/priest.cpp \
     player.cpp \
-    utils.cpp
+    cards/baron.cpp \
+    cards/handmaid.cpp \
+    cards/prince.cpp \
+    cards/king.cpp \
+    cards/countess.cpp \
+    cards/princess.cpp \
+    deck.cpp

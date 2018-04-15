@@ -1,17 +1,19 @@
-#ifndef GAME_H
-#define GAME_H
+#ifndef GAME_CORE_H
+#define GAME_CORE_H
 
 #include <vector>
 #include "deck.h"
 #include "player.h"
 #include "action.h"
 
+namespace Core {
+
 using namespace std;
 
 class Game
 {
 
-protected:
+private:
     vector<Player *> players;
     Deck * deck;
     Action * action;
@@ -29,12 +31,13 @@ public:
     Game(unsigned int nb_players);
     ~Game();
 
+    inline vector<Player *> getPlayers() const { return players; }
+
     void startRound();
     void update();
     void pickTarget(int target_index);
     void guessCard(string name);
     void setCurrentWinner(int index);
-    int getCurrentPlayerIndex();
 
     int getCurrentWinner();
 
@@ -47,9 +50,8 @@ public:
     bool roundOver(); //isFinished
     bool gameOver(); //isEnd
 
-
-
-
 };
 
-#endif // GAME_H
+}
+
+#endif // GAME_CORE_H
