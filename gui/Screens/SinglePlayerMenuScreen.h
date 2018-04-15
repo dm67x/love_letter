@@ -21,8 +21,6 @@ private:
     Button * four_players_button;
     static void four_playersButtonClicked();
 
-    static int players_number;
-
     sf::Font font;
 
     Button * play_button;
@@ -38,6 +36,8 @@ private:
 public:
     SingleplayermenuScreen();
     ~SingleplayermenuScreen();
+
+    static int players_number;
 
     void loadContent();
     void update(sf::Event evt, float dt);

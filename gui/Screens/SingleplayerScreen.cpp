@@ -1,4 +1,5 @@
 #include "SingleplayerScreen.h"
+#include "SinglePlayerMenuScreen.h"
 #include "ScreenManager.h"
 
 SingleplayerScreen::SingleplayerScreen()
@@ -22,7 +23,7 @@ void SingleplayerScreen::loadContent()
     content_loaded = true;
 
     // Init game
-    game = new Core::Game(4);
+    game = new Core::Game(SingleplayermenuScreen::players_number);
     game->startRound();
 
     // Board
