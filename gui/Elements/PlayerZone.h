@@ -13,6 +13,7 @@ private:
     Core::Player * player;
     sf::Text player_name;
     sf::Font font;
+    sf::Text score_number;
 
     // Debug
     DebugBounds * debug;

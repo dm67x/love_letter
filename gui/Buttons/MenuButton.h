@@ -11,7 +11,9 @@ private:
     sf::Texture normal, hover;
     sf::Text text;
     sf::Font font;
-    sf::Color n_color, h_color;
+    sf::Color n_color, h_color, p_color;
+
+    bool isPressed;
 
 public:
     MenuButton(std::string text, sf::Vector2f position);
@@ -20,6 +22,8 @@ public:
     void update();
     void draw(sf::RenderWindow &window);
 
+    void buttonPressed();
+    void buttonUnpressed();
 };
 
 #endif // MENUBUTTON_H

@@ -28,7 +28,9 @@ SOURCES += \
     Elements/PlayerZone.cpp \
     Board.cpp \
     Buttons/MenuButton.cpp \
-    DebugBounds.cpp
+    DebugBounds.cpp \
+    Screens/MultiplayerScreen.cpp \
+    Screens/SingleplayermenuScreen.cpp
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../core/release/ -lcore
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../core/debug/ -lcore
@@ -61,4 +63,6 @@ HEADERS += \
     Elements/PlayerZone.h \
     Board.h \
     Buttons/MenuButton.h \
-    DebugBounds.h
+    DebugBounds.h \
+    Screens/MultiplayerScreen.h \
+    Screens/SingleplayermenuScreen.h

@@ -10,7 +10,7 @@ PlayerZone::PlayerZone(Core::Player * player, sf::FloatRect bounds)
     font.loadFromFile("data/Another day in Paradise.ttf");
 
     player_name.setFont(font);
-    player_name.setString(player->getName());
+    player_name.setString(player->getName() + "-" + std::to_string(player->getPoints()));
     player_name.setCharacterSize(20);
     sf::FloatRect player_name_rect = player_name.getLocalBounds();
     player_name.setOrigin(player_name_rect.left + player_name_rect.width / 2.0f,
