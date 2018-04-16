@@ -1,6 +1,10 @@
 #ifndef CARD_H
 #define CARD_H
 
+/**
+  * Ajouter une fonction de click sur les cartes (pour les jouer notamment)
+  */
+
 #include <SFML/Graphics.hpp>
 #include "core/card.h"
 #include "Animation.h"
@@ -23,6 +27,8 @@ public:
     ~Card();
 
     inline Animation * getAnimation() const { return animation; }
+    inline sf::Sprite * getSprite() { return &card_sprite; }
+    sf::Vector2f getDimensions() const;
 
     void setAnimation(Animation * anim);
     void clearAnimation();

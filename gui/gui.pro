@@ -27,7 +27,8 @@ SOURCES += \
     Elements/Hand.cpp \
     Elements/PlayerZone.cpp \
     Board.cpp \
-    Buttons/MenuButton.cpp
+    Buttons/MenuButton.cpp \
+    DebugBounds.cpp
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../core/release/ -lcore
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../core/debug/ -lcore
@@ -59,4 +60,5 @@ HEADERS += \
     Elements/Hand.h \
     Elements/PlayerZone.h \
     Board.h \
-    Buttons/MenuButton.h
+    Buttons/MenuButton.h \
+    DebugBounds.h

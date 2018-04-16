@@ -22,7 +22,7 @@ public:
     inline bool isContentLoaded() const { return content_loaded; }
     sf::Vector2u getSize();
 
-    virtual void loadContent() = 0;
+    virtual void loadContent();
     virtual void update(sf::Event evt, float dt) = 0;
     virtual void draw(sf::RenderWindow & window) = 0;
 

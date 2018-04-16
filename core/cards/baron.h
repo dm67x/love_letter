@@ -11,6 +11,8 @@ class Baron : public Card
 public:
     Baron();
 
+    bool needGuess() { return false; }
+    bool needTarget() { return true; }
     void activeEffect();
 
 };

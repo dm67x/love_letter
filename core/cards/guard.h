@@ -10,6 +10,9 @@ class Guard : public Card
 
 public:
     Guard();
+
+    bool needGuess() { return true; }
+    bool needTarget() { return true; }
     void activeEffect();
 
 };

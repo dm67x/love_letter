@@ -15,3 +15,8 @@ sf::Vector2u Screen::getSize()
 {
     return MainWindow::getInstance()->getSize();
 }
+
+void Screen::loadContent()
+{
+    content_loaded = true;
+}

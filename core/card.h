@@ -25,6 +25,8 @@ public:
     inline string getName() const { return name; }
     inline string getDescription() const { return description; }
 
+    virtual bool needTarget() = 0;
+    virtual bool needGuess() = 0;
     virtual void activeEffect() = 0;
 
 };
