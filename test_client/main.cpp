@@ -1,9 +1,9 @@
-// TEST NETWORK : CLIENT 1 : HOST SERVER
+// TEST NETWORK : CLIENT 1 : CONNECT TO SERVER
+// TODO
 
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
-#include "test.h"
 
 using namespace std;
 /*
