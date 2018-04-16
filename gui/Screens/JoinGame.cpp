@@ -47,9 +47,13 @@ void JoinGame::loadContent()
     ip_adress_text.setPosition(sf::Vector2f(size.x / 2.5, 375.0f * background.getScale().y));
     sf::FloatRect ipa_label_rect = ip_adress_text.getGlobalBounds();
 
+    ip_adress_ta = new TextArea(sf::Vector2f(ipa_label_rect.left + ipa_label_rect.width + 10.0f,
+                                             375.0f * background.getScale().y));
+
     // Join button
     join_button = new MenuButton("Join",
-        sf::Vector2f(size.x / 2, ipa_label_rect.height + ipa_label_rect.top + 2 * space_between_menu));
+        sf::Vector2f(size.x / 2,
+                     ipa_label_rect.height + ipa_label_rect.top + 2 * space_between_menu));
     join_button->onClick(&joinButtonClicked);
 }
 

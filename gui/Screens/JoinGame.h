@@ -4,6 +4,7 @@
 #include "Screen.h"
 #include "Buttons\MenuButton.h"
 #include "Button.h"
+#include "Buttons\TextArea.h"
 
 class JoinGame : public Screen
 {
@@ -18,6 +19,7 @@ private:
     sf::Color ip_adress_color;
 
     // TODO: ADD TEXT AREA
+    TextArea * ip_adress_ta;
 
     Button * join_button;
     static void joinButtonClicked();
