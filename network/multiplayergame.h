@@ -5,7 +5,7 @@
 #include "src/TCPClient.h"
 #include <string.h>
 
-class MultiplayerGame : public Game
+class MultiplayerGame : public Core::Game
 {
 public:
     MultiplayerGame(unsigned int nb);

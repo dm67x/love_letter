@@ -197,4 +197,9 @@ Player * Game::getCurrentPlayer(){
     return players[current_player];
 }
 
+// Return current player
+int Game::getCurrentPlayerIndex(){
+    return current_player;
+}
+
 }

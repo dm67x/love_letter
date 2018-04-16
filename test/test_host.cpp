@@ -46,33 +46,33 @@ int main()
                     // MUST THROW AN ERROR
                 }
                 // Reproduce on my local game what happened on the others
-                Player * p = game->startTurn();
-                p->pickCard(*game->getDeck());
+                Core::Player * p = game->startTurn();
+                p->pickCard();
 
                 // Played Card
                 if(rec.length() == 1){
-                    p->play(atoi(rec.c_str()));
+                    p->discard(atoi(rec.c_str()));
                 }
 
                 // Played Card + Target
                 if(rec.length() == 2){
                     game->pickTarget(rec.at(1));
-                    p->play(int(rec.at(0)));
+                    p->discard(int(rec.at(0)));
                 }
 
                 // Played Card + Target + Guessed Card
                 if(rec.length() == 3){
                     game->pickTarget(rec.at(1));
                     game->guessCard(rec.substr(2));
-                    p->play(int(rec.at(0)));
+                    p->discard(int(rec.at(0)));
                 }
 
             // It is my turn
             }else{
                 rec = ""; //use this to send server infos
 
-                Player * p = game->startTurn();
-                p->pickCard(*game->getDeck());
+                Core::Player * p = game->startTurn();
+                p->pickCard();
 
                 // Show cards to play
                 std::cout << "0: " << p->getCard()->getName() << std::endl;
@@ -102,7 +102,7 @@ int main()
                     game->guessCard(card);
                 }
 
-                p->play(play_card);
+                p->discard(play_card);
 
                 game->update();
 

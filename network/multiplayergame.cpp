@@ -58,6 +58,7 @@ void MultiplayerGame::joinServer(string ip){
 
 // Serialize infos for update TODO
 string MultiplayerGame::serialize(){
+    /*
     string s = "nbp:"+nb_players;
     // Add player's cards
     for(unsigned int i = 0; i < nb_players; i++){
@@ -67,6 +68,7 @@ string MultiplayerGame::serialize(){
         s += "!";
     }
     return s;
+    */
 }
 
 // Send my infos to the Server
