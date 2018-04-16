@@ -2,6 +2,7 @@
 #define SINGLEPLAYERMENUSCREEN_H
 
 #include "Screen.h"
+#include "Buttons\MenuButton.h"
 #include "Button.h"
 
 class SingleplayermenuScreen : public Screen
@@ -14,11 +15,11 @@ private:
     sf::Text number_players_choice_text;
     sf::Color number_players_choice_color;
 
-    Button * two_players_button;
+    static MenuButton * two_players_button;
     static void two_playersButtonClicked();
-    Button * three_players_button;
+    static MenuButton * three_players_button;
     static void three_playersButtonClicked();
-    Button * four_players_button;
+    static MenuButton * four_players_button;
     static void four_playersButtonClicked();
 
     sf::Font font;

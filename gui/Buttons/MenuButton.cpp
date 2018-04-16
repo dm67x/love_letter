@@ -5,6 +5,7 @@ MenuButton::MenuButton(std::string text, sf::Vector2f position)
 {
     n_color = sf::Color(226, 26, 57);
     h_color = sf::Color(0, 128, 128);
+    p_color = sf::Color(100, 100, 100);
 
     // Font & text
     font.loadFromFile("data/Another day in Paradise.ttf");
@@ -20,6 +21,8 @@ MenuButton::MenuButton(std::string text, sf::Vector2f position)
     this->text.setPosition(position);
 
     rect = this->text.getGlobalBounds();
+
+    isPressed = false;
 }
 
 MenuButton::~MenuButton()
@@ -36,7 +39,11 @@ void MenuButton::update()
         text.setFillColor(h_color);
     } else {
         button.setTexture(normal);
-        text.setFillColor(n_color);
+        if(isPressed) {
+            text.setFillColor(p_color);
+        } else {
+            text.setFillColor(n_color);
+        }
     }
 }
 
@@ -44,4 +51,14 @@ void MenuButton::draw(sf::RenderWindow &window)
 {
     window.draw(button);
     window.draw(text);
+}
+
+void MenuButton::buttonPressed()
+{
+    isPressed = true;
+}
+
+void MenuButton::buttonUnpressed()
+{
+    isPressed = false;
 }
