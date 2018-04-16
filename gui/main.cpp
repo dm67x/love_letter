@@ -5,6 +5,7 @@
 #include "Screens/SingleplayermenuScreen.h"
 #include "Screens/MultiplayerScreen.h"
 #include "Screens/CreateGame.h"
+#include "Screens/JoinGame.h"
 #include "Screens/CreditsScreen.h"
 
 int main(void)
@@ -25,6 +26,7 @@ int main(void)
     screenManager->add(new SingleplayermenuScreen());
     screenManager->add(new MultiplayerScreen());
     screenManager->add(new CreateGame());
+    screenManager->add(new JoinGame());
     screenManager->add(new CreditsScreen());
 
     sf::Clock clock;

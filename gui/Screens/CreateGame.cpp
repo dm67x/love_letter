@@ -123,7 +123,6 @@ void CreateGame::four_playersButtonclicked()
 
 void CreateGame::playButtonClicked()
 {
-    // ScreenManager::getInstance()->switchTo("");
-    // A relier avec la partie de Jawed
+    // TODO: Link to Jawed's part
 }
 

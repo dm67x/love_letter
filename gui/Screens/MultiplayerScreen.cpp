@@ -62,5 +62,5 @@ void MultiplayerScreen::create_gameButtonClicked()
 
 void MultiplayerScreen::join_gameButtonClicked()
 {
-    //TODO
+    ScreenManager::getInstance()->switchTo("multiplayer/joingame");
 }
