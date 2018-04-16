@@ -36,6 +36,17 @@ int main()
     while (!game->gameOver())
     {
         game->startRound();
+        // Build string to send to server
+        Core::Deck * d = game->getDeck();
+        string deck = "";
+        // add first letter of each card
+            // prince = p ; princess = z ;
+        for(std::list<Core::Card *>::iterator it = d->getCards().begin(); it != d->getCards().end(); it++){
+            deck += (*it)->getName().at(0);
+        }
+        // Send Deck to server
+        tcp->Send(deck);
+
         while (!game->roundOver())
         {
             // If it's not my turn, I wait for server to tell me smth

@@ -2,8 +2,7 @@ HEADERS += \
     test.h
 
 SOURCES += \
-    test_host.cpp \
-    test_client1.cpp
+    main.cpp
 
 QMAKE_CXXFLAGS += -std=c++11
 CONFIG += -std=c++11
@@ -23,5 +22,3 @@ unix:!macx: LIBS += -L$$OUT_PWD/../network/ -lnetwork
 
 INCLUDEPATH += $$PWD/../network
 DEPENDPATH += $$PWD/../network
-
-unix:!macx: PRE_TARGETDEPS += $$OUT_PWD/../network/libnetwork.a
