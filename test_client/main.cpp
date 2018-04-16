@@ -4,9 +4,11 @@
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
+#include <string>
+#include "../network/multiplayergame.h"
 
 using namespace std;
-/*
+
 int main()
 {
     unsigned int nb = 2;
@@ -15,75 +17,61 @@ int main()
     game->createServer();
     printf("\nHello guys\n");
 
+    // Init connection
+    TCPClient * tcp = new TCPClient();
+    // Connect localhost cause we host the server
+    tcp->setup("127.0.0.1",8888);
+
     int currentTurn = 0;
-    int myNumber = joinServer(ip); //1 //2
+    int myNumber = joinServer("127.0.0.1"); //1 //2
 
     // OTHER GUY CONNECTS
     // I AM THE PLAYER 1
 
-    while (!game->isEnd())
+    // Locally start the game
+    while (!game->gameOver())
     {
         game->startRound();
-        while (!game->roundFinished())
+        // Receive the Deck from Server
+        string deck = tcp->receive();
+
+        while (!game->roundOver())
         {
-            if(currentTurn != myNumber){
-                wait;
-                // EXECUTE WHAT HAPPEND
-                // currenTurn++
-            }
-            //IF NOT MY TURN, WAIT UNTIL I KNOW WHAT HAPPEND
-            //PLayer 1 played
-            // p->pickCard()
-            Player * p = game->startTurn();
-            p->pickCard(*game->getDeck());
+            // If it's not my turn, I wait for server to tell me smth
+            if(game->getCurrentPlayerIndex() != myNumber){
+                rec = tcp->receive();
 
-            // Show cards to play
-            std::cout << "0: " << p->getCard()->getName() << std::endl;
-            std::cout << "1: " << p->getCard(1)->getName() << std::endl;
+                if(rec.length() < 1){
+                    // MUST THROW AN ERROR
+                }
+                // Reproduce on my local game what happened on the others
+                Core::Player * p = game->startTurn();
+                p->pickCard();
 
-            // Select card to play
-            std::cout << "Which card to play ?" << std::endl;
-            int play_card;
-            std::cin >> play_card;
+                // Played Card
+                if(rec.length() == 1){
+                    p->discard(atoi(rec.c_str()));
+                }
 
-            if (p->getCard(play_card)->getName() == "Guard") {
-                std::cout << "Choose a target ?" << std::endl;
-                int target;
-                std::cin >> target;
-                std::cout << "Guess a card ?" << std::endl;
-                std::string card;
-                std::cin >> card;
+                // Played Card + Target
+                if(rec.length() == 2){
+                    game->pickTarget(rec.at(1));
+                    p->discard(int(rec.at(0)));
+                }
 
-                game->pickTarget(target);
-                game->guessCard(card);
-            }
+                // Played Card + Target + Guessed Card
+                if(rec.length() == 3){
+                    game->pickTarget(rec.at(1));
+                    game->guessCard(rec.substr(2));
+                    p->discard(int(rec.at(0)));
+                }
 
-            // p->play(1);
-            //
+            // It is my turn
+            }else{
+                rec = ""; //use this to send server infos
 
-            p->play(play_card);
-
-            game->update();
-
-            currentTurn++;
-        }
-    }
-
-
-    // Get number_of_players
-        unsigned int nop;
-        std::cout << "Combien de joueur ? " << std::endl;
-        std::cin >> nop;
-
-        game = new MultiplayerGame(nop);
-
-        while (!game->isEnd())
-        {
-            game->startRound();
-            while (!game->roundFinished())
-            {
-                Player * p = game->startTurn();
-                p->pickCard(*game->getDeck());
+                Core::Player * p = game->startTurn();
+                p->pickCard();
 
                 // Show cards to play
                 std::cout << "0: " << p->getCard()->getName() << std::endl;
@@ -94,23 +82,34 @@ int main()
                 int play_card;
                 std::cin >> play_card;
 
+                rec += ""+play_card; // send to server
+
                 if (p->getCard(play_card)->getName() == "Guard") {
                     std::cout << "Choose a target ?" << std::endl;
                     int target;
                     std::cin >> target;
+
+                    rec += ""+play_card; // send to server
+
                     std::cout << "Guess a card ?" << std::endl;
                     std::string card;
                     std::cin >> card;
+
+                    rec += ""+card; // send to server
 
                     game->pickTarget(target);
                     game->guessCard(card);
                 }
 
-                p->play(play_card);
+                p->discard(play_card);
 
                 game->update();
+
+                // SEND INFO TO SERVER
+                tcp->Send(rec);
             }
+
         }
+    }
 
 }
-*/
