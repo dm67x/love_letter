@@ -22,12 +22,10 @@ public:
     TextArea(sf::Vector2f position, int cnl);
     ~TextArea();
 
+    void construct(sf::Vector2f position);
+
     void update(sf::Event evt);
     void draw(sf::RenderWindow &window);
-
-    void areaFocused();
-    void areaUnfocused();
-
 };
 
 #endif // TEXTAREA_H
