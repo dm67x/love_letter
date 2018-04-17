@@ -54,6 +54,13 @@ Card::~Card()
 {
 }
 
+sf::Vector2f Card::getDimensions() const
+{
+    sf::Vector2u texture_s = texture.getSize();
+    sf::Vector2f scale = getScale();
+    return sf::Vector2f(texture_s.x * scale.x, texture_s.y * scale.y);
+}
+
 void Card::setAnimation(Animation *anim)
 {
     animation = anim;
@@ -61,8 +68,10 @@ void Card::setAnimation(Animation *anim)
 
 void Card::clearAnimation()
 {
-    delete animation;
-    animation = NULL;
+    if (animation) {
+        delete animation;
+        animation = NULL;
+    }
 }
 
 void Card::reveal()
@@ -79,12 +88,17 @@ void Card::mask()
 
 void Card::update(float dt)
 {
-    (void)dt;
+    if (animation) {
+        if (animation->getState() == NOT_LAUNCH)
+            animation->start();
+        animation->update(dt);
+    }
 }
 
 void Card::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
     states.transform *= getTransform();
+
     target.draw(card_sprite, states);
     if (is_reveal) {
         target.draw(title, states);

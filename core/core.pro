@@ -1,5 +1,6 @@
 TEMPLATE = lib
 CONFIG += staticlib static
+QMAKE_CXXFLAGS += -std=c++11
 
 HEADERS += \
     game.h \

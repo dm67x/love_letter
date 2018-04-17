@@ -10,6 +10,9 @@ class Princess : public Card
 
 public:
     Princess();
+
+    bool needGuess() { return false; }
+    bool needTarget() { return false; }
     void activeEffect();
 
 };

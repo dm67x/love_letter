@@ -11,6 +11,9 @@ private:
     Screen * current; // current screen
     std::vector<Screen *> screens; // list of screens
 
+protected:
+    Screen * previous; // previous screen
+
 private:
     ScreenManager();
 
@@ -20,6 +23,7 @@ public:
 
     void add(Screen * screen);
     void switchTo(std::string name);
+    void switchToLock(std::string name);
     Screen * getCurrent();
 
 };

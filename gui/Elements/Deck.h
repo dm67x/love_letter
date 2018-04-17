@@ -5,7 +5,7 @@
 #include <vector>
 #include "core/deck.h"
 
-class Deck
+class Deck : public sf::Drawable
 {
 
 private:
@@ -17,7 +17,7 @@ public:
     Deck(Core::Deck * deck, sf::Vector2f position);
 
     Card * pickCard(); // pick card from top of deck
-    void draw(sf::RenderWindow & window);
+    void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 
 };
 

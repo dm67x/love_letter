@@ -3,6 +3,7 @@
 ScreenManager::ScreenManager()
 {
     current = NULL;
+    previous = NULL;
 }
 
 ScreenManager::~ScreenManager()
@@ -27,6 +28,7 @@ void ScreenManager::add(Screen *screen)
 
 void ScreenManager::switchTo(std::string name)
 {
+    previous = current;
     for (std::vector<Screen *>::iterator it = screens.begin(); it != screens.end(); it++)
     {
         if ((*it)->getName().compare(name) == 0) {

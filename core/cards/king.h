@@ -11,6 +11,8 @@ class King : public Card
 public:
     King();
 
+    bool needGuess() { return false; }
+    bool needTarget() { return true; }
     void activeEffect();
 
 };

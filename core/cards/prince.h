@@ -11,6 +11,8 @@ class Prince : public Card
 public:
     Prince();
 
+    bool needGuess() { return false; }
+    bool needTarget() { return true; }
     void activeEffect();
 
 };

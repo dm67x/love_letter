@@ -11,6 +11,8 @@ class Countess : public Card
 public:
     Countess();
 
+    bool needGuess() { return false; }
+    bool needTarget() { return false; }
     void activeEffect();
 
 };

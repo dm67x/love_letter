@@ -11,6 +11,8 @@ class Handmaid : public Card
 public:
     Handmaid();
 
+    bool needGuess() { return false; }
+    bool needTarget() { return false; }
     void activeEffect();
 
 };

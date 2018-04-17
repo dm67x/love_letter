@@ -20,20 +20,20 @@ SingleplayerScreen::~SingleplayerScreen()
 
 void SingleplayerScreen::loadContent()
 {
-    content_loaded = true;
+    Screen::loadContent();
 
     // Init game
     game = new Core::Game(SingleplayermenuScreen::players_number);
     game->startRound();
 
     // Board
-    board = new Board(game, sf::Vector2f(getSize().x / 2.0f, getSize().y / 2.0f));
+    sf::Vector2u size = getSize();
+    board = new Board(game, sf::FloatRect(0, 0, size.x, size.y));
 }
 
 void SingleplayerScreen::update(sf::Event evt, float dt)
 {
-    (void)dt;
-    //game->update();
+    game->update();
     board->update(dt);
 
     if (game->roundOver())
@@ -42,12 +42,13 @@ void SingleplayerScreen::update(sf::Event evt, float dt)
     if (game->gameOver())
         ScreenManager::getInstance()->switchTo("menu");
 
-    if (evt.type == sf::Event::KeyPressed && evt.key.code == sf::Keyboard::T)
+    if (evt.type == sf::Event::KeyPressed && evt.key.code == sf::Keyboard::T
+            && game->getDeck()->getCards().size() > 0)
         board->nextTurn();
 }
 
 void SingleplayerScreen::draw(sf::RenderWindow &window)
 {
     window.clear();
-    board->draw(window);
+    window.draw(*board);
 }

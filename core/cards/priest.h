@@ -10,6 +10,9 @@ class Priest : public Card
 
 public:
     Priest();
+
+    bool needGuess() { return false; }
+    bool needTarget() { return true; }
     void activeEffect();
 
 };

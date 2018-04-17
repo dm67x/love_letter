@@ -12,7 +12,7 @@ CreditsScreen::~CreditsScreen()
 
 void CreditsScreen::loadContent()
 {
-    content_loaded = true;
+    Screen::loadContent();
 
     // Size
     sf::Vector2u size = getSize();

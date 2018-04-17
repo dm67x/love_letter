@@ -3,25 +3,23 @@
 
 #include "Hand.h"
 #include "core/player.h"
-
-enum ZONES { TOP, BOTTOM, LEFT, RIGHT };
+#include "DebugBounds.h"
 
 class PlayerZone : public sf::Transformable, public sf::Drawable
 {
 
 private:
     Hand * hand;
-    enum ZONES zone;
-    sf::Transform hand_transform, name_transform;
-    sf::Vector2f position;
-    double rotate;
     Core::Player * player;
     sf::Text player_name;
     sf::Font font;
     sf::Text score_number;
 
+    // Debug
+    DebugBounds * debug;
+
 public:
-    PlayerZone(Core::Player * player, enum ZONES zone);
+    PlayerZone(Core::Player * player, sf::FloatRect bounds);
     ~PlayerZone();
 
     inline Hand * getHand() const { return hand; }

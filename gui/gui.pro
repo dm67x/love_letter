@@ -28,6 +28,7 @@ SOURCES += \
     Elements/PlayerZone.cpp \
     Board.cpp \
     Buttons/MenuButton.cpp \
+    DebugBounds.cpp \
     Screens/MultiplayerScreen.cpp \
     Screens/SingleplayermenuScreen.cpp \
     Screens/CreateGame.cpp \
@@ -65,6 +66,7 @@ HEADERS += \
     Elements/PlayerZone.h \
     Board.h \
     Buttons/MenuButton.h \
+    DebugBounds.h \
     Screens/MultiplayerScreen.h \
     Screens/SingleplayermenuScreen.h \
     Screens/CreateGame.h \
