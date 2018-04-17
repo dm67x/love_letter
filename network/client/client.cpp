@@ -12,7 +12,7 @@ void sig_exit(int s)
     tcp->exit();
 	exit(0);
 }
-
+/*
 int main()
 {
     //tcp = new TCPClient();
@@ -33,5 +33,6 @@ int main()
 	}
 	return 0;
 }
+*/
 
 
