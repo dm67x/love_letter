@@ -14,7 +14,7 @@ JoinGame::JoinGame()
 JoinGame::~JoinGame()
 {
     delete join_button;
-    // TODO: ADD TEXT AREA
+    delete ip_adress_ta;
 }
 
 void JoinGame::loadContent()
@@ -47,8 +47,8 @@ void JoinGame::loadContent()
     ip_adress_text.setPosition(sf::Vector2f(size.x / 2.5, 375.0f * background.getScale().y));
     sf::FloatRect ipa_label_rect = ip_adress_text.getGlobalBounds();
 
-    ip_adress_ta = new TextArea(sf::Vector2f(ipa_label_rect.left + ipa_label_rect.width + 10.0f,
-                                             375.0f * background.getScale().y));
+    ip_adress_ta = new TextArea(sf::Vector2f(ipa_label_rect.left + ipa_label_rect.width + 15.0f,
+                                             ipa_label_rect.top), 14);
 
     // Join button
     join_button = new MenuButton("Join",
@@ -60,6 +60,7 @@ void JoinGame::loadContent()
 void JoinGame::update(sf::Event evt, float dt)
 {
     join_button->update();
+    ip_adress_ta->update(evt);
 }
 
 void JoinGame::draw(sf::RenderWindow &window)
@@ -68,6 +69,7 @@ void JoinGame::draw(sf::RenderWindow &window)
 
     window.draw(background);
     join_button->draw(window);
+    ip_adress_ta->draw(window);
     window.draw(ip_adress_text);
 }
 

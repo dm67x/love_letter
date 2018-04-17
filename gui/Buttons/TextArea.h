@@ -13,10 +13,13 @@ private:
     sf::Font font;
     sf::Color n_color, h_color;
 
+    int character_number_limit;
+
     bool hasFocus;
 
 public:
     TextArea(sf::Vector2f position);
+    TextArea(sf::Vector2f position, int cnl);
     ~TextArea();
 
     void update(sf::Event evt);

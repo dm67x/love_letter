@@ -12,6 +12,7 @@ int main(void)
 {
     MainWindow * window = MainWindow::getInstance();
     window->setFramerateLimit(60);
+    window->setKeyRepeatEnabled(false);
 
 #if FULLSCREEN
     window->setFullscreen();
