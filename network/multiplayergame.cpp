@@ -50,8 +50,11 @@ void MultiplayerGame::createServer(){
 
 }
 
-void MultiplayerGame::joinServer(string ip){
-
+int MultiplayerGame::joinServer(string ip){
+    tcp.setup(ip,8888);
+    tcp.Send("c");
+    string res = tcp.receive();
+    return int(res);
 }
 
 

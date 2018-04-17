@@ -15,7 +15,7 @@ public:
     void tcpExit();
 
     void createServer();
-    void joinServer(string ip);
+    int joinServer(string ip);
 
 private:
     TCPClient tcp;

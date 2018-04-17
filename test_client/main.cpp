@@ -15,15 +15,13 @@ int main()
     MultiplayerGame * game = new MultiplayerGame(nb);
     // host server
     game->createServer();
-    printf("\nHello guys\n");
+
+    string rec = "";
 
     // Init connection
     TCPClient * tcp = new TCPClient();
-    // Connect localhost cause we host the server
-    tcp->setup("127.0.0.1",8888);
 
-    int currentTurn = 0;
-    int myNumber = joinServer("127.0.0.1"); //1 //2
+    int myNumber = game->joinServer("127.0.0.1"); //1 //2
 
     // OTHER GUY CONNECTS
     // I AM THE PLAYER 1
