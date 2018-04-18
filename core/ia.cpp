@@ -40,7 +40,7 @@ int IA::chooseCard(){
     }
 
     //if IA has a pair of the same card, then return whatever
-    if(getCard(0) && getCard(1) && getCard(0)->isTheSameCardAs(getCard(1)->getName())){
+    if(getHand(0) && getHand(1) && getHand(0)->isTheSameCardAs(getHand(1)->getName())){
        return 0;
     }
 
@@ -53,15 +53,15 @@ int IA::chooseCard(){
         }
         //if last turn
         if(deck->count() == 0){
-            if((res = hasCard("King")) != -1 && card->getValue() > getCard((res+1)%2)->getValue()){
+            if((res = hasCard("King")) != -1 && card->getValue() > getHand((res+1)%2)->getValue()){
                 return res;
             }
 
-            if((res = hasCard("Baron")) != -1 && card->getValue() > getCard((res+1)%2)->getValue()){
+            if((res = hasCard("Baron")) != -1 && card->getValue() > getHand((res+1)%2)->getValue()){
                 return (res+1)%2;
             }
 
-            return getCard(0)->getValue() < getCard(1)->getValue() ? 0 : 1;
+            return getHand(0)->getValue() < getHand(1)->getValue() ? 0 : 1;
         }
         //if that card is the princess
         if(card->getName() == "Princess"){
@@ -75,7 +75,7 @@ int IA::chooseCard(){
         else{
             if((res=hasCard("Baron")) != -1){
 
-                if(card->getValue() < getCard((res+1)%2)->getValue()){
+                if(card->getValue() < getHand((res+1)%2)->getValue()){
                     return res;
                 }
             }
@@ -83,11 +83,11 @@ int IA::chooseCard(){
     }
 
     if(deck->count() == 0){
-        return getCard(0)->getValue() < getCard(1)->getValue() ? 0 : 1;
+        return getHand(0)->getValue() < getHand(1)->getValue() ? 0 : 1;
     }
 
     //play Baron if the other card is a King, Countess or a Princess
-    if((res = hasCard("Baron")) != -1 && getCard((res+1)%2)->getValue() >= 6 ){
+    if((res = hasCard("Baron")) != -1 && getHand((res+1)%2)->getValue() >= 6 ){
         return res;
     }
 
