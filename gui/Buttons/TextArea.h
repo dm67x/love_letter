@@ -1,17 +1,15 @@
 #ifndef TEXTAREA_H
 #define TEXTAREA_H
 
-#include "Button.h"
+#include <SFML/Graphics.hpp>
 
-class TextArea : public Button
+class TextArea
 {
 
 private:
-    sf::Sprite button;
-    sf::Texture normal, hover;
     sf::Text text;
     sf::Font font;
-    sf::Color n_color, h_color;
+    sf::Color n_color;
 
     sf::RectangleShape background;
     int text_area_width;
@@ -19,7 +17,6 @@ private:
     unsigned int character_number_limit;
 
     bool hasFocus;
-    bool firstFocus;
 
 public:
     TextArea(sf::Vector2f position);
