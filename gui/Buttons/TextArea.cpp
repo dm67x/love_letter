@@ -5,17 +5,35 @@
 TextArea::TextArea(sf::Vector2f position)
     : Button(position)
 {
-    construct(position);
-
     // No limit
     this->character_number_limit = -1;
+
+    // Default
+    this->text_area_width = 200;
+
+    construct(position);  
 }
 
-TextArea::TextArea(sf::Vector2f position, int cnl)
+TextArea::TextArea(sf::Vector2f position, unsigned int cnl)
     : Button(position)
 {
-    construct(position);
     this->character_number_limit = cnl;
+
+    // Default
+    this->text_area_width = 200;
+
+    construct(position);   
+}
+
+TextArea::TextArea(sf::Vector2f position, unsigned int cnl, int taw)
+    : Button(position)
+{
+    this->character_number_limit = cnl;
+
+    // Default
+    this->text_area_width = taw;
+
+    construct(position);
 }
 
 void TextArea::construct(sf::Vector2f position) {
@@ -38,6 +56,13 @@ void TextArea::construct(sf::Vector2f position) {
     this->rect = this->text.getGlobalBounds();
 
     hasFocus = true;
+
+    this->background.setSize(sf::Vector2f(text_area_width, 35));
+    this->background.setFillColor(sf::Color(255, 255, 255));
+    this->background.setPosition(sf::Vector2f(this->rect.left - 7.0f,
+                                              this->rect.top));
+    this->background.setOutlineThickness(1);
+    this->background.setOutlineColor(sf::Color(0, 0, 0));
 }
 
 TextArea::~TextArea()
@@ -65,10 +90,18 @@ void TextArea::update(sf::Event evt)
                 if(evt.text.unicode < 127 && evt.text.unicode > 31) {
                     char c = static_cast<char>(evt.text.unicode);
                     std::string str = this->text.getString() + c;
+
+                    // Test if there is too many characters
                     if(this->character_number_limit == -1
                             || str.size() <= this->character_number_limit) {
-                        this->text.setString(str);
-                        sf::sleep(sf::milliseconds(100));
+
+                        // Test if letter is outside of text area
+                        if((this->text.getGlobalBounds().width + 30.0f)
+                                < this->background.getGlobalBounds().width) {
+
+                            this->text.setString(str);
+                            sf::sleep(sf::milliseconds(100));
+                        }
                     }
                 }
                 break;
@@ -92,10 +125,7 @@ void TextArea::update(sf::Event evt)
 
 void TextArea::draw(sf::RenderWindow &window)
 {
-    sf::RectangleShape background(sf::Vector2f(200, 35));
-    background.setFillColor(sf::Color::White);
-
     window.draw(button);
-    window.draw(background, text.getTransform());
+    window.draw(background);
     window.draw(text);
 }

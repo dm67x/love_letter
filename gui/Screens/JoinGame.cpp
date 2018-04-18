@@ -48,7 +48,7 @@ void JoinGame::loadContent()
     sf::FloatRect ipa_label_rect = ip_adress_text.getGlobalBounds();
 
     ip_adress_ta = new TextArea(sf::Vector2f(ipa_label_rect.left + ipa_label_rect.width + 15.0f,
-                                             ipa_label_rect.top), 14);
+                                             ipa_label_rect.top), -1, 200);
 
     // Join button
     join_button = new MenuButton("Join",
