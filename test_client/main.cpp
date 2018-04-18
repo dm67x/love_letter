@@ -25,6 +25,7 @@ int main()
     int myNumber = game->joinServer("127.0.0.1"); //1 //2
     printf("my number : %d \n",myNumber);
 
+    // ------ DEBUG ----------------
     return 0;
 
     // OTHER GUY CONNECTS

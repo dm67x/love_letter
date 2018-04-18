@@ -52,7 +52,7 @@ void MultiplayerGame::createServer(){
 
 int MultiplayerGame::joinServer(string ip){
     tcp.setup(ip,8888);
-    tcp.Send("c");
+    //tcp.Send("c");
     string res = tcp.receive();
     return atoi(res.c_str());
 }
@@ -72,6 +72,7 @@ string MultiplayerGame::serialize(){
     }
     return s;
     */
+    return "";
 }
 
 // Send my infos to the Server
@@ -87,6 +88,10 @@ void MultiplayerGame::updateServer(){
         cout << "Server Response:" << rec << endl;
     }
     sleep(1);
+}
+
+TCPClient MultiplayerGame::getTCP(){
+    return tcp;
 }
 
 

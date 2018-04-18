@@ -8,6 +8,7 @@
 #include <ctime>
 #include <iostream>
 #include <string>
+#include <stdio.h>
 #include <stdlib.h> //atoi
 #include <iostream> //to_string
 #include "test.h"
@@ -24,34 +25,59 @@ int main()
     // I will be the player 1
     int myNumber = 0;
 
-    // Host server
-    game->createServer();
+    // Host server - COMMENTED FOR TEST PURPOSE - TO UNCOMMENT
+        //game->createServer();
 
     // Init connection
-    TCPClient * tcp = new TCPClient();
+    //TCPClient * tcp = new TCPClient();
+
     // Connect localhost cause we host the server
-    tcp->setup("127.0.0.1",8888);
+    game->joinServer("127.0.0.1");
+
 
     // Locally start the game
     while (!game->gameOver())
     {
         game->startRound();
+
+
         // Build string to send to server
         Core::Deck * d = game->getDeck();
         string deck = "";
         // add first letter of each card
-            // prince = p ; princess = z ;
-        for(std::list<Core::Card *>::iterator it = d->getCards().begin(); it != d->getCards().end(); it++){
-            deck += (*it)->getName().at(0);
+            // priest = p; prince = y ; princess = z ;
+
+        //printf("AVANT LE FOR !\n");
+        string card = "";
+        // NOT WORKING !
+        for(std::list<Core::Card *>::iterator it = d->getCards().begin(); it != d->getCards().end(); ++it){
+
+            //printf("DANS LE FOR !\n");
+            //cout << "card : \n" + (*it)->getName().at(0) << "\n";
+            card = (*it)->getName();
+            char f = card.at(0);
+            //printf("card full name : %s \n", card);
+            printf("first letter : %c \n", f);
+
+            // ------ DEBUG ----------------
+            return 0;
+
+            deck += (*it)->getName();
         }
+
+
+
         // Send Deck to server
-        tcp->Send(deck);
+        game->getTCP().Send(deck);
+        //tcp->Send(deck);
+
+
 
         while (!game->roundOver())
         {
             // If it's not my turn, I wait for server to tell me smth
             if(game->getCurrentPlayerIndex() != myNumber){
-                rec = tcp->receive();
+                rec = game->getTCP().receive();
 
                 if(rec.length() < 1){
                     // MUST THROW AN ERROR
@@ -118,7 +144,7 @@ int main()
                 game->update();
 
                 // SEND INFO TO SERVER
-                tcp->Send(rec);
+                game->getTCP().Send(rec);
             }
 
         }

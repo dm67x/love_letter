@@ -16,6 +16,7 @@ public:
 
     void createServer();
     int joinServer(string ip);
+    TCPClient getTCP();
 
 private:
     TCPClient tcp;
