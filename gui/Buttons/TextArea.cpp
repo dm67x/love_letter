@@ -1,6 +1,4 @@
 #include "TextArea.h"
-#include <sstream>
-#include <string>
 
 TextArea::TextArea(sf::Vector2f position)
     : Button(position)
@@ -55,14 +53,14 @@ void TextArea::construct(sf::Vector2f position) {
 
     this->rect = this->text.getGlobalBounds();
 
-    hasFocus = true;
+    firstFocus = true;
 
     this->background.setSize(sf::Vector2f(text_area_width, 35));
-    this->background.setFillColor(sf::Color(255, 255, 255));
-    this->background.setPosition(sf::Vector2f(this->rect.left - 7.0f,
+    this->background.setFillColor(sf::Color::White);
+    this->background.setPosition(sf::Vector2f(this->rect.left - 8.0f,
                                               this->rect.top));
     this->background.setOutlineThickness(1);
-    this->background.setOutlineColor(sf::Color(0, 0, 0));
+    this->background.setOutlineColor(sf::Color::Black);
 }
 
 TextArea::~TextArea()
@@ -70,29 +68,35 @@ TextArea::~TextArea()
 
 }
 
+std::string TextArea::getText()
+{
+    std::string str = this->text.getString();
+    return str;
+}
+
 void TextArea::update(sf::Event evt)
 {
     button.setTexture(normal);
-    /* En attendant, le texte area aura toujours le focus
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-        if (mouseInside()) {
-                hasFocus = true;
-        } else {
-            hasFocus = false;
-        }
-    }*/
 
-    if (hasFocus) {     
-        switch (evt.type)
+    if(hasFocus) {
+        this->background.setOutlineThickness(2);
+        this->background.setOutlineColor(sf::Color::Blue);
+    } else {
+        this->background.setOutlineThickness(1);
+        this->background.setOutlineColor(sf::Color::Black);
+    }
+
+    switch (evt.type)
+    {
+        case sf::Event::TextEntered:
         {
-            case sf::Event::TextEntered:
-            {
+            if(hasFocus) {
                 if(evt.text.unicode < 127 && evt.text.unicode > 31) {
                     char c = static_cast<char>(evt.text.unicode);
                     std::string str = this->text.getString() + c;
 
                     // Test if there is too many characters
-                    if(this->character_number_limit == -1
+                    if(this->character_number_limit == (unsigned)-1
                             || str.size() <= this->character_number_limit) {
 
                         // Test if letter is outside of text area
@@ -104,22 +108,46 @@ void TextArea::update(sf::Event evt)
                         }
                     }
                 }
-                break;
             }
+            break;
+        }
 
-            case sf::Event::KeyPressed:
-            {
+        case sf::Event::KeyPressed:
+        {
+            if(hasFocus) {
                 if(evt.key.code == sf::Keyboard::BackSpace) {
                     std::string str = this->text.getString();
                     str = str.substr(0, str.size() - 1);
                     this->text.setString(str);
                 }
-                break;
             }
-
-            default:
             break;
         }
+
+        case sf::Event::MouseButtonReleased:
+        {
+            if (evt.mouseButton.button == sf::Mouse::Left) {
+                hasFocus = this->isMouseInside(sf::Vector2i(evt.mouseButton.x,
+                                                            evt.mouseButton.y));
+            }
+            break;
+        }
+
+        default:
+        break;
+    }
+
+}
+
+bool TextArea::isMouseInside(sf::Vector2i mouse_pos)
+{
+    sf::FloatRect bg_rect = this->background.getGlobalBounds();
+
+    if(mouse_pos.x > bg_rect.left && mouse_pos.x < bg_rect.left + bg_rect.width
+            && mouse_pos.y > bg_rect.top && mouse_pos.y < bg_rect.top + bg_rect.height) {
+        return true;
+    } else {
+        return false;
     }
 }
 

@@ -18,7 +18,7 @@ private:
     sf::Text ip_adress_text;
     sf::Color ip_adress_color;
 
-    TextArea * ip_adress_ta;
+    static TextArea * ip_adress_ta;
 
     Button * join_button;
     static void joinButtonClicked();

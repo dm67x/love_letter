@@ -19,12 +19,16 @@ private:
     unsigned int character_number_limit;
 
     bool hasFocus;
+    bool firstFocus;
 
 public:
     TextArea(sf::Vector2f position);
     TextArea(sf::Vector2f position, unsigned int cnl);
     TextArea(sf::Vector2f position, unsigned int cnl, int taw);
     ~TextArea();
+
+    std::string getText();
+    bool isMouseInside(sf::Vector2i mouse_pos);
 
     void construct(sf::Vector2f position);
 

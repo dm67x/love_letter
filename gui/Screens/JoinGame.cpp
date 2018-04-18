@@ -4,6 +4,7 @@
 #include "Buttons/MenuButton.h"
 
 std::string JoinGame::player_ip_adress;
+TextArea * JoinGame::ip_adress_ta;
 
 JoinGame::JoinGame()
     : Screen("multiplayer/joingame")
@@ -48,7 +49,7 @@ void JoinGame::loadContent()
     sf::FloatRect ipa_label_rect = ip_adress_text.getGlobalBounds();
 
     ip_adress_ta = new TextArea(sf::Vector2f(ipa_label_rect.left + ipa_label_rect.width + 15.0f,
-                                             ipa_label_rect.top), -1, 200);
+                                             ipa_label_rect.top), 14, 200);
 
     // Join button
     join_button = new MenuButton("Join",
@@ -75,5 +76,9 @@ void JoinGame::draw(sf::RenderWindow &window)
 
 void JoinGame::joinButtonClicked()
 {
-    // TODO: Link to Jawed's part
+    if(ip_adress_ta->getText().size() > 0) {
+        // TODO: Link to Jawed's part
+    } else {
+        // TODO: Display error message (text area empty)
+    }
 }
