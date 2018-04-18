@@ -29,6 +29,8 @@ public:
     virtual bool needGuess() = 0;
     virtual void activeEffect() = 0;
 
+    bool isTheSameCardAs(string card_name);
+
 };
 
 }

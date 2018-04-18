@@ -8,7 +8,6 @@ class Utils
 {
 
 public:
-    static void myswap(Card * current, Card * target);
     static int generateRandom(int min, int max); //return a random integer betxween min, max
 
 

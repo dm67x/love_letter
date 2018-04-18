@@ -7,26 +7,26 @@
 
 #include <vector>
 
-class IA : public Player
+class IA : public Core::Player
 {
 
 private:
     static int number_of_objects;
     int id;
-    Deck * deck;
-    Game * game;
-    Player * opponent;
-    vector<Card *> probableCards;
+    Core::Deck * deck;
+    Core::Game * game;
+    Core::Player *opponent;
+    vector<Core::Card *> probableCards;
     vector<double> probabilities;
 
 
 public:
-    IA(Game *g);
+    IA(Core::Game *g);
     int chooseCard();
     int getIndexMostProbableCard();
     //int assumeCard(int player_index);
     //int choosePlayer(vector<Player *> players);
-    //void updateIA();
+    void updateProbableCards(Core::Card *c, double proba);
 };
 
 #endif // IA_H

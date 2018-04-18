@@ -7,7 +7,7 @@
 
 using namespace std;
 
-class IA_Dummy : public Player
+class IA_Dummy : public Core::Player
 {
 
 private:

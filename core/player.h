@@ -44,6 +44,8 @@ public:
     void discard(int index = -1);
     void clear(); // reinitialize
 
+    int hasCard(string card_name);
+
 };
 
 }

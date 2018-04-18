@@ -11,6 +11,10 @@ Card::~Card()
 {
 }
 
+bool Card::isTheSameCardAs(string card_name){
+    return this->name == card_name;
+
+}
 }
 
 
