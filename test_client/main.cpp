@@ -5,6 +5,7 @@
 #include <ctime>
 #include <iostream>
 #include <string>
+#include <stdio.h>
 #include "../network/multiplayergame.h"
 
 using namespace std;
@@ -14,7 +15,7 @@ int main()
     unsigned int nb = 2;
     MultiplayerGame * game = new MultiplayerGame(nb);
     // host server
-    game->createServer();
+    //game->createServer();
 
     string rec = "";
 
@@ -22,6 +23,9 @@ int main()
     TCPClient * tcp = new TCPClient();
 
     int myNumber = game->joinServer("127.0.0.1"); //1 //2
+    printf("my number : %d \n",myNumber);
+
+    return 0;
 
     // OTHER GUY CONNECTS
     // I AM THE PLAYER 1

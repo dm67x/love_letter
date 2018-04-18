@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string>
 #include <string.h>   //strlen
 #include <stdlib.h>
 #include <errno.h>
@@ -13,7 +14,6 @@
 #define FALSE  0
 #define PORT 8888
 
-/*
 int main(int argc , char *argv[])
 {
     int opt = TRUE;
@@ -28,6 +28,8 @@ int main(int argc , char *argv[])
 
     //a message
     char *message = "ECHO Daemon v1.0 \r\n";
+    int n = 0; // Current Player Index
+    char *str = "";
 
     //initialise all client_socket[] to 0 so not checked
     for (i = 0; i < max_clients; i++)
@@ -117,8 +119,26 @@ int main(int argc , char *argv[])
             //inform user of socket number - used in send and receive commands
             printf("New connection , socket fd is %d , ip is : %s , port : %d \n" , new_socket , inet_ntoa(address.sin_addr) , ntohs(address.sin_port));
 
+            /*
             //send new connection greeting message
             if( send(new_socket, message, strlen(message), 0) != strlen(message) )
+            {
+                perror("send");
+            }*/
+
+            // SEND CURRENT PLAYER INDEX
+            n++;
+            if(n == 1){
+                str = "1";
+            }else if(n == 2){
+                str = "2";
+            }else if(n == 3){
+                str = "3";
+            }else if(n == 4){
+                str = "4";
+            }
+
+            if( send(new_socket, str, strlen(message), 0) != strlen(message) )
             {
                 perror("send");
             }
@@ -171,4 +191,4 @@ int main(int argc , char *argv[])
 
     return 0;
 }
-*/
+

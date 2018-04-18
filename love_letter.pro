@@ -6,4 +6,5 @@ SUBDIRS += \
     core \
     network \
     test \
-    test_client
+    test_client \
+    server
