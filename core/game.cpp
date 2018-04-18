@@ -180,9 +180,10 @@ void Game::update()
 
             if (!(*i)->isDead()) {
                 (*i)->givePoint();
-                if ((*i)->getPoints() == max_points)
+                if ((*i)->getPoints() == max_points){
                     current_winner = i - players.begin();
                     game_end = true;
+                }
             }
         }
     }

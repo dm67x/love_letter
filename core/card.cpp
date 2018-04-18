@@ -20,4 +20,11 @@ string Card::getDescription()
     return description;
 }
 
+bool Card::isTheSameCardAs(string card_name){
+    if (name == card_name)
+        return true;
+    return false;
+}
+
+
 

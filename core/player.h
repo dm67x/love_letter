@@ -30,7 +30,7 @@ public:
 
     bool isDead();
     bool hasProtection(); //player protected from the handmaid
-    bool hasCard(string cardName);
+    int hasCard(string cardName);
 
     void givePoint();
     void setDead(bool value);

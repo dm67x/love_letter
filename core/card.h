@@ -22,6 +22,8 @@ public:
     string getName();
     string getDescription();
 
+    bool isTheSameCardAs(string card_name);
+
 
 
 

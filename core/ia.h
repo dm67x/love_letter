@@ -2,23 +2,31 @@
 #define IA_H
 
 #include "card.h"
-#include "player.h"
+#include "deck.h"
+#include "game.h"
 
-using namespace std;
+#include <vector>
 
 class IA : public Player
 {
 
 private:
-    static int id; // = 1
-    int numberOfOpponents;
+    static int number_of_objects;
+    int id;
+    Deck * deck;
+    Game * game;
+    Player * opponent;
+    vector<Card *> probableCards;
+    vector<double> probabilities;
+
 
 public:
-    IA(int numberofOpp);
-    int getId();
-    Card * chooseBetween(Card &c1, Card &c2);
-    Card * assumeCard(Player & p);
-    Player * choosePlayer();
+    IA(Game *g);
+    int chooseCard();
+    int getIndexMostProbableCard();
+    //int assumeCard(int player_index);
+    //int choosePlayer(vector<Player *> players);
+    //void updateIA();
 };
 
 #endif // IA_H

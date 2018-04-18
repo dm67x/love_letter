@@ -27,12 +27,16 @@ bool Player::hasProtection(){
     return protection;
 }
 
-//checks if player has card c in hand
-bool Player::hasCard(string card_name)
+//checks if player has card c in hand and return position of that card (0 or 1)
+//or -1 if card not there
+int Player::hasCard(string card_name)
 {
-    if (cards[0])
-        return cards[0]->getName() == card_name;
-    return cards[1]->getName() == card_name;
+    //if cards[0] non null
+    if(cards[0] && cards[0]->getName() == card_name)
+        return 0;
+    else if(cards[1] && cards[1]->getName() == card_name)
+        return 1;
+    else return -1;
 }
 
 void Player::givePoint(){
