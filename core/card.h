@@ -1,9 +1,11 @@
-#ifndef CARD_H
-#define CARD_H
+#ifndef CARD_CORE_H
+#define CARD_CORE_H
 
 #include <string>
 
 using namespace std;
+
+namespace Core {
 
 class Card
 {
@@ -17,16 +19,18 @@ protected:
     Card(string name, unsigned short value, string description);
 
 public:
+    virtual ~Card();
+
+    inline unsigned short getValue() const { return value; }
+    inline string getName() const { return name; }
+    inline string getDescription() const { return description; }
+
+    virtual bool needTarget() = 0;
+    virtual bool needGuess() = 0;
     virtual void activeEffect() = 0;
-    unsigned short getValue();
-    string getName();
-    string getDescription();
-
-    bool isTheSameCardAs(string card_name);
-
-
-
 
 };
 
-#endif // CARD_H
+}
+
+#endif // CARD_CORE_H

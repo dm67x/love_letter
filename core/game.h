@@ -1,10 +1,14 @@
-#ifndef GAME_H
-#define GAME_H
+#ifndef GAME_CORE_H
+#define GAME_CORE_H
 
 #include <vector>
 #include "deck.h"
 #include "player.h"
 #include "action.h"
+
+namespace Core {
+
+using namespace std;
 
 class Game
 {
@@ -27,6 +31,8 @@ public:
     Game(unsigned int nb_players);
     ~Game();
 
+    inline vector<Player *> getPlayers() const { return players; }
+
     void startRound();
     void update();
     void pickTarget(int target_index);
@@ -44,9 +50,8 @@ public:
     bool roundOver(); //isFinished
     bool gameOver(); //isEnd
 
-
-
-
 };
 
-#endif // GAME_H
+}
+
+#endif // GAME_CORE_H

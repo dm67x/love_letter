@@ -1,6 +1,8 @@
 #include "princess.h"
 #include "../action.h"
 
+namespace Core {
+
 Princess::Princess()
     : Card("Princess", 8, "If you discard this card, you are out of the round.")
 {
@@ -10,6 +12,7 @@ Princess::Princess()
 void Princess::activeEffect()
 {
     Action * action = Action::getInstance();
-    action->current->setDead(true);
+    action->current->kill();
 }
 
+}
