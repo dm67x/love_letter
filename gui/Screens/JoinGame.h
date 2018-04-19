@@ -2,9 +2,9 @@
 #define JOINGAME_H
 
 #include "Screen.h"
-#include "Buttons\MenuButton.h"
+#include "Buttons/MenuButton.h"
 #include "Button.h"
-#include "Buttons\TextArea.h"
+#include "Buttons/TextArea.h"
 
 class JoinGame : public Screen
 {
