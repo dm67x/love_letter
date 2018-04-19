@@ -28,7 +28,7 @@ public:
     inline unsigned short getPoints() const { return points; }
     inline bool hasShield() const { return shield; }
     inline bool isDead() const { return dead; }
-    inline Card * getCard(int i = 0) const { return hand[i]; }
+    inline Card * getCard(int i = 0) const { return hand[i] ? hand[i] : NULL; }
 
     // OTHERS
     void kill(); // dead = true

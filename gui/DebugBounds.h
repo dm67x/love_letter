@@ -1,9 +1,9 @@
 #ifndef DEBUGBOUNDS_H
 #define DEBUGBOUNDS_H
 
-#include <SFML/Graphics.hpp>
+#include "Object.h"
 
-class DebugBounds : public sf::Drawable
+class DebugBounds : public Object
 {
 
 private:

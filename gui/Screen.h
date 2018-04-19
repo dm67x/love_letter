@@ -23,7 +23,8 @@ public:
     sf::Vector2u getSize();
 
     virtual void loadContent();
-    virtual void update(sf::Event evt, float dt) = 0;
+    virtual void input(sf::Event evt);
+    virtual void update(float dt);
     virtual void draw(sf::RenderWindow & window) = 0;
 
 };

@@ -1,9 +1,8 @@
 #include "Deck.h"
 
-Deck::Deck(Core::Deck * deck, sf::Vector2f position)
-    : sf::Drawable()
+Deck::Deck(Core::Deck * deck)
+    : Object("deck")
 {
-    this->position = position;
     this->deck = deck;
 
     // Cards
@@ -12,7 +11,6 @@ Deck::Deck(Core::Deck * deck, sf::Vector2f position)
     for (std::list<Core::Card *>::iterator it = core_cards.begin();
          it != core_cards.end(); it++) {
         Card * card = new Card(*it);
-        card->setPosition(position.x + i, position.y + i);
         card->setScale(0.5f, 0.5f);
         cards.push_back(card);
         i++;
@@ -29,6 +27,7 @@ Card *Deck::pickCard()
 
 void Deck::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
+    states.transform *= getTransform();
     for (int i = 0; i < cards.size(); i++) {
         target.draw(*cards[i], states);
     }

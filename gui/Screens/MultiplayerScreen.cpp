@@ -16,7 +16,7 @@ MultiplayerScreen::~MultiplayerScreen()
 
 void MultiplayerScreen::loadContent()
 {
-    content_loaded = true;
+    Screen::loadContent();
 
     sf::Vector2u size = getSize();
 
@@ -40,10 +40,16 @@ void MultiplayerScreen::loadContent()
     join_game_button->onClick(&join_gameButtonClicked);
 }
 
-void MultiplayerScreen::update(sf::Event evt, float dt)
+void MultiplayerScreen::input(sf::Event evt)
 {
-    create_game_button->update();
-    join_game_button->update();
+    create_game_button->input(evt);
+    join_game_button->input(evt);
+}
+
+void MultiplayerScreen::update(float dt)
+{
+    create_game_button->update(dt);
+    join_game_button->update(dt);
 }
 
 void MultiplayerScreen::draw(sf::RenderWindow &window)
@@ -51,8 +57,8 @@ void MultiplayerScreen::draw(sf::RenderWindow &window)
     window.clear(sf::Color::Black);
 
     window.draw(background);
-    create_game_button->draw(window);
-    join_game_button->draw(window);
+    window.draw(*create_game_button);
+    window.draw(*join_game_button);
 }
 
 void MultiplayerScreen::create_gameButtonClicked()

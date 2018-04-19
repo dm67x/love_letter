@@ -30,7 +30,7 @@ public:
     ~CreditsScreen();
 
     void loadContent();
-    void update(sf::Event evt, float dt);
+    void input(sf::Event evt);
     void draw(sf::RenderWindow &window);
 
 };

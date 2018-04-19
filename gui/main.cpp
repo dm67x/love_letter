@@ -28,8 +28,9 @@ int main(void)
     sf::Clock clock;
     while (window->isOpen())
     {
+        sf::Time elapsed;
         sf::Event evt;
-        if (window->pollEvent(evt))
+        while (window->pollEvent(evt))
         {
             switch (evt.type)
             {
@@ -37,12 +38,12 @@ int main(void)
                 window->close();
                 break;
             }
-        }
 
-        sf::Time elapsed = clock.getElapsedTime();
+            screenManager->getCurrent()->input(evt);
+        }        
 
-        screenManager->getCurrent()->update(evt, elapsed.asSeconds());
-
+        elapsed = clock.getElapsedTime();
+        screenManager->getCurrent()->update(elapsed.asSeconds());
         clock.restart();
 
         window->clear();

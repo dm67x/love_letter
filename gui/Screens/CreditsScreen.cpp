@@ -93,7 +93,7 @@ void CreditsScreen::loadContent()
                           text_dev3.getGlobalBounds().top + text_dev3.getGlobalBounds().height + space);
 }
 
-void CreditsScreen::update(sf::Event evt, float dt)
+void CreditsScreen::input(sf::Event evt)
 {
     if (evt.type == sf::Event::KeyPressed && evt.key.code == sf::Keyboard::Escape) {
         ScreenManager::getInstance()->switchTo("menu");

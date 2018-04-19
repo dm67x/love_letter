@@ -2,11 +2,16 @@
 #include <sstream>
 
 Card::Card(Core::Card *card)
-    : sf::Transformable(), sf::Drawable()
+    : Object("card")
 {
     this->card = card;
     is_reveal = false;
     animation = NULL;
+    hover = false;
+
+    // shader
+    hover_shader.loadFromFile("data/hover.frag", sf::Shader::Fragment);
+    hover_shader.setUniform("texture", sf::Shader::CurrentTexture);
 
     // textures
     texture.loadFromFile("data/guard.jpg");
@@ -86,6 +91,11 @@ void Card::mask()
     is_reveal = false;
 }
 
+void Card::setHover(bool hover)
+{
+    this->hover = hover;
+}
+
 void Card::update(float dt)
 {
     if (animation) {
@@ -98,6 +108,8 @@ void Card::update(float dt)
 void Card::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
     states.transform *= getTransform();
+    if (hover)
+        states.shader = &hover_shader;
 
     target.draw(card_sprite, states);
     if (is_reveal) {

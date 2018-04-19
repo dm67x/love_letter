@@ -53,12 +53,20 @@ void MenuScreen::loadContent()
     quit_button->onClick(&quitButtonClicked);
 }
 
-void MenuScreen::update(sf::Event evt, float dt)
+void MenuScreen::input(sf::Event evt)
 {
-    singleplayer_button->update();
-    multiplayer_button->update();
-    credits_button->update();
-    quit_button->update();
+    singleplayer_button->input(evt);
+    multiplayer_button->input(evt);
+    credits_button->input(evt);
+    quit_button->input(evt);
+}
+
+void MenuScreen::update(float dt)
+{
+    singleplayer_button->update(dt);
+    multiplayer_button->update(dt);
+    credits_button->update(dt);
+    quit_button->update(dt);
 }
 
 void MenuScreen::draw(sf::RenderWindow &window)
@@ -66,10 +74,10 @@ void MenuScreen::draw(sf::RenderWindow &window)
     window.clear(sf::Color::Black);
 
     window.draw(background);
-    singleplayer_button->draw(window);
-    multiplayer_button->draw(window);
-    credits_button->draw(window);
-    quit_button->draw(window);
+    window.draw(*singleplayer_button);
+    window.draw(*multiplayer_button);
+    window.draw(*credits_button);
+    window.draw(*quit_button);
 }
 
 void MenuScreen::singleplayerButtonClicked()

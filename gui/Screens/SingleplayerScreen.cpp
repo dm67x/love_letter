@@ -31,7 +31,16 @@ void SingleplayerScreen::loadContent()
     board = new Board(game, sf::FloatRect(0, 0, size.x, size.y));
 }
 
-void SingleplayerScreen::update(sf::Event evt, float dt)
+void SingleplayerScreen::input(sf::Event evt)
+{
+    board->input(evt);
+
+    if (evt.type == sf::Event::KeyPressed && evt.key.code == sf::Keyboard::T
+            && game->getDeck()->getCards().size() > 0)
+        board->nextTurn();
+}
+
+void SingleplayerScreen::update(float dt)
 {
     game->update();
     board->update(dt);
@@ -41,10 +50,6 @@ void SingleplayerScreen::update(sf::Event evt, float dt)
 
     if (game->gameOver())
         ScreenManager::getInstance()->switchTo("menu");
-
-    if (evt.type == sf::Event::KeyPressed && evt.key.code == sf::Keyboard::T
-            && game->getDeck()->getCards().size() > 0)
-        board->nextTurn();
 }
 
 void SingleplayerScreen::draw(sf::RenderWindow &window)

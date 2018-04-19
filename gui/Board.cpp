@@ -1,22 +1,76 @@
 #include "Board.h"
+#include "MainWindow.h"
+#include "Message.h"
+#include "ScreenManager.h"
+
 #include <iostream>
-#include <thread>
 #include <unistd.h>
+#include <thread>
+
+void Board::playing(sf::Event evt, int index, Core::Card *card)
+{
+    // Target
+    if (card->needTarget()) {
+        std::thread target_t(&choose_target, this);
+        target_t.join();
+
+        // Find index of target
+        auto players = game->getPlayers();
+        for (unsigned int i = 0; i < players.size(); i++) {
+            if (players[i] == target_player) {
+                game->pickTarget(i);
+                break;
+            }
+        }
+        target_player = NULL;
+    }
+
+    current_player_zone->getPlayer()->discard(index);
+    for (unsigned int i = 0; i < zones.size(); i++)
+        zones[i]->getHand()->updateCards();
+
+
+    // Guess
+    std::cout << "[" << index << "]" << " " << card->getName() << std::endl;
+}
+
+void Board::choose_target()
+{
+    bool ok = false;
+    std::cout << "target" << std::endl;
+    while (!ok) {
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+            sf::Vector2i mpos = sf::Mouse::getPosition(*MainWindow::getInstance());
+            for (unsigned int i = 0; i < zones.size(); i++) {
+                sf::Transform transf = zones[i]->getTransform();
+                sf::FloatRect rect = transf.transformRect(zones[i]->getBounds());
+                if (rect.contains(static_cast<sf::Vector2f>(mpos))) {
+                    target_player = zones[i]->getPlayer();
+                    ok = true;
+                    break;
+                }
+            }
+        }
+        usleep(500);
+    }
+}
 
 Board::Board(Core::Game *game, sf::FloatRect board_rect)
-    : sf::Transformable(), sf::Drawable()
+    : Object("board")
 {
     this->game = game;
     this->board_rect = board_rect;
+    target_player = NULL;
 
     sf::Vector2f deck_position;
     deck_position.x = board_rect.left + board_rect.width / 2.0f;
     deck_position.y = board_rect.top + board_rect.height / 2.0f;
-    deck = new Deck(game->getDeck(), deck_position);
+    deck = new Deck(game->getDeck());
+    deck->setPosition(deck_position);
 
     // Players zones
     std::vector<Core::Player *> players = game->getPlayers();
-    Core::Player * current = game->getCurrentPlayer();
+    Core::Player * current = game->startTurn();
 
     sf::FloatRect zone_bounds;
     zone_bounds.top = board_rect.top + (board_rect.height * 3) / 4.0f;
@@ -33,35 +87,35 @@ Board::Board(Core::Game *game, sf::FloatRect board_rect)
 
         if (current == players[i]) {
             // BOTTOM
-            zone_transforms[i] = sf::Transform::Identity;
             current_zone = i;
         } else {
             switch (y) {
             // TOP
             case 0:
-                zone_transforms[i].rotate(180.0f, sf::Vector2f(board_rect.left + board_rect.width / 2.0f,
-                                                           board_rect.top + board_rect.height / 2.0f));
+                zone->rotate(180.0f);
+                zone->setPosition(board_rect.left + board_rect.width / 2.0f,
+                                  board_rect.top + zone_bounds.height / 2.0f);
                 break;
 
             // RIGHT
             case 1:
-                zone_transforms[i].translate(sf::Vector2f(zone_bounds.top / 2.0f, 0.0f));
-                zone_transforms[i].rotate(270.0f, sf::Vector2f(board_rect.left + board_rect.width / 2.0f,
-                                                           board_rect.top + board_rect.height / 2.0f));
+                zone->rotate(270.0f);
+                zone->setPosition(board_rect.left + board_rect.width - zone_bounds.height / 2.0f,
+                                  board_rect.top + board_rect.height / 2.0f);
                 break;
 
             // LEFT
             case 2:
-                zone_transforms[i].translate(sf::Vector2f(-zone_bounds.top / 2.0f, 0.0f));
-                zone_transforms[i].rotate(90.0f, sf::Vector2f(board_rect.left + board_rect.width / 2.0f,
-                                                           board_rect.top + board_rect.height / 2.0f));
+                zone->rotate(90.0f);
+                zone->setPosition(board_rect.left + zone_bounds.height / 2.0f,
+                                  board_rect.top + board_rect.height / 2.0f);
                 break;
             }
             y++;
         }
 
         zones.push_back(zone);
-        zones.back()->getHand()->onPlayed(played);
+        zones.back()->getHand()->playing(&Board::playing, this);
     }
 
     current_player_zone = zones[current_zone];
@@ -87,33 +141,6 @@ void Board::clear()
 
 }
 
-void Board::target_func()
-{
-    std::cout << "Target" << std::endl;
-    sleep(2);
-}
-
-void Board::guess_func()
-{
-    std::cout << "Guess" << std::endl;
-    sleep(2);
-}
-
-void Board::played(int index, Core::Card *card)
-{
-    if (card->needTarget()) {
-        std::thread target_thread(target_func);
-        target_thread.join();
-    }
-
-    if (card->needGuess()) {
-        std::thread guess_thread(guess_func);
-        guess_thread.join();
-    }
-
-    std::cout << card->getName() << std::endl;
-}
-
 void Board::nextTurn()
 {
     unsigned int nb_players = game->getPlayers().size();
@@ -129,22 +156,23 @@ void Board::nextTurn()
     current_player_zone->getHand()->reveal();
 
     // Rotate board
-    //setRotation(90.0f);
+    //rotate(90.0f);
+}
+
+void Board::input(sf::Event evt)
+{
+    current_player_zone->input(evt);
 }
 
 void Board::update(float dt)
 {
-    for (std::vector<PlayerZone *>::iterator it = zones.begin();
-         it != zones.end(); it++) {
-        (*it)->update(dt);
-    }
+    current_player_zone->update(dt);
 }
 
 void Board::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
     states.transform *= getTransform();
     target.draw(*deck);
-    for (int i = 0; i < zones.size(); i++) {
-        target.draw(*zones[i], states.transform * zone_transforms[i]);
-    }
+    for (unsigned int i = 0; i < zones.size(); i++)
+        target.draw(*zones[i], states);
 }

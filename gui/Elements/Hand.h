@@ -1,11 +1,16 @@
 #ifndef HAND_H
 #define HAND_H
 
+#include "Object.h"
 #include "Card.h"
 #include "core/player.h"
 #include "DebugBounds.h"
 
-class Hand : public sf::Transformable, public sf::Drawable
+class Board;
+
+typedef void (Board::*FUNC)(sf::Event, int, Core::Card*);
+
+class Hand : public Object
 {
 
 private:
@@ -14,7 +19,9 @@ private:
     Core::Player * player;
     bool target_selected;
     bool guessed;
-    void (*played_function)(int, Core::Card *);
+
+    FUNC function;
+    Board * elem;
 
     // Debug
     DebugBounds * debug;
@@ -26,9 +33,12 @@ public:
     void addCard(Card * card);
     void reveal();
     void mask();
-    void onPlayed(void (*played_function)(int, Core::Card *));
+    void updateCards();
 
-    void update(float dt);
+    void playing(FUNC func, Board * elem);
+
+    void input(sf::Event evt, sf::Transform transf);
+    void update(float dt, sf::Transform transf);
     void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 
 };

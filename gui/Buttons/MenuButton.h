@@ -19,8 +19,9 @@ public:
     MenuButton(std::string text, sf::Vector2f position);
     ~MenuButton();
 
-    void update();
-    void draw(sf::RenderWindow &window);
+    void input(sf::Event evt);
+    void update(float dt);
+    void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 
     void buttonPressed();
     void buttonUnpressed();

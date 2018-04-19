@@ -1,6 +1,7 @@
 #include "DebugBounds.h"
 
 DebugBounds::DebugBounds(sf::FloatRect bounds)
+    : Object("debug_bounds")
 {
     rect.setFillColor(sf::Color::Transparent);
     rect.setOutlineColor(sf::Color::Red);

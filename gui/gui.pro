@@ -30,7 +30,9 @@ SOURCES += \
     Buttons/MenuButton.cpp \
     DebugBounds.cpp \
     Screens/MultiplayerScreen.cpp \
-    Screens/SingleplayermenuScreen.cpp
+    Screens/SingleplayermenuScreen.cpp \
+    Message.cpp \
+    Object.cpp
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../core/release/ -lcore
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../core/debug/ -lcore
@@ -65,4 +67,6 @@ HEADERS += \
     Buttons/MenuButton.h \
     DebugBounds.h \
     Screens/MultiplayerScreen.h \
-    Screens/SingleplayermenuScreen.h
+    Screens/SingleplayermenuScreen.h \
+    Message.h \
+    Object.h

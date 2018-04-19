@@ -5,11 +5,11 @@
   * Ajouter une fonction de click sur les cartes (pour les jouer notamment)
   */
 
-#include <SFML/Graphics.hpp>
+#include "Object.h"
 #include "core/card.h"
 #include "Animation.h"
 
-class Card : public sf::Transformable, public sf::Drawable
+class Card : public Object
 {
 
 private:
@@ -21,6 +21,10 @@ private:
     sf::Font font; // font to use
     bool is_reveal; // if true show card (title, description...) else show card's back
     Animation * animation; // animation on card
+
+    // Hover
+    sf::Shader hover_shader;
+    bool hover;
 
 public:
     Card(Core::Card * card);
@@ -34,6 +38,7 @@ public:
     void clearAnimation();
     void reveal();
     void mask();
+    void setHover(bool hover);
 
     void update(float dt);
     void draw(sf::RenderTarget &target, sf::RenderStates states) const;

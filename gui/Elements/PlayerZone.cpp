@@ -2,9 +2,13 @@
 #include "MainWindow.h"
 
 PlayerZone::PlayerZone(Core::Player * player, sf::FloatRect bounds)
-    : sf::Transformable(), sf::Drawable()
+    : Object("player_zone")
 {
     this->player = player;
+    this->bounds = bounds;
+
+    setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
+    setPosition(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
 
     // name (pos + rotation)
     font.loadFromFile("data/Another day in Paradise.ttf");
@@ -37,15 +41,20 @@ PlayerZone::~PlayerZone()
         delete hand;
 }
 
+void PlayerZone::input(sf::Event evt)
+{
+    hand->input(evt, getTransform());
+}
+
 void PlayerZone::update(float dt)
 {
-    hand->update(dt);
+    hand->update(dt, getTransform());
 }
 
 void PlayerZone::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
     states.transform *= getTransform();
-    //target.draw(*debug, states);
+    target.draw(*debug, states);
     target.draw(*hand, states);
     target.draw(player_name, states);
 }

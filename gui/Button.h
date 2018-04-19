@@ -1,9 +1,9 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 
-#include <SFML/Graphics.hpp>
+#include "Object.h"
 
-class Button
+class Button : public Object
 {
 
 private:
@@ -19,11 +19,12 @@ public:
 
     inline sf::Vector2f getPosition() const { return position; }
     inline sf::FloatRect getBounds() const { return rect; }
-    bool mouseInside();
+    bool mouseInside(sf::Vector2i m_position);
 
     void onClick(void (*functionPtr)());
-    virtual void update();
-    virtual void draw(sf::RenderWindow & window) = 0;
+    virtual void input(sf::Event evt);
+    virtual void update(float dt);
+    virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const = 0;
 
 };
 

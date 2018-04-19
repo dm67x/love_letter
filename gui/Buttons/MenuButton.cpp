@@ -1,4 +1,5 @@
 #include "MenuButton.h"
+#include "MainWindow.h"
 
 MenuButton::MenuButton(std::string text, sf::Vector2f position)
     : Button(position)
@@ -30,11 +31,16 @@ MenuButton::~MenuButton()
 
 }
 
-void MenuButton::update()
+void MenuButton::input(sf::Event evt)
 {
-    Button::update();
+    Button::input(evt);
+}
 
-    if (mouseInside()) {
+void MenuButton::update(float dt)
+{
+    Button::update(dt);
+
+    if (mouseInside(sf::Mouse::getPosition(*MainWindow::getInstance()))) {
         button.setTexture(hover);
         text.setFillColor(h_color);
     } else {
@@ -47,10 +53,11 @@ void MenuButton::update()
     }
 }
 
-void MenuButton::draw(sf::RenderWindow &window)
+void MenuButton::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-    window.draw(button);
-    window.draw(text);
+    states.transform *= getTransform();
+    target.draw(button, states);
+    target.draw(text, states);
 }
 
 void MenuButton::buttonPressed()
