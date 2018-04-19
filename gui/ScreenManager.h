@@ -25,6 +25,7 @@ public:
     void switchTo(std::string name);
     void switchToLock(std::string name);
     Screen * getCurrent();
+    Screen * getPrevious();
 
 };
 

@@ -7,6 +7,7 @@
 #include "Screens/CreateGame.h"
 #include "Screens/JoinGame.h"
 #include "Screens/CreditsScreen.h"
+#include "Screens/NextPlayerMessageScreen.h"
 
 int main(void)
 {
@@ -29,6 +30,7 @@ int main(void)
     screenManager->add(new CreateGame());
     screenManager->add(new JoinGame());
     screenManager->add(new CreditsScreen());
+    screenManager->add(new NextPlayerMessageScreen());
 
     sf::Clock clock;
     while (window->isOpen())

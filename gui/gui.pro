@@ -33,7 +33,8 @@ SOURCES += \
     Screens/SingleplayermenuScreen.cpp \
     Screens/CreateGame.cpp \
     Screens/JoinGame.cpp \
-    Buttons/TextArea.cpp
+    Buttons/TextArea.cpp \
+    Screens/NextPlayerMessageScreen.cpp
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../core/release/ -lcore
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../core/debug/ -lcore
@@ -72,4 +73,5 @@ HEADERS += \
     Screens/SingleplayermenuScreen.h \
     Screens/CreateGame.h \
     Screens/JoinGame.h \
-    Buttons/TextArea.h
+    Buttons/TextArea.h \
+    Screens/NextPlayerMessageScreen.h
