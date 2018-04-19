@@ -4,12 +4,16 @@
 #include "Screens/SingleplayerScreen.h"
 #include "Screens/SingleplayermenuScreen.h"
 #include "Screens/MultiplayerScreen.h"
+#include "Screens/CreateGame.h"
+#include "Screens/JoinGame.h"
 #include "Screens/CreditsScreen.h"
+#include "Screens/NextPlayerMessageScreen.h"
 
 int main(void)
 {
     MainWindow * window = MainWindow::getInstance();
     window->setFramerateLimit(60);
+    window->setKeyRepeatEnabled(false);
 
 #if FULLSCREEN
     window->setFullscreen();
@@ -23,7 +27,10 @@ int main(void)
     screenManager->add(new SingleplayerScreen());
     screenManager->add(new SingleplayermenuScreen());
     screenManager->add(new MultiplayerScreen());
+    screenManager->add(new CreateGame());
+    screenManager->add(new JoinGame());
     screenManager->add(new CreditsScreen());
+    screenManager->add(new NextPlayerMessageScreen());
 
     sf::Clock clock;
     while (window->isOpen())

@@ -63,10 +63,10 @@ void MultiplayerScreen::draw(sf::RenderWindow &window)
 
 void MultiplayerScreen::create_gameButtonClicked()
 {
-    //TODO
+    ScreenManager::getInstance()->switchTo("multiplayer/creategame");
 }
 
 void MultiplayerScreen::join_gameButtonClicked()
 {
-    //TODO
+    ScreenManager::getInstance()->switchTo("multiplayer/joingame");
 }

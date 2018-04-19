@@ -47,3 +47,13 @@ Screen * ScreenManager::getCurrent()
         current->loadContent();
     return current;
 }
+
+Screen * ScreenManager::getPrevious()
+{
+    if (previous == NULL && screens.size() > 0)
+        previous = screens[0];
+
+    if (previous && !previous->isContentLoaded())
+        previous->loadContent();
+    return previous;
+}

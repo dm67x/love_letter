@@ -1,27 +1,30 @@
-#include "SingleplayermenuScreen.h"
+#include "CreateGame.h"
 #include "ScreenManager.h"
 #include "MainWindow.h"
 #include "Buttons/MenuButton.h"
 
-int SingleplayermenuScreen::players_number;
-MenuButton * SingleplayermenuScreen::two_players_button;
-MenuButton * SingleplayermenuScreen::three_players_button;
-MenuButton * SingleplayermenuScreen::four_players_button;
+int CreateGame::players_number_multi;
+MenuButton * CreateGame::two_players_button;
+MenuButton * CreateGame::three_players_button;
+MenuButton * CreateGame::four_players_button;
 
-SingleplayermenuScreen::SingleplayermenuScreen()
-    : Screen("singleplayermenu")
-{   
-    players_number = 2;
+CreateGame::CreateGame()
+    : Screen("multiplayer/creategame")
+{
+    players_number_multi = 2;
 }
 
-SingleplayermenuScreen::~SingleplayermenuScreen()
+CreateGame::~CreateGame()
 {
     delete play_button;
+    delete two_players_button;
+    delete three_players_button;
+    delete four_players_button;
 }
 
-void SingleplayermenuScreen::loadContent()
+void CreateGame::loadContent()
 {
-    Screen::loadContent();
+    content_loaded = true;
 
     sf::Vector2u size = getSize();
 
@@ -53,20 +56,20 @@ void SingleplayermenuScreen::loadContent()
     // Sub button
     two_players_button = new MenuButton("2",
         sf::Vector2f(npc_button_rect.left + npc_button_rect.width + space_players_choice, npc_button_rect.top + npc_button_rect.height / 2));
-    two_players_button->onClick(&two_playersButtonClicked);
+    two_players_button->onClick(&two_playersButtonclicked);
     sf::FloatRect twop_button_rect = two_players_button->getBounds();
     two_players_button->buttonPressed();
 
     // Sub button
     three_players_button = new MenuButton("3",
         sf::Vector2f(twop_button_rect.left + twop_button_rect.width + space_players_choice, npc_button_rect.top + npc_button_rect.height / 2));
-    three_players_button->onClick(&three_playersButtonClicked);
+    three_players_button->onClick(&three_playersButtonclicked);
     sf::FloatRect threep_button_rect = three_players_button->getBounds();
 
     // Sub button
     four_players_button = new MenuButton("4",
         sf::Vector2f(threep_button_rect.left + threep_button_rect.width + space_players_choice, npc_button_rect.top + npc_button_rect.height / 2));
-    four_players_button->onClick(&four_playersButtonClicked);
+    four_players_button->onClick(&four_playersButtonclicked);
 
     // Play button
     play_button = new MenuButton("Start Game",
@@ -74,61 +77,52 @@ void SingleplayermenuScreen::loadContent()
     play_button->onClick(&playButtonClicked);
 }
 
-void SingleplayermenuScreen::input(sf::Event evt)
+void CreateGame::update(sf::Event evt, float dt)
 {
-    two_players_button->input(evt);
-    three_players_button->input(evt);
-    four_players_button->input(evt);
-    play_button->input(evt);
+    two_players_button->update();
+    three_players_button->update();
+    four_players_button->update();
+    play_button->update();
 }
 
-void SingleplayermenuScreen::update(float dt)
-{
-    two_players_button->update(dt);
-    three_players_button->update(dt);
-    four_players_button->update(dt);
-    play_button->update(dt);
-}
-
-void SingleplayermenuScreen::draw(sf::RenderWindow &window)
+void CreateGame::draw(sf::RenderWindow &window)
 {
     window.clear(sf::Color::Black);
 
     window.draw(background);
-    window.draw(*two_players_button);
-    window.draw(*three_players_button);
-    window.draw(*four_players_button);
-    window.draw(*play_button);
+    two_players_button->draw(window);
+    three_players_button->draw(window);
+    four_players_button->draw(window);
+    play_button->draw(window);
     window.draw(number_players_choice_text);
 }
 
-void SingleplayermenuScreen::two_playersButtonClicked()
+void CreateGame::two_playersButtonclicked()
 {
-    players_number = 2;
+    players_number_multi = 2;
     two_players_button->buttonPressed();
     three_players_button->buttonUnpressed();
     four_players_button->buttonUnpressed();
 }
 
-void SingleplayermenuScreen::three_playersButtonClicked()
+void CreateGame::three_playersButtonclicked()
 {
-    players_number = 3;
+    players_number_multi = 3;
     two_players_button->buttonUnpressed();
     three_players_button->buttonPressed();
     four_players_button->buttonUnpressed();
 }
 
-void SingleplayermenuScreen::four_playersButtonClicked()
+void CreateGame::four_playersButtonclicked()
 {
-    players_number = 4;
+    players_number_multi = 4;
     two_players_button->buttonUnpressed();
     three_players_button->buttonUnpressed();
     four_players_button->buttonPressed();
 }
 
-void SingleplayermenuScreen::playButtonClicked()
+void CreateGame::playButtonClicked()
 {
-    ScreenManager::getInstance()->switchTo("singleplayer");
-    // TODO: trouver le moyen de faire passer en argument
-    // le nombre de joueurs sélectionné
+    // TODO: Link to Jawed's part
 }
+

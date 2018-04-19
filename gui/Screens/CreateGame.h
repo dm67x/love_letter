@@ -1,11 +1,11 @@
-#ifndef SINGLEPLAYERMENUSCREEN_H
-#define SINGLEPLAYERMENUSCREEN_H
+#ifndef CREATEGAME_H
+#define CREATEGAME_H
 
 #include "Screen.h"
 #include "Buttons/MenuButton.h"
 #include "Button.h"
 
-class SingleplayermenuScreen : public Screen
+class CreateGame : public Screen
 {
 
 private:
@@ -16,11 +16,11 @@ private:
     sf::Color number_players_choice_color;
 
     static MenuButton * two_players_button;
-    static void two_playersButtonClicked();
+    static void two_playersButtonclicked();
     static MenuButton * three_players_button;
-    static void three_playersButtonClicked();
+    static void three_playersButtonclicked();
     static MenuButton * four_players_button;
-    static void four_playersButtonClicked();
+    static void four_playersButtonclicked();
 
     sf::Font font;
 
@@ -35,16 +35,15 @@ private:
     sf::Texture bg_texture;
 
 public:
-    SingleplayermenuScreen();
-    ~SingleplayermenuScreen();
+    CreateGame();
+    ~CreateGame();
 
-    static int players_number;
+    static int players_number_multi;
 
     void loadContent();
-    void input(sf::Event evt);
-    void update(float dt);
+    void update(sf::Event evt, float dt);
     void draw(sf::RenderWindow & window);
 
 };
 
-#endif // SINGLEPLAYERMENUSCREEN_H
+#endif // CREATEGAME_H
