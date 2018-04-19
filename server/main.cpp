@@ -28,7 +28,7 @@ int main(int argc , char *argv[])
 
     //a message
     char *message = "ECHO Daemon v1.0 \r\n";
-    int n = 0; // Current Player Index
+    int n = -1; // Current Player Index
     char *str = "";
 
     //initialise all client_socket[] to 0 so not checked
@@ -138,6 +138,13 @@ int main(int argc , char *argv[])
                 str = "4";
             }
 
+            // Send msg to HOST to tell him how many players are ready
+            if( send(client_socket[0], str, strlen(message), 0) != strlen(message) )
+            {
+                perror("send");
+            }
+
+            // Send current client his INDEX
             if( send(new_socket, str, strlen(message), 0) != strlen(message) )
             {
                 perror("send");
@@ -178,12 +185,19 @@ int main(int argc , char *argv[])
                     client_socket[i] = 0;
                 }
 
-                //Echo back the message that came in
+                //BROADCAST THE MESSAGE THAT CAME IN
                 else
                 {
-                    //set the string terminating NULL byte on the end of the data read
                     buffer[valread] = '\0';
-                    send(sd , buffer , strlen(buffer) , 0 );
+                    printf("BUFFER : %s \n", buffer);
+
+                    for (int j = 0; j < max_clients && j != i; j++){ // dont echo back message
+                        send(client_socket[j] , buffer , strlen(buffer) , 0 );
+                    }
+
+                    //set the string terminating NULL byte on the end of the data read
+                    //buffer[valread] = '\0';
+                    //send(sd , buffer , strlen(buffer) , 0 );
                 }
             }
         }

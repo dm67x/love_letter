@@ -14,19 +14,11 @@ int main()
 {
     unsigned int nb = 2;
     MultiplayerGame * game = new MultiplayerGame(nb);
-    // host server
-    //game->createServer();
 
     string rec = "";
 
-    // Init connection
-    TCPClient * tcp = new TCPClient();
-
     int myNumber = game->joinServer("127.0.0.1"); //1 //2
     printf("my number : %d \n",myNumber);
-
-    // ------ DEBUG ----------------
-    return 0;
 
     // OTHER GUY CONNECTS
     // I AM THE PLAYER 1
@@ -36,13 +28,22 @@ int main()
     {
         game->startRound();
         // Receive the Deck from Server
-        string deck = tcp->receive();
+        string deck = game->getTCP().receive();
+        string deck_read = game->getTCP().read();
+        const char * deck_char = deck.c_str();
+
+        printf("DECK RECEIVED (STRING) : %s \n", deck);
+        printf("DECK RECEIVED (CHAR* c_str) : %s \n", deck_char);
+        cout << "aaa \n";
+
+        // ------ DEBUG ----------------
+        return 0;
 
         while (!game->roundOver())
         {
             // If it's not my turn, I wait for server to tell me smth
             if(game->getCurrentPlayerIndex() != myNumber){
-                rec = tcp->receive();
+                rec = game->getTCP().receive();
 
                 if(rec.length() < 1){
                     // MUST THROW AN ERROR
@@ -109,7 +110,7 @@ int main()
                 game->update();
 
                 // SEND INFO TO SERVER
-                tcp->Send(rec);
+                game->getTCP().Send(rec);
             }
 
         }
