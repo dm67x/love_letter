@@ -12,16 +12,18 @@ class Card
 
 private:
     unsigned short value;
+    unsigned short nbCopies;
     string name;
     string description;
 
 protected:
-    Card(string name, unsigned short value, string description);
+    Card(string name, unsigned short value, unsigned short nbCopies, string description);
 
 public:
     virtual ~Card();
 
     inline unsigned short getValue() const { return value; }
+    inline unsigned short getNbCopies() const { return nbCopies; }
     inline string getName() const { return name; }
     inline string getDescription() const { return description; }
 

@@ -4,7 +4,7 @@
 namespace Core {
 
 Princess::Princess()
-    : Card("Princess", 8, "If you discard this card, you are out of the round.")
+    : Card("Princess", 8, 1, "If you discard this card, you are out of the round.")
 {
 }
 

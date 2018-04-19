@@ -4,6 +4,7 @@
 #include "card.h"
 #include "deck.h"
 #include "game.h"
+#include "cards/all.h"
 
 #include <vector>
 
@@ -24,9 +25,10 @@ public:
     IA(Core::Game *g);
     int chooseCard();
     int getIndexMostProbableCard();
-    //int assumeCard(int player_index);
-    //int choosePlayer(vector<Player *> players);
-    void updateProbableCards(Core::Card *c, double proba);
+    int getIndexSecondMostProbableCard(int max);
+
+    void updateProbabilities();
+    double calculateProbability(Core::Card *c);
 };
 
 #endif // IA_H

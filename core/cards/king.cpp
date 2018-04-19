@@ -4,7 +4,7 @@
 namespace Core {
 
 King::King()
-    : Card("King", 6, "Trade hands with another player of your choice.")
+    : Card("King", 6, 1, "Trade hands with another player of your choice.")
 {
 }
 

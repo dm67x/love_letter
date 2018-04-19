@@ -3,7 +3,7 @@
 namespace Core {
 
 Countess::Countess()
-    : Card("Countess", 7, "If you have this card and the King or Prince in your hand, \
+    : Card("Countess", 7, 1, "If you have this card and the King or Prince in your hand, \
          you must discard this card.")
 {
 }

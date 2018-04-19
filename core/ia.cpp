@@ -6,135 +6,194 @@
 
 using namespace Core;
 
-//int IA::number_of_objects = 0;
+int IA::number_of_objects = 0;
 
 IA::IA(Game * g)
     : Player("Computer" + id)
 {
+    number_of_objects++;
+    id = number_of_objects;
+
     deck = Deck::getInstance();
     game = g;
-   // number_of_objects++;
-   //id = number_of_objects;
-
     opponent = g->getPlayers().at(0);
+
+    probableCards.push_back(new Guard());
+    probableCards.push_back(new Priest());
+    probableCards.push_back(new Baron());
+    probableCards.push_back(new Handmaid());
+    probableCards.push_back(new Prince());
+    probableCards.push_back(new King());
+    probableCards.push_back(new Countess());
+    probableCards.push_back(new Princess());
+
+    for(int i=0;i<8;i++)
+        probabilities.push_back(0);
+
 }
 
-void IA::updateProbableCards(Card *c, double proba){
+void IA::updateProbabilities(){
 
-    probableCards.push_back(c);
-    probabilities.push_back(proba);
+    int index;
+    // if opponent played  a King
+    if(opponent->getPlayedCards().back()->isTheSameCardAs("King")){
+        index =  opponent->getCard(0)->getValue() - 1;
+        probabilities[index] = 1;
+    }
+
+    for(int i=0;i<8 && index != i;i++){
+
+        /*if opponent didn't throw the card that we knew,
+        we don't update its probability*/
+        if(probabilities[i] == 1 &&
+           !probableCards.at(i)->
+              isTheSameCardAs(opponent->getPlayedCards().back()->getName()));
+        else
+            probabilities[i] = calculateProbability(probableCards[i]);
+    }
 }
 
 int IA::getIndexMostProbableCard(){
 
     int index;
+    vector<double>::iterator result;
 
-    // if opponent played king
-    if(opponent->getPlayedCards().back()->isTheSameCardAs("King")){
-        updateProbableCards(opponent->getCard(0), 1);
-        return probableCards.size() - 1;
-    }
-    vector<double>::iterator findIter = std::find(probabilities.begin(), probabilities.end(), 1);
-    if(findIter != probabilities.end()){
-        index = findIter - probabilities.begin();
-        // if the opponent played the card we knew
-        if(probableCards.at(index)->isTheSameCardAs(opponent->getPlayedCards().back()->getName())){
-            probableCards.erase(probableCards.begin()+index-1);
-            index = -1;
-        }
-    }
-    else
-        index = -1;
+    result = std::max_element(probabilities.begin(), probabilities.end());
+    index = std::distance(probabilities.begin(), result);
+
     return index;
 }
 
+int IA::getIndexSecondMostProbableCard(int max){
+
+    double second_max = probabilities[0];
+    for(int i=1; i< 8 && i!= max ;i++){
+        if(probabilities[i] > second_max)
+            second_max = probabilities[i];
+    }
+
+    return second_max;
+}
+
+double IA::calculateProbability(Core::Card *c){
+
+  int count1 = std::count (getPlayedCards().begin(), getPlayedCards().end(), c);
+  int count2 = std::count(opponent->getPlayedCards().begin(),
+                          opponent->getPlayedCards().end(),c);
+  return (c->getNbCopies()-(count1+count2)) /
+            (deck->getCards().size() + deck->getRemovedCards().size());
+}
 
 
 int IA::chooseCard(){
     int res;
     int indexCard;
+    int cardToPlay;
+    Card * card;
 
-    //game->pickTarget(0);
+    updateProbabilities();
+
+    indexCard = getIndexMostProbableCard();
+    card = probableCards.at(indexCard);
+
 
     //if IA has the Princess, return the other card
     if((res = hasCard("Princess")) != -1 ){
-        return (res+1)%2;
+        cardToPlay = (res+1)%2;
     }
 
     //if IA has a pair of the same card, then return whatever
-    if(getCard(0) && getCard(1) && getCard(0)->isTheSameCardAs(getCard(1)->getName())){
-       return 0;
+    else if(getCard(0) &&
+            getCard(1) &&
+            getCard(0)->isTheSameCardAs(getCard(1)->getName())){
+       cardToPlay = 0;
     }
 
     //if we know the card of the other player with a 100% certainty
-    if((indexCard = getIndexMostProbableCard())!= -1){
-        Card * card = probableCards.at(indexCard);
-        if((res = hasCard("Guard")) != -1){
+    else if(probabilities[indexCard] == 1){
+        if((res = hasCard("Guard")) != -1 &&
+                !card->isTheSameCardAs("Guard") &&
+                !opponent->hasShield()){
+            cardToPlay = res;
+        }
 
-            //set GuessCard = the card that we know
-            game->pickTarget(0); //if 2 players, par default opponent is on index 0
-            game->guessCard(card->getName());
+        else if(card->isTheSameCardAs("Princess") &&
+                (res = hasCard("Prince")) != -1 ){
+            cardToPlay = res;
+        }
 
-            return res;
+        else if((res = hasCard("Baron")) != -1){
+            if(getCard((res+1)%2)->getValue() > card->getValue())
+                cardToPlay = res;
+            else cardToPlay = (res+1)%2;
         }
         //if last turn
-        if(!deck->getCards().empty() == 0){
-            if((res = hasCard("King")) != -1 && card->getValue() > getCard((res+1)%2)->getValue()){
-                return res;
+        else if(deck->getCards().empty()){
+            if((res = hasCard("King")) != -1 &&
+                    card->getValue() > getCard((res+1)%2)->getValue()){
+                cardToPlay = res;
             }
 
-            if((res = hasCard("Baron")) != -1 && card->getValue() > getCard((res+1)%2)->getValue()){
-                return (res+1)%2;
-            }
-
-            return getCard(0)->getValue() < getCard(1)->getValue() ? 0 : 1;
-        }
-        //if that card is the princess
-        if(card->getName() == "Princess"){
-            if((res = hasCard("Prince")) != -1 ){
-              return res;
-            }
-            if((res = hasCard("Baron")) != -1){
-                return (res+1)%2;
-            }
-        }
-        else{
-            if((res=hasCard("Baron")) != -1){
-
-                if(card->getValue() < getCard((res+1)%2)->getValue()){
-                    return res;
-                }
-            }
+            else cardToPlay =
+                    getCard(0)->getValue() < getCard(1)->getValue() ? 0 : 1;
         }
     }
 
-    if(!deck->getCards().empty() == 0){
-        return getCard(0)->getValue() < getCard(1)->getValue() ? 0 : 1;
+    // if last turn and we dont know the opponnents card
+    else if(deck->getCards().empty()){
+        cardToPlay = getCard(0)->getValue() < getCard(1)->getValue() ? 0 : 1;
     }
 
     //play Baron if the other card is a King, Countess or a Princess
-    if((res = hasCard("Baron")) != -1 && getCard((res+1)%2)->getValue() >= 6 ){
-        return res;
+    else if((res = hasCard("Baron")) != -1 &&
+            getCard((res+1)%2)->getValue() >= 6 ){
+        cardToPlay = res;
     }
 
     //always play Priest
-    if((res=hasCard("Priest")) != -1){
-        return res;
+    else if((res=hasCard("Priest")) != -1){
+        cardToPlay = res;
     }
 
     //always play Handmaid
-    if((res=hasCard("Handmaid")) != -1){
-        return res;
+    else if((res=hasCard("Handmaid")) != -1){
+        cardToPlay = res;
     }
 
     //if I have a Prince and a King, play the Prince
-    if((res = hasCard("Prince")) != -1 && hasCard("King") != -1 ){
-        return res;
+    else if((res = hasCard("Prince")) != -1 && hasCard("King") != -1 ){
+        cardToPlay = res;
     }
 
-    srand( time(NULL) );
-    res = rand() % 2;
-    return res;
+    else{
+        srand( time(NULL) );
+        cardToPlay = rand() % 2;
+    }
+
+    // if priest chosen to play
+    if(getCard(cardToPlay)->isTheSameCardAs("Priest")){
+        res =  opponent->getCard(0)->getValue() - 1;
+        probabilities[res] = 1;
+    }
+
+    if(getCard(cardToPlay)->isTheSameCardAs("King")){
+        res =  opponent->getCard(0)->getValue() - 1;
+        probabilities[res] = 1;
+    }
+
+    if(getCard(cardToPlay)->isTheSameCardAs("Guard") &&
+            card->isTheSameCardAs("Guard")){
+        //search for the second most probable card
+        indexCard = getIndexSecondMostProbableCard(indexCard);
+        card = probableCards.at(indexCard);
+
+    }
+
+    // set guess and pickTarget
+    game->pickTarget(0);
+    game->guessCard(card->getName());
+
+    return cardToPlay;
 }
 
 
