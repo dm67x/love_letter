@@ -1,3 +1,3 @@
 TEMPLATE = subdirs
 
-SUBDIRS = core gui
+SUBDIRS = core gui IA

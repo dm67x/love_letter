@@ -133,7 +133,7 @@ bool Game::roundOver()
 // Update game information
 // Check if round/game is over
 void Game::update()
-{    
+{
     nb_dead = 0;
     for (unsigned int i = 0; i < players.size(); i++) {
         if (players[i]->isDead())

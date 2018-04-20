@@ -107,4 +107,14 @@ void Player::clear()
     points = 0;
 }
 
+int Player::hasCard(string card_name){
+    int index;
+    if(hand[0]->getName() == card_name)
+        index = 0;
+    else if(hand[1]->getName() == card_name)
+        index = 1;
+    else index = -1;
+    return index;
+}
+
 }

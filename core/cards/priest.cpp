@@ -4,7 +4,7 @@
 namespace Core {
 
 Priest::Priest()
-    : Card("Priest", 2, "Look at another player's hand.")
+    : Card("Priest", 2, 2, "Look at another player's hand.")
 {
 }
 

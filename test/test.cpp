@@ -15,7 +15,7 @@ int main()
     // normally given by IHM
     int nbPlayers = (rand()%4)+2;
 
-    Game game(nbPlayers);
+    Core::Game game(nbPlayers);
 
     // Game loop
     while(!game.gameOver())

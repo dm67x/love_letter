@@ -4,7 +4,7 @@
 namespace Core {
 
 Guard::Guard()
-    : Card("Guard", 1, "Name a non-Guard card and choose another player. \
+    : Card("Guard", 1, 5, "Name a non-Guard card and choose another player. \
         If that player has that card, he or she is out of the round.")
 {
 }

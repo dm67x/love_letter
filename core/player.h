@@ -43,6 +43,7 @@ public:
     // if index = -1 then don't activate effect of discarded card
     void discard(int index = -1);
     void clear(); // reinitialize
+    int hasCard(string card_name);
 
 };
 

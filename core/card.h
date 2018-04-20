@@ -11,17 +11,19 @@ class Card
 {
 
 private:
-    unsigned short value;
     string name;
+    unsigned short value;
+    unsigned short nbCopies;
     string description;
 
 protected:
-    Card(string name, unsigned short value, string description);
+    Card(string name, unsigned short value, unsigned short nbCopies, string description);
 
 public:
     virtual ~Card();
 
     inline unsigned short getValue() const { return value; }
+    inline unsigned short getNbCopies() const { return nbCopies; }
     inline string getName() const { return name; }
     inline string getDescription() const { return description; }
 
@@ -29,6 +31,8 @@ public:
     virtual bool needGuess() = 0;
     virtual bool targetHimself();
     virtual void activeEffect() = 0;
+
+    bool isTheSameCardAs(string card_name);
 
 };
 
