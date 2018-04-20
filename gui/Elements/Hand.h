@@ -8,7 +8,7 @@
 
 class Board;
 
-typedef void (Board::*FUNC)(sf::Event, int, Core::Card*);
+typedef int (Board::*FUNC)(int, Core::Card*);
 
 class Hand : public Object
 {
@@ -22,6 +22,7 @@ private:
 
     FUNC function;
     Board * elem;
+    int selected_card; // for update
 
     // Debug
     DebugBounds * debug;

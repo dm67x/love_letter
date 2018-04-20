@@ -77,12 +77,20 @@ void CreateGame::loadContent()
     play_button->onClick(&playButtonClicked);
 }
 
-void CreateGame::update(sf::Event evt, float dt)
+void CreateGame::input(sf::Event evt)
 {
-    two_players_button->update();
-    three_players_button->update();
-    four_players_button->update();
-    play_button->update();
+    two_players_button->input(evt);
+    three_players_button->input(evt);
+    four_players_button->input(evt);
+    play_button->input(evt);
+}
+
+void CreateGame::update(float dt)
+{
+    two_players_button->update(dt);
+    three_players_button->update(dt);
+    four_players_button->update(dt);
+    play_button->update(dt);
 }
 
 void CreateGame::draw(sf::RenderWindow &window)
@@ -90,10 +98,10 @@ void CreateGame::draw(sf::RenderWindow &window)
     window.clear(sf::Color::Black);
 
     window.draw(background);
-    two_players_button->draw(window);
-    three_players_button->draw(window);
-    four_players_button->draw(window);
-    play_button->draw(window);
+    window.draw(*two_players_button);
+    window.draw(*three_players_button);
+    window.draw(*four_players_button);
+    window.draw(*play_button);
     window.draw(number_players_choice_text);
 }
 

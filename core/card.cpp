@@ -11,6 +11,11 @@ Card::~Card()
 {
 }
 
+bool Card::targetHimself()
+{
+    return true;
+}
+
 }
 
 

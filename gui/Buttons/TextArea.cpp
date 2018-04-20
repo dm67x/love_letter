@@ -1,37 +1,23 @@
 #include "TextArea.h"
 
 TextArea::TextArea(sf::Vector2f position)
+    : TextArea(position, -1, 200)
 {
-    // No limit
-    this->character_number_limit = -1;
-
-    // Default
-    this->text_area_width = 200;
-
-    construct(position);  
 }
 
 TextArea::TextArea(sf::Vector2f position, unsigned int cnl)
-{
-    this->character_number_limit = cnl;
-
-    // Default
-    this->text_area_width = 200;
-
-    construct(position);   
+    : TextArea(position, cnl, 200)
+{  
 }
 
 TextArea::TextArea(sf::Vector2f position, unsigned int cnl, int taw)
+    : Object("textarea")
 {
     this->character_number_limit = cnl;
 
     // Default
     this->text_area_width = taw;
 
-    construct(position);
-}
-
-void TextArea::construct(sf::Vector2f position) {
     n_color = sf::Color(226, 26, 57);
 
     // Font & text
@@ -57,7 +43,6 @@ void TextArea::construct(sf::Vector2f position) {
 
 TextArea::~TextArea()
 {
-
 }
 
 std::string TextArea::getText()
@@ -66,16 +51,8 @@ std::string TextArea::getText()
     return str;
 }
 
-void TextArea::update(sf::Event evt)
+void TextArea::input(sf::Event evt)
 {
-    if(hasFocus) {
-        this->background.setOutlineThickness(2);
-        this->background.setOutlineColor(sf::Color::Blue);
-    } else {
-        this->background.setOutlineThickness(1);
-        this->background.setOutlineColor(sf::Color::Black);
-    }
-
     switch (evt.type)
     {
         case sf::Event::TextEntered:
@@ -94,7 +71,6 @@ void TextArea::update(sf::Event evt)
                                 < this->background.getGlobalBounds().width) {
 
                             this->text.setString(str);
-                            sf::sleep(sf::milliseconds(100));
                         }
                     }
                 }
@@ -126,7 +102,17 @@ void TextArea::update(sf::Event evt)
         default:
         break;
     }
+}
 
+void TextArea::update(float dt)
+{
+    if(hasFocus) {
+        this->background.setOutlineThickness(2);
+        this->background.setOutlineColor(sf::Color::Blue);
+    } else {
+        this->background.setOutlineThickness(1);
+        this->background.setOutlineColor(sf::Color::Black);
+    }
 }
 
 bool TextArea::isMouseInside(sf::Vector2i mouse_pos)
@@ -141,8 +127,9 @@ bool TextArea::isMouseInside(sf::Vector2i mouse_pos)
     }
 }
 
-void TextArea::draw(sf::RenderWindow &window)
+void TextArea::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
-    window.draw(background);
-    window.draw(text);
+    states.transform *= getTransform();
+    target.draw(background, states);
+    target.draw(text, states);
 }

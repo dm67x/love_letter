@@ -16,7 +16,7 @@ NextPlayerMessageScreen::~NextPlayerMessageScreen()
 
 void NextPlayerMessageScreen::loadContent()
 {
-    content_loaded = true;
+    Screen::loadContent();
 
     sf::Vector2u size = getSize();
 

@@ -18,8 +18,7 @@ private:
     PlayerZone * current_player_zone;
     unsigned int current_zone;
 
-    void playing(sf::Event evt, int index, Core::Card * card);
-    void choose_target();
+    int playing(int index, Core::Card * card);
 
     Core::Player * target_player;
 

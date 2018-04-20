@@ -13,6 +13,7 @@ public:
 
     bool needGuess() { return false; }
     bool needTarget() { return true; }
+    bool targetHimself() { return false; }
     void activeEffect();
 
 };

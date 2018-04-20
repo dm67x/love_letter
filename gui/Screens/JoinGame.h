@@ -36,7 +36,8 @@ public:
     static std::string player_ip_adress;
 
     void loadContent();
-    void update(sf::Event evt, float dt);
+    void input(sf::Event evt);
+    void update(float dt);
     void draw(sf::RenderWindow & window);
 
 };

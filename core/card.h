@@ -27,6 +27,7 @@ public:
 
     virtual bool needTarget() = 0;
     virtual bool needGuess() = 0;
+    virtual bool targetHimself();
     virtual void activeEffect() = 0;
 
 };

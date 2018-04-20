@@ -41,7 +41,8 @@ public:
     static int players_number_multi;
 
     void loadContent();
-    void update(sf::Event evt, float dt);
+    void input(sf::Event evt);
+    void update(float dt);
     void draw(sf::RenderWindow & window);
 
 };

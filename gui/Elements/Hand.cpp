@@ -12,6 +12,8 @@ Hand::Hand(Core::Player * player, sf::FloatRect bounds)
     cards[0] = NULL;
     cards[1] = NULL;
 
+    selected_card = -1;
+
     // Debug
     debug = new DebugBounds(bounds);
 }
@@ -92,7 +94,7 @@ void Hand::input(sf::Event evt, sf::Transform transf)
             if (card_bounds.contains(evt.mouseButton.x, evt.mouseButton.y)) {
                 if (evt.type == sf::Event::MouseButtonReleased
                         && evt.mouseButton.button == sf::Mouse::Left) {
-                    (elem->*function)(evt, i, player->getCard(i));
+                    selected_card = i;
                 }
             }
         }
@@ -101,6 +103,10 @@ void Hand::input(sf::Event evt, sf::Transform transf)
 
 void Hand::update(float dt, sf::Transform transf)
 {
+    if (selected_card != -1) {
+        selected_card = (elem->*function)(selected_card, player->getCard(selected_card));
+    }
+
     for (int i = 0; i < 2; i++)
     {
         Card * card = cards[i];

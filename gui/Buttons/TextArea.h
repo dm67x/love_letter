@@ -1,9 +1,9 @@
 #ifndef TEXTAREA_H
 #define TEXTAREA_H
 
-#include <SFML/Graphics.hpp>
+#include "Object.h"
 
-class TextArea
+class TextArea : public Object
 {
 
 private:
@@ -27,10 +27,9 @@ public:
     std::string getText();
     bool isMouseInside(sf::Vector2i mouse_pos);
 
-    void construct(sf::Vector2f position);
-
-    void update(sf::Event evt);
-    void draw(sf::RenderWindow &window);
+    void input(sf::Event evt);
+    void update(float dt);
+    void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 
 };
 

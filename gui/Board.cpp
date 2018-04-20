@@ -3,16 +3,24 @@
 #include "Message.h"
 #include "ScreenManager.h"
 
-#include <iostream>
-#include <unistd.h>
-#include <thread>
-
-void Board::playing(sf::Event evt, int index, Core::Card *card)
+int Board::playing(int index, Core::Card *card)
 {
+    bool target_selected = false, guessed = false;
     // Target
-    if (card->needTarget()) {
-        std::thread target_t(&choose_target, this);
-        target_t.join();
+    if (!target_selected && card->needTarget()) {
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+            sf::Vector2i mpos = sf::Mouse::getPosition(*MainWindow::getInstance());
+            for (unsigned int i = 0; i < zones.size(); i++) {
+                sf::Transform transf = zones[i]->getTransform();
+                sf::FloatRect rect = transf.transformRect(zones[i]->getBounds());
+                if (rect.contains(static_cast<sf::Vector2f>(mpos))) {
+                    if (zones[i] == current_player_zone && !card->targetHimself()) break;
+                    target_player = zones[i]->getPlayer();
+                    target_selected = true;
+                    break;
+                }
+            }
+        }
 
         // Find index of target
         auto players = game->getPlayers();
@@ -25,34 +33,16 @@ void Board::playing(sf::Event evt, int index, Core::Card *card)
         target_player = NULL;
     }
 
-    current_player_zone->getPlayer()->discard(index);
-    for (unsigned int i = 0; i < zones.size(); i++)
-        zones[i]->getHand()->updateCards();
-
-
     // Guess
     std::cout << "[" << index << "]" << " " << card->getName() << std::endl;
-}
 
-void Board::choose_target()
-{
-    bool ok = false;
-    std::cout << "target" << std::endl;
-    while (!ok) {
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-            sf::Vector2i mpos = sf::Mouse::getPosition(*MainWindow::getInstance());
-            for (unsigned int i = 0; i < zones.size(); i++) {
-                sf::Transform transf = zones[i]->getTransform();
-                sf::FloatRect rect = transf.transformRect(zones[i]->getBounds());
-                if (rect.contains(static_cast<sf::Vector2f>(mpos))) {
-                    target_player = zones[i]->getPlayer();
-                    ok = true;
-                    break;
-                }
-            }
-        }
-        usleep(500);
+    if ((card->getValue() == 1 && target_selected && guessed) || target_selected) {
+        current_player_zone->getPlayer()->discard(index);
+        for (unsigned int i = 0; i < zones.size(); i++)
+            zones[i]->getHand()->updateCards();
+        return -1;
     }
+    return index;
 }
 
 Board::Board(Core::Game *game, sf::FloatRect board_rect)

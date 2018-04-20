@@ -58,10 +58,16 @@ void JoinGame::loadContent()
     join_button->onClick(&joinButtonClicked);
 }
 
-void JoinGame::update(sf::Event evt, float dt)
+void JoinGame::input(sf::Event evt)
 {
-    join_button->update();
-    ip_adress_ta->update(evt);
+    join_button->input(evt);
+    ip_adress_ta->input(evt);
+}
+
+void JoinGame::update(float dt)
+{
+    join_button->update(dt);
+    ip_adress_ta->update(dt);
 }
 
 void JoinGame::draw(sf::RenderWindow &window)
@@ -69,8 +75,8 @@ void JoinGame::draw(sf::RenderWindow &window)
     window.clear(sf::Color::Black);
 
     window.draw(background);
-    join_button->draw(window);
-    ip_adress_ta->draw(window);
+    window.draw(*join_button);
+    window.draw(*ip_adress_ta);
     window.draw(ip_adress_text);
 }
 
