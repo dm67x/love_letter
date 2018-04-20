@@ -52,7 +52,6 @@ void MultiplayerGame::createServer(){
 
 int MultiplayerGame::joinServer(string ip){
     tcp.setup(ip,8888);
-    //tcp.Send("c");
     string res = tcp.receive();
     return atoi(res.c_str());
 }

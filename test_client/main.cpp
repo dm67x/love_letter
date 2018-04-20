@@ -33,10 +33,12 @@ int main()
         game->startRound();
         qDebug() << "game->startRound()";
         // Receive the Deck from Server
+        //char test = game->getTCP().receive();
         string deck = game->getTCP().receive();
+
         //string deck_read = game->getTCP().read();
         //const char * deck_char = deck.c_str();
-        qDebug() << "deck \n";
+        qDebug() << "deck \n" << deck;
         //qDebug() << "DECK RECEIVED (STRING) : " << deck.c_str();
         //printf("DECK RECEIVED (STRING) : %s \n", deck);
         //printf("DECK RECEIVED (CHAR* c_str) : %s \n", deck_char);

@@ -17,7 +17,7 @@
 int main(int argc , char *argv[])
 {
     int opt = TRUE;
-    int master_socket , addrlen , new_socket , client_socket[30] , max_clients = 10 , activity, i , valread , sd;
+    int master_socket , addrlen , new_socket , client_socket[30] , max_clients = 5 , activity, i , valread , sd;
     int max_sd;
     struct sockaddr_in address;
 
@@ -195,7 +195,8 @@ int main(int argc , char *argv[])
                         // dont echo back message to client who sent it
                         if(j != i && client_socket[j] != 0){
                             printf("sending to %d \n", j);
-                            send(client_socket[j], buffer, strlen(buffer), 0);
+                            int r = send(client_socket[j], buffer, strlen(buffer), 0);
+                            printf("r = %d\n",r);
                         }
                     }
 

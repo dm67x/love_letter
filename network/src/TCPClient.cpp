@@ -80,6 +80,23 @@ string TCPClient::receive(int size)
   	return reply;
 }
 
+char TCPClient::receive_char()
+{
+    int size = 4096;
+    char buffer[size];
+    memset(&buffer[0], 0, sizeof(buffer));
+
+    string reply;
+    if( recv(sock , buffer , size, 0) < 0)
+    {
+            cout << "receive failed!" << endl;
+        return NULL;
+    }
+    buffer[size-1]='\0';
+    reply = buffer;
+    return reply.at(0);
+}
+
 string TCPClient::read()
 {
   	char buffer[1] = {};
