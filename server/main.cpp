@@ -17,7 +17,7 @@
 int main(int argc , char *argv[])
 {
     int opt = TRUE;
-    int master_socket , addrlen , new_socket , client_socket[30] , max_clients = 5 , activity, i , valread , sd;
+    int master_socket , addrlen , new_socket , client_socket[30] , max_clients = 10 , activity, i , valread , sd;
     int max_sd;
     struct sockaddr_in address;
 
@@ -189,10 +189,14 @@ int main(int argc , char *argv[])
                 else
                 {
                     buffer[valread] = '\0';
-                    printf("BUFFER : %s \n", buffer);
+                    printf("BUFFER : %s , FROM client %d\n", buffer, i);
 
-                    for (int j = 0; j < max_clients && j != i; j++){ // dont echo back message
-                        send(client_socket[j] , buffer , strlen(buffer) , 0 );
+                    for (int j = 0; j < max_clients; j++){
+                        // dont echo back message to client who sent it
+                        if(j != i && client_socket[j] != 0){
+                            printf("sending to %d \n", j);
+                            send(client_socket[j], buffer, strlen(buffer), 0);
+                        }
                     }
 
                     //set the string terminating NULL byte on the end of the data read

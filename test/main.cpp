@@ -77,12 +77,18 @@ int main()
         }
 
 
-        // Send Deck to server
-        game->getTCP().Send(deck);
-
         //WAIT FOR SERVER TO TELL US WE CAN START
         rec = game->getTCP().receive();
-        printf("%s player on Server \n",rec);
+        int r = atoi(rec.c_str());
+        printf("%d player on Server \n",r);
+
+        if(r == 0){
+            printf("Personne, cant start \n");
+        }
+
+        // Send Deck to server
+        printf("Sending Deck to server ..\n");
+        game->getTCP().Send(deck);
 
         //return 0;
 

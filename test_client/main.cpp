@@ -6,19 +6,23 @@
 #include <iostream>
 #include <string>
 #include <stdio.h>
+#include <stdlib.h>
+#include <QtDebug>
 #include "../network/multiplayergame.h"
 
 using namespace std;
 
 int main()
 {
+    printf("hello ! \n");
+
     unsigned int nb = 2;
     MultiplayerGame * game = new MultiplayerGame(nb);
 
     string rec = "";
 
     int myNumber = game->joinServer("127.0.0.1"); //1 //2
-    printf("my number : %d \n",myNumber);
+    qDebug() << "myNumber : " << myNumber;
 
     // OTHER GUY CONNECTS
     // I AM THE PLAYER 1
@@ -27,17 +31,19 @@ int main()
     while (!game->gameOver())
     {
         game->startRound();
+        qDebug() << "game->startRound()";
         // Receive the Deck from Server
         string deck = game->getTCP().receive();
-        string deck_read = game->getTCP().read();
-        const char * deck_char = deck.c_str();
-
-        printf("DECK RECEIVED (STRING) : %s \n", deck);
-        printf("DECK RECEIVED (CHAR* c_str) : %s \n", deck_char);
-        cout << "aaa \n";
+        //string deck_read = game->getTCP().read();
+        //const char * deck_char = deck.c_str();
+        qDebug() << "deck \n";
+        //qDebug() << "DECK RECEIVED (STRING) : " << deck.c_str();
+        //printf("DECK RECEIVED (STRING) : %s \n", deck);
+        //printf("DECK RECEIVED (CHAR* c_str) : %s \n", deck_char);
+        //cout << "aaa \n";
 
         // ------ DEBUG ----------------
-        return 0;
+        // return 0;
 
         while (!game->roundOver())
         {
@@ -115,5 +121,6 @@ int main()
 
         }
     }
+
 
 }
