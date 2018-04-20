@@ -4,8 +4,6 @@
 
 #include <algorithm>
 
-using namespace Core;
-
 int IA::number_of_objects = 0;
 
 IA::IA(Game * g)
@@ -75,7 +73,7 @@ int IA::getIndexSecondMostProbableCard(int max){
     return second_max;
 }
 
-double IA::calculateProbability(Core::Card *c){
+double IA::calculateProbability(Card *c){
 
   int count1 = std::count (getPlayedCards().begin(), getPlayedCards().end(), c);
   int count2 = std::count(opponent->getPlayedCards().begin(),
