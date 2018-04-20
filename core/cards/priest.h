@@ -1,15 +1,23 @@
-#ifndef PRIEST_H
-#define PRIEST_H
+#ifndef PRIEST_CORE_H
+#define PRIEST_CORE_H
 
 #include "../card.h"
+
+namespace Core {
 
 class Priest : public Card
 {
 
 public:
     Priest();
+
+    bool needGuess() { return false; }
+    bool needTarget() { return true; }
+    bool targetHimself() { return false; }
     void activeEffect();
 
 };
 
-#endif // PRIEST_H
+}
+
+#endif // PRIEST_CORE_H

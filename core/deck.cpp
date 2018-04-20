@@ -1,4 +1,3 @@
-
 #include <random>
 #include <algorithm>
 #include <iterator>
@@ -6,6 +5,8 @@
 
 #include "deck.h"
 #include "cards/all.h"
+
+namespace Core {
 
 Deck * Deck::instance = NULL;
 
@@ -22,45 +23,51 @@ Deck::Deck()
     clear();
 }
 
+// Shuffle the deck
+void Deck::shuffle_me()
+{
+   vector<Card*> V( cards.begin(), cards.end() );
+   shuffle( V.begin(), V.end(), mt19937{ random_device{}() } );
+   cards.assign( V.begin(), V.end() );
+}
+
+// Pick card from deck
 Card * Deck::pickCard()
 {
-    if (number_of_cards == 0) return NULL;
+    if (cards.size() == 0) return NULL;
     Card * c = cards.front();
     cards.pop_front();
     return c;
 }
 
+// Reset
 void Deck::clear()
 {
-    number_of_cards = 16;
+    cards.clear();
     cards.push_back(new Guard());
     cards.push_back(new Guard());
     cards.push_back(new Guard());
     cards.push_back(new Guard());
     cards.push_back(new Guard());
-    cards.push_back(new Guard());
-    cards.push_back(new Guard());
-    cards.push_back(new Guard());
-    cards.push_back(new Guard());
-    cards.push_back(new Guard());
-    cards.push_back(new Guard());
-    cards.push_back(new Guard());
-    cards.push_back(new Guard());
-    cards.push_back(new Guard());
+    cards.push_back(new Priest());
+    cards.push_back(new Priest());
+    cards.push_back(new Baron());
+    cards.push_back(new Baron());
+    cards.push_back(new Handmaid());
+    cards.push_back(new Handmaid());
+    cards.push_back(new Prince());
+    cards.push_back(new Prince());
+    cards.push_back(new King());
+    cards.push_back(new Countess());
     cards.push_back(new Princess());
-    cards.push_back(new Guard());
+
+    shuffle_me();
 }
 
-unsigned int Deck::count()
+// Remove card from deck
+void Deck::removeCard()
 {
-    return number_of_cards;
+    removed_cards.push_back(pickCard());
 }
 
-// Shuffle the deck
-void listShuffle()
-{
-   // deck was not declared in this scope
-   /*vector<Card*> V( deck.begin(), deck.end() );
-   shuffle( V.begin(), V.end(), mt19937{ random_device{}() } );
-   deck.assign( V.begin(), V.end() );*/
 }

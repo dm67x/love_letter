@@ -1,23 +1,21 @@
 #include "card.h"
 
+namespace Core {
+
 Card::Card(string name, unsigned short value, string description)
     : value(value), name(name), description(description)
 {
 }
 
-unsigned short Card::getValue()
+Card::~Card()
 {
-    return value;
 }
 
-string Card::getName()
+bool Card::targetHimself()
 {
-    return name;
+    return true;
 }
 
-string Card::getDescription()
-{
-    return description;
 }
 
 
