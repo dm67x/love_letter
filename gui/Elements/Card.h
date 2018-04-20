@@ -32,6 +32,7 @@ public:
 
     inline Animation * getAnimation() const { return animation; }
     inline sf::Sprite * getSprite() { return &card_sprite; }
+    inline Core::Card * getCard() const { return card; }
     sf::Vector2f getDimensions() const;
 
     void setAnimation(Animation * anim);

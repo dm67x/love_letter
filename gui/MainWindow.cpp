@@ -1,8 +1,8 @@
 #include "MainWindow.h"
 
 MainWindow::MainWindow()
-    : sf::RenderWindow(sf::VideoMode(1024, 600), "Love Letter - IHM", sf::Style::Close)
 {
+    window = new sf::RenderWindow(sf::VideoMode(1024, 600), "Love Letter - IHM", sf::Style::Close);
 }
 
 MainWindow * MainWindow::instance = NULL;
@@ -16,9 +16,6 @@ MainWindow * MainWindow::getInstance()
 
 void MainWindow::setFullscreen()
 {
-    delete instance;
-    instance = (MainWindow *)new sf::RenderWindow(
-                sf::VideoMode::getDesktopMode(),
-                "Love Letter - IHM",
-                sf::Style::Fullscreen);
+    delete window;
+    window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Love Letter - IHM", sf::Style::Fullscreen);
 }

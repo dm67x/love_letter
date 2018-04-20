@@ -97,5 +97,5 @@ void MenuScreen::creditsButtonClicked()
 
 void MenuScreen::quitButtonClicked()
 {
-    MainWindow::getInstance()->close();
+    MainWindow::getInstance()->getWindow()->close();
 }

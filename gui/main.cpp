@@ -11,7 +11,7 @@
 
 int main(void)
 {
-    MainWindow * window = MainWindow::getInstance();
+    sf::RenderWindow * window = MainWindow::getInstance()->getWindow();
     window->setFramerateLimit(60);
 
 #if FULLSCREEN

@@ -43,8 +43,10 @@ Card * Player::pickCard()
         hand[1] = picked_card;
 
     // if picked_card is the countess and you have king or prince in hand you must discard countess
-    if (hand[1] && hand[1]->getValue() == 7 && (hand[0]->getValue() == 5 || hand[0]->getValue() == 6))
-        discard(-1);
+    if (hand[0] && hand[0]->getValue() == 7 && (hand[1]->getValue() == 5 || hand[1]->getValue() == 6))
+        discard(0);
+    else if (hand[1] && hand[1]->getValue() == 7 && (hand[0]->getValue() == 5 || hand[0]->getValue() == 6))
+        discard(1);
 
     return picked_card;
 }
@@ -80,10 +82,10 @@ void Player::deactivateShield()
 
 void Player::discard(int index)
 {
-    if (index == -1 && hand[1] != NULL) {
+    if (index == -1 && hand[0] != NULL) {
         // Don't active effect of card
-        played_cards.push_back(hand[1]);
-        hand[1] = NULL;
+        played_cards.push_back(hand[0]);
+        hand[0] = NULL;
     } else if (index >= 0 && hand[index] != NULL) {
         Card * selected = hand[index];
         played_cards.push_back(selected);

@@ -40,7 +40,7 @@ void MenuButton::update(float dt)
 {
     Button::update(dt);
 
-    if (mouseInside(sf::Mouse::getPosition(*MainWindow::getInstance()))) {
+    if (mouseInside(sf::Mouse::getPosition(*MainWindow::getInstance()->getWindow()))) {
         button.setTexture(hover);
         text.setFillColor(h_color);
     } else {

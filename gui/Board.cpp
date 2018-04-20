@@ -9,7 +9,7 @@ int Board::playing(int index, Core::Card *card)
     // Target
     if (!target_selected && card->needTarget()) {
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-            sf::Vector2i mpos = sf::Mouse::getPosition(*MainWindow::getInstance());
+            sf::Vector2i mpos = sf::Mouse::getPosition(*MainWindow::getInstance()->getWindow());
             for (unsigned int i = 0; i < zones.size(); i++) {
                 sf::Transform transf = zones[i]->getTransform();
                 sf::FloatRect rect = transf.transformRect(zones[i]->getBounds());
@@ -34,12 +34,11 @@ int Board::playing(int index, Core::Card *card)
     }
 
     // Guess
-    std::cout << "[" << index << "]" << " " << card->getName() << std::endl;
 
-    if ((card->getValue() == 1 && target_selected && guessed) || target_selected) {
+    if ((card->needGuess() && guessed && target_selected) ||
+            (card->needTarget() && target_selected) || (!card->needTarget())) {
         current_player_zone->getPlayer()->discard(index);
-        for (unsigned int i = 0; i < zones.size(); i++)
-            zones[i]->getHand()->updateCards();
+        nextTurn();
         return -1;
     }
     return index;
@@ -113,7 +112,6 @@ Board::Board(Core::Game *game, sf::FloatRect board_rect)
     // Give card to current player (initialization)
     deck->pickCard();
     current_player_zone->getHand()->addCard(new Card(current->pickCard()));
-    current_player_zone->getHand()->reveal();
 }
 
 Board::~Board()
@@ -140,13 +138,13 @@ void Board::nextTurn()
 
     // Next player
     deck->pickCard();
-    game->startTurn();
-    current_player_zone->getHand()->addCard(
-                new Card(game->getCurrentPlayer()->pickCard()));
+    Core::Player * p = game->startTurn();
+    current_player_zone->getHand()->addCard(new Card(p->pickCard()));
     current_player_zone->getHand()->reveal();
 
     // Rotate board
-    //rotate(90.0f);
+    /*transform.rotate(180.0f, sf::Vector2f(board_rect.left + board_rect.width / 2.0f,
+                                         board_rect.top + board_rect.height / 2.0f));*/
 }
 
 void Board::input(sf::Event evt)
@@ -157,6 +155,7 @@ void Board::input(sf::Event evt)
 void Board::update(float dt)
 {
     current_player_zone->update(dt);
+    current_player_zone->getHand()->reveal();
 }
 
 void Board::draw(sf::RenderTarget &target, sf::RenderStates states) const

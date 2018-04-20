@@ -57,18 +57,28 @@ void Hand::mask()
 
 void Hand::updateCards()
 {
-    if (cards[0]) {
+    Core::Card * c1 = player->getCard();
+    Core::Card * c2 = player->getCard(1);
+    Card * card;
+
+    if (cards[0] && c1 && c1->getValue() != cards[0]->getCard()->getValue()) {
         delete cards[0];
-        cards[0] = NULL;
+        card = new Card(c1);
+        card->setScale(0.5f, 0.5f);
+        card->setPosition(bounds.left, bounds.top + bounds.height);
+        cards[0] = card;
     }
 
-    if (cards[1]) {
+    if (cards[1] && c2 && c2->getValue() != cards[1]->getCard()->getValue()) {
+        delete cards[1];
+        card = new Card(c2);
+        card->setScale(0.5f, 0.5f);
+        card->setPosition(bounds.left + bounds.width, bounds.top + bounds.height);
+        cards[1] = card;
+    } else if (c2 == NULL) {
         delete cards[1];
         cards[1] = NULL;
     }
-
-    if (player->getCard())
-        addCard(new Card(player->getCard()));
 }
 
 void Hand::playing(FUNC func, Board * elem)
@@ -103,6 +113,8 @@ void Hand::input(sf::Event evt, sf::Transform transf)
 
 void Hand::update(float dt, sf::Transform transf)
 {
+    updateCards();
+
     if (selected_card != -1) {
         selected_card = (elem->*function)(selected_card, player->getCard(selected_card));
     }
@@ -118,12 +130,16 @@ void Hand::update(float dt, sf::Transform transf)
                 sf::FloatRect(card_pos.x - card_dim.x / 2.0f,
                               card_pos.y - card_dim.y / 2.0f,
                               card_dim.x, card_dim.y));
-            sf::Vector2f mpos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(*MainWindow::getInstance()));
+            sf::Vector2f mpos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(*MainWindow::getInstance()->getWindow()));
 
-            if (card_bounds.contains(mpos)) {
+            if (selected_card == i) {
                 card->setHover(true);
             } else {
-                card->setHover(false);
+                if (card_bounds.contains(mpos)) {
+                    card->setHover(true);
+                } else {
+                    card->setHover(false);
+                }
             }
 
             card->update(dt);

@@ -36,7 +36,7 @@ void Message::draw(sf::RenderTarget &target, sf::RenderStates states) const
 
 void Message::show(std::string message)
 {
-    sf::Vector2u size = MainWindow::getInstance()->getSize();
+    sf::Vector2u size = MainWindow::getInstance()->getWindow()->getSize();
     sf::Vector2f center_screen = sf::Vector2f(size.x / 2.0f, size.y / 2.0f);
     Message::show(message, center_screen);
 }
@@ -45,5 +45,5 @@ void Message::show(std::string message, sf::Vector2f where)
 {
     Message msg(message);
     msg.setPosition(where);
-    MainWindow::getInstance()->draw(msg);
+    MainWindow::getInstance()->getWindow()->draw(msg);
 }

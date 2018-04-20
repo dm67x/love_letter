@@ -3,16 +3,20 @@
 
 #include <SFML/Graphics.hpp>
 
-class MainWindow : public sf::RenderWindow
+class MainWindow
 {
 
 private:
+    sf::RenderWindow * window;
+
     MainWindow();
 
     static MainWindow * instance;
 
 public:
     static MainWindow * getInstance();
+
+    inline sf::RenderWindow * getWindow() const { return window; }
 
     void setFullscreen();
 

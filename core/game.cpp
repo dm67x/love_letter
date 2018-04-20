@@ -86,16 +86,12 @@ int Game::getCurrentWinner(){
 
 Player * Game::startTurn()
 {
-    nb_dead = 0;
     Player * p = players[current_player];
     while (p->isDead())
     {
-        nb_dead++;
         current_player = (current_player + 1) % nb_players;
         p = players[current_player];
     }
-
-    update();
 
     current_player = (current_player + 1) % nb_players;
     if(p->hasShield())
@@ -138,51 +134,72 @@ bool Game::roundOver()
 // Check if round/game is over
 void Game::update()
 {    
+    nb_dead = 0;
+    for (unsigned int i = 0; i < players.size(); i++) {
+        if (players[i]->isDead())
+            nb_dead++;
+    }
+
     if (nb_dead == nb_players - 1 || deck->getCards().size() == 0)
     {
-        Player * winner = NULL;
+        // End round
+        std::vector<Player *> alives;
+        Player * winner;
+
         round_end = true;
-        for (std::vector<Player *>::iterator i = players.begin(); i != players.end(); i++)
-        {
-            // init winner to current player index
-            if (!winner) winner = (*i);
-            // if winner is initialized
-            else {
-                // if "i" has bigger card value than "winner", "i" wins the game
-                if (winner->getCard()->getValue() < (*i)->getCard()->getValue()) {
-                    winner->kill();
-                    winner = (*i);
+        for (unsigned int i = 0; i < players.size(); i++) {
+            if (!players[i]->isDead()) {
+                alives.push_back(players[i]);
+            }
+        }
+
+        if (alives.size() > 1) {
+            for (unsigned int i = 0; i < alives.size() - 1; i++)
+            {
+                if (alives[i]->getCard()->getValue() < alives[i+1]->getCard()->getValue()) {
+                    alives[i]->kill();
+                    winner = alives[i+1];
                 }
-                // if it's a tie
-                else if (winner->getCard()->getValue() == (*i)->getCard()->getValue()) {
-                    int sum_w = 0, sum_i = 0;
-                    // Sum of played cards of "winner"
-                    for (std::list<Card *>::iterator card_it = winner->getPlayedCards().begin();
-                         card_it != winner->getPlayedCards().end(); card_it++) {
-                        sum_w += (*card_it)->getValue();
+                else if (alives[i]->getCard()->getValue() == alives[i+1]->getCard()->getValue()) {
+                    int sum_1 = 0, sum_2 = 0;
+                    // Sum of played cards 1
+                    for (std::list<Card *>::iterator card_it = alives[i]->getPlayedCards().begin();
+                         card_it != alives[i]->getPlayedCards().end(); card_it++) {
+                        sum_1 += (*card_it)->getValue();
                     }
 
-                    // Sum of played cards of "i"
-                    for (std::list<Card *>::iterator card_it = (*i)->getPlayedCards().begin();
-                         card_it != (*i)->getPlayedCards().end(); card_it++) {
-                        sum_i += (*card_it)->getValue();
+                    // Sum of played cards 2
+                    for (std::list<Card *>::iterator card_it = alives[i+1]->getPlayedCards().begin();
+                         card_it != alives[i+1]->getPlayedCards().end(); card_it++) {
+                        sum_2 += (*card_it)->getValue();
                     }
 
-                    if (sum_w < sum_i) {
-                        winner->kill();
-                        winner = *i;
+                    if (sum_1 < sum_2) {
+                        alives[i]->kill();
+                        winner = alives[i+1];
+                    } else {
+                        alives[i+1]->kill();
+                        winner = alives[i];
                     }
+                }
+                else {
+                    alives[i+1]->kill();
+                    winner = alives[i];
                 }
             }
+        } else {
+            // One winner
+            winner = alives[0];
+        }
 
-            (*i)->clear();
+        winner->givePoint();
+        for (unsigned int i = 0; i < players.size(); i++) {
+            if (players[i] == winner)
+                current_winner = i;
+        }
 
-            if (!(*i)->isDead()) {
-                (*i)->givePoint();
-                if ((*i)->getPoints() == max_points)
-                    current_winner = i - players.begin();
-                    game_end = true;
-            }
+        if (winner->getPoints() == max_points) {
+            game_end = true;
         }
     }
 }

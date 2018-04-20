@@ -21,6 +21,7 @@ private:
     int playing(int index, Core::Card * card);
 
     Core::Player * target_player;
+    sf::Transform transform;
 
 public:
     Board(Core::Game * game, sf::FloatRect board_rect);
