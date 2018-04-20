@@ -34,8 +34,6 @@ int Board::playing(int index, Core::Card *card)
     }
 
     // Guess
-    std::cout << "[" << index << "]" << " " << card->getName() << std::endl;
-
     if ((card->getValue() == 1 && target_selected && guessed) || target_selected) {
         current_player_zone->getPlayer()->discard(index);
         for (unsigned int i = 0; i < zones.size(); i++)

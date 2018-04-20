@@ -1,7 +1,7 @@
 TEMPLATE = app
 CONFIG += window
 CONFIG -= qt
-DEFINES += FULLSCREEN
+DEFINES +=
 
 win32: LIBS += -L$$PWD/../lib/SFML/windows/lib -lsfml-graphics -lfreetype -lsfml-window -lopengl32 -lgdi32 -lsfml-system -lwinmm
 unix: LIBS += -L$$PWD/../lib/SFML/linux/lib -lsfml-graphics -lsfml-window -lsfml-system

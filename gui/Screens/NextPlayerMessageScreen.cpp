@@ -42,29 +42,31 @@ void NextPlayerMessageScreen::loadContent()
     this->txt_background.setPosition(sf::Vector2f(nptm_rect_gb.left - 10.0f, nptm_rect_gb.top - 5.0f));
 }
 
-void NextPlayerMessageScreen::update(sf::Event evt, float dt)
+void NextPlayerMessageScreen::input(sf::Event evt)
+{
+    switch (evt.type)
+    {
+        case sf::Event::MouseButtonPressed:
+        {
+            if (evt.mouseButton.button == sf::Mouse::Left) {
+                timer = 0;
+                ScreenManager::getInstance()->switchTo(ScreenManager::getInstance()->getPrevious()->getName());
+            }
+            break;
+        }
+
+        default:
+        break;
+    }
+}
+
+void NextPlayerMessageScreen::update(float dt)
 {
     timer += dt;
 
     if(timer >= sf::seconds(3).asSeconds()) {
         timer = 0;
         ScreenManager::getInstance()->switchTo(ScreenManager::getInstance()->getPrevious()->getName());
-    } else {
-        switch (evt.type)
-        {
-            case sf::Event::MouseButtonReleased:
-            {
-                // Je gruge pour éviter les 40 events d'affiler
-                if (evt.mouseButton.button == sf::Mouse::Left && timer >= sf::seconds(1).asSeconds()) {
-                    timer = 0;
-                    ScreenManager::getInstance()->switchTo(ScreenManager::getInstance()->getPrevious()->getName());
-                }
-                break;
-            }
-
-            default:
-            break;
-        }
     }
 }
 
