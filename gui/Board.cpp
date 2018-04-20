@@ -34,7 +34,6 @@ int Board::playing(int index, Core::Card *card)
     }
 
     // Guess
-
     if ((card->needGuess() && guessed && target_selected) ||
             (card->needTarget() && target_selected) || (!card->needTarget())) {
         current_player_zone->getPlayer()->discard(index);
