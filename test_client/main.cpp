@@ -24,6 +24,12 @@ int main()
     int myNumber = game->joinServer("127.0.0.1"); //1 //2
     qDebug() << "myNumber : " << myNumber;
 
+    //int test = game->receiveServer();
+    //qDebug() << "test passed : \n";
+    //qDebug() << test;
+    //printf("test = %s\n",test);
+
+
     // OTHER GUY CONNECTS
     // I AM THE PLAYER 1
 
@@ -38,7 +44,9 @@ int main()
 
         //string deck_read = game->getTCP().read();
         //const char * deck_char = deck.c_str();
-        qDebug() << "deck \n" << deck;
+        qDebug() << "deck \n" << deck.c_str();
+        //printf("deck %s\n",deck);
+        //return 0
         //qDebug() << "DECK RECEIVED (STRING) : " << deck.c_str();
         //printf("DECK RECEIVED (STRING) : %s \n", deck);
         //printf("DECK RECEIVED (CHAR* c_str) : %s \n", deck_char);

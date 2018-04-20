@@ -4,7 +4,7 @@
 //#include "client.h"
 
 #include "../src/TCPClient.h"
-
+/*
 TCPClient * tcp = new TCPClient();
 
 void sig_exit(int s)
@@ -12,6 +12,7 @@ void sig_exit(int s)
     tcp->exit();
 	exit(0);
 }
+*/
 /*
 int main()
 {

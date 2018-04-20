@@ -10,13 +10,13 @@ class MultiplayerGame : public Core::Game
 public:
     MultiplayerGame(unsigned int nb);
     void updateServer();
-    string serialize();
     void sig_exit();
     void tcpExit();
 
     void createServer();
     int joinServer(string ip);
     TCPClient getTCP();
+    int receiveServer();
 
 private:
     TCPClient tcp;

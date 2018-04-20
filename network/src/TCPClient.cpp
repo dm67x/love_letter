@@ -79,7 +79,7 @@ string TCPClient::receive(int size)
   	reply = buffer;
   	return reply;
 }
-
+/*
 char TCPClient::receive_char()
 {
     int size = 4096;
@@ -96,7 +96,7 @@ char TCPClient::receive_char()
     reply = buffer;
     return reply.at(0);
 }
-
+*/
 string TCPClient::read()
 {
   	char buffer[1] = {};

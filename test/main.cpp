@@ -88,7 +88,11 @@ int main()
 
         // Send Deck to server
         printf("Sending Deck to server ..\n");
+        sleep(5);
         game->getTCP().Send(deck);
+
+        // Server confirms Deck has been broadcasted
+        string res = game->getTCP().receive();
 
         //return 0;
 
@@ -138,30 +142,29 @@ int main()
                 std::cout << "1: " << p->getCard(1)->getName() << std::endl;
 
                 // Select card to play
-                /*
-                std::cout << "Which card to play ?" << std::endl;
-                int play_card;
-                std::cin >> play_card;
-                */
+                //std::cout << "Which card to play ?" << std::endl;
+                //int play_card;
+                //std::cin >> play_card;
+
 
                 // MANUALLY CHOOSE FIRST CARD (cin not working under QT console)
                 rec += "0"; // send to server
 
 
                 if (p->getCard()->getName() == "Guard") {
-                    /*
-                    std::cout << "Choose a target ?" << std::endl;
-                    int target;
-                    std::cin >> target;
-                    */
+
+                    //std::cout << "Choose a target ?" << std::endl;
+                    //int target;
+                    //std::cin >> target;
+
 
                     rec += "1"; // send to server
 
-                    /*
-                    std::cout << "Guess a card ?" << std::endl;
-                    std::string card;
-                    std::cin >> card;
-                    */
+
+                    //std::cout << "Guess a card ?" << std::endl;
+                    //std::string card;
+                    //std::cin >> card;
+
 
                     rec += "0"; // send to server
 
@@ -173,6 +176,8 @@ int main()
                     game->pickTarget(1);
                     rec += "1"; // send to server
                 }
+
+                sleep(5);
 
                 // SEND INFO TO SERVER
                 printf("Sending this : %s : To server \n", rec);
@@ -186,4 +191,3 @@ int main()
         }
     }
 }
-

@@ -29,7 +29,7 @@ int main(int argc , char *argv[])
     //a message
     char *message = "ECHO Daemon v1.0 \r\n";
     int n = -1; // Current Player Index
-    char *str = "";
+    char *str = "0";
 
     //initialise all client_socket[] to 0 so not checked
     for (i = 0; i < max_clients; i++)
@@ -127,6 +127,9 @@ int main(int argc , char *argv[])
             }*/
 
             // SEND CURRENT PLAYER INDEX
+            buffer[0] = '\0';
+            printf("\nMASTER SOCKET ? BUFFER : %s \n\n", buffer);
+
             n++;
             if(n == 1){
                 str = "1";
@@ -139,10 +142,17 @@ int main(int argc , char *argv[])
             }
 
             // Send msg to HOST to tell him how many players are ready
-            if( send(client_socket[0], str, strlen(message), 0) != strlen(message) )
-            {
-                perror("send");
+            if(client_socket[0] != 0){
+                if( send(client_socket[0], str, strlen(str), 0) != strlen(str) )
+                {
+                    perror("send");
+                }
             }
+
+            // ----------------------------------------
+            // ----------------------------------------
+
+
 
             // Send current client his INDEX
             if( send(new_socket, str, strlen(message), 0) != strlen(message) )
@@ -193,7 +203,7 @@ int main(int argc , char *argv[])
 
                     for (int j = 0; j < max_clients; j++){
                         // dont echo back message to client who sent it
-                        if(j != i && client_socket[j] != 0){
+                        if(client_socket[j] != 0){
                             printf("sending to %d \n", j);
                             int r = send(client_socket[j], buffer, strlen(buffer), 0);
                             printf("r = %d\n",r);
