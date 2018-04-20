@@ -17,6 +17,7 @@ public:
     ~SingleplayerScreen();
 
     void loadContent();
+    void unloadContent();
     void input(sf::Event evt);
     void update(float dt);
     void draw(sf::RenderWindow &window);

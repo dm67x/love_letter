@@ -21,6 +21,11 @@ void Screen::loadContent()
     content_loaded = true;
 }
 
+void Screen::unloadContent()
+{
+    content_loaded = false;
+}
+
 void Screen::input(sf::Event evt)
 {
     (void)evt;

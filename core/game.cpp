@@ -31,9 +31,6 @@ Game::Game(unsigned int nb_players){
 
 Game::~Game()
 {
-    delete deck;
-    delete action;
-
     for (std::vector<Player *>::iterator i = players.begin(); i != players.end(); i++) {
         delete *i;
     }

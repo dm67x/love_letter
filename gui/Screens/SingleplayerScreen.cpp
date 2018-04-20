@@ -31,6 +31,14 @@ void SingleplayerScreen::loadContent()
     board = new Board(game, sf::FloatRect(0, 0, size.x, size.y));
 }
 
+void SingleplayerScreen::unloadContent()
+{
+    Screen::unloadContent();
+
+    if (game) delete game;
+    if (board) delete board;
+}
+
 void SingleplayerScreen::input(sf::Event evt)
 {
     board->input(evt);
@@ -48,8 +56,10 @@ void SingleplayerScreen::update(float dt)
     if (game->roundOver())
         // set winner screen and restart round
 
-    if (game->gameOver())
+    if (game->gameOver()) {
+        unloadContent();
         ScreenManager::getInstance()->switchTo("menu");
+    }
 }
 
 void SingleplayerScreen::draw(sf::RenderWindow &window)
