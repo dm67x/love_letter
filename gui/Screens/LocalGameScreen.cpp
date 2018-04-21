@@ -38,6 +38,7 @@ int LocalGameScreen::playing_card(int index, Core::Card *card)
     if ((card->needGuess() && guessed && target_selected) ||
             (card->needTarget() && target_selected) || (!card->needTarget())) {
         current_zone->getPlayer()->discard(index);
+        game->update();
         if (!game->roundOver()) {
             nextPlayerTurn();
             ScreenManager::getInstance()->switchTo("nextplayermessage");

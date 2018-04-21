@@ -36,11 +36,8 @@ SOURCES += \
     Screens/JoinGame.cpp \
     Buttons/TextArea.cpp \
     Screens/NextPlayerMessageScreen.cpp \
-<<<<<<< HEAD
-    Screens/SingleplayerModeChoiceScreen.cpp
-=======
+    Screens/SingleplayerModeChoiceScreen.cpp \
     Screens/LocalGameScreen.cpp
->>>>>>> gui
 
 # CORE LIBRARY
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../core/release/ -lcore
@@ -90,8 +87,5 @@ HEADERS += \
     Screens/JoinGame.h \
     Buttons/TextArea.h \
     Screens/NextPlayerMessageScreen.h \
-<<<<<<< HEAD
-    Screens/SingleplayerModeChoiceScreen.h
-=======
+    Screens/SingleplayerModeChoiceScreen.h \
     Screens/LocalGameScreen.h
->>>>>>> gui

@@ -1,6 +1,5 @@
 #include "Board.h"
 #include "MainWindow.h"
-<<<<<<< HEAD
 #include "Message.h"
 #include "ScreenManager.h"
 #include <iostream>
@@ -45,15 +44,6 @@ int Board::playing(int index, Core::Card *card)
     return index;
 }
 
-Board::Board(Core::Game *game, sf::FloatRect board_rect, bool AI)
-    : Object("board")
-{
-    this->game = game;
-
-    this->board_rect = board_rect;
-    target_player = NULL;
-=======
-
 Board::Board(Core::Game *game, sf::FloatRect bounds)
     : Object("board")
 {
@@ -61,7 +51,6 @@ Board::Board(Core::Game *game, sf::FloatRect bounds)
     this->bounds = bounds;
 
     top = left = right = bottom = false;
->>>>>>> gui
 
     sf::Vector2f deck_position;
     deck_position.x = bounds.left + bounds.width / 2.0f;
@@ -121,7 +110,6 @@ void Board::addPlayer(Core::Player * player, enum ZONE where)
 
 void Board::nextTurn()
 {
-<<<<<<< HEAD
     unsigned int nb_players = game->getPlayers().size();
     current_player_zone->getHand()->mask();
     current_zone = (current_zone + 1) % nb_players;
@@ -138,8 +126,6 @@ void Board::nextTurn()
         std::cout << "LOLO" << std::endl;
     }
 
-=======
->>>>>>> gui
     // Rotate board
     /*transform.rotate(180.0f, sf::Vector2f(board_rect.left + board_rect.width / 2.0f,
                                          board_rect.top + board_rect.height / 2.0f));*/
