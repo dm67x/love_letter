@@ -2,6 +2,7 @@
 #include "SinglePlayerMenuScreen.h"
 #include "ScreenManager.h"
 #include "MainWindow.h"
+#include "SingleplayerModeChoiceScreen.h"
 
 int LocalGameScreen::playing_card(int index, Core::Card *card)
 {
@@ -63,6 +64,18 @@ void LocalGameScreen::nextPlayerTurn()
     Core::Player * p = game->startTurn();
     current_zone->getHand()->addCard(new Card(p->pickCard()));
     current_zone->getHand()->reveal();
+
+    // If AI, we play directly
+    if(this->AI) {
+        current_zone->getHand()->playing(ia->chooseCard(),
+                                     static_cast<Screen *>(this));
+
+        game->update();
+        if (!game->roundOver()) {
+            nextPlayerTurn();
+            ScreenManager::getInstance()->switchTo("nextplayermessage");
+        }
+    }
 }
 
 LocalGameScreen::LocalGameScreen()
@@ -71,6 +84,7 @@ LocalGameScreen::LocalGameScreen()
     game = NULL;
     board = NULL;
     target_player = NULL;
+    this->AI = false;
 }
 
 LocalGameScreen::~LocalGameScreen()
@@ -86,8 +100,18 @@ void LocalGameScreen::loadContent()
 {
     Screen::loadContent();
 
+    int nb_players;
+    ScreenManager *sm = ScreenManager::getInstance();
+
+    if(sm->getPrevious()->getName() == "singleplayermenu")
+            nb_players = SingleplayermenuScreen::players_number;
+    else if(sm->getPrevious()->getName() == "singleplayermodechoice") {
+        this->AI = true;
+        nb_players = SingleplayerModeChoiceScreen::players_number;
+    }
+
     // Init game
-    game = new Core::Game(SingleplayermenuScreen::players_number);
+    game = new Core::Game(nb_players);
     game->startRound();
 
     // Board

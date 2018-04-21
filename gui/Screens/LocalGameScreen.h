@@ -4,6 +4,7 @@
 #include "Screen.h"
 #include "core/game.h"
 #include "Board.h"
+#include "IA/ia_intel.h"
 
 class LocalGameScreen : public Screen
 {
@@ -11,6 +12,9 @@ class LocalGameScreen : public Screen
 private:
     Core::Game * game;
     Board * board;
+
+    IA::IA_intel * ia;
+    bool AI;
 
     // Target & Guess
     int playing_card(int index, Core::Card * card);

@@ -6,7 +6,6 @@
 #include "Elements/Deck.h"
 #include "core/game.h"
 #include <vector>
-#include "IA/ia_intel.h"
 
 enum ZONE { LEFT, RIGHT, BOTTOM, TOP };
 
@@ -15,7 +14,6 @@ class Board : public Object
 
 private:
     Core::Game * game;
-    IA::IA_intel * ia;
     Deck * deck;
     sf::FloatRect bounds;
 
