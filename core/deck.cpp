@@ -22,7 +22,6 @@ Deck * Deck::getInstance()
 
 Deck::Deck()
 {
-    clear();
 }
 
 // Shuffle the deck
