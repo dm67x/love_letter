@@ -6,12 +6,14 @@
 #include "Elements/Deck.h"
 #include "core/game.h"
 #include <vector>
+#include "IA/ia_intel.h"
 
 class Board : public Object
 {
 
 private:
     Core::Game * game;
+    IA::IA_intel * ia;
     std::vector<PlayerZone *> zones;
     Deck * deck;
     sf::FloatRect board_rect;
@@ -24,7 +26,7 @@ private:
     sf::Transform transform;
 
 public:
-    Board(Core::Game * game, sf::FloatRect board_rect);
+    Board(Core::Game * game, sf::FloatRect board_rect, bool AI);
     ~Board();
 
     void addPlayer(PlayerZone * player);

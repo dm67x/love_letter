@@ -2,6 +2,7 @@
 #include "MainWindow.h"
 #include "Message.h"
 #include "ScreenManager.h"
+#include <iostream>
 
 int Board::playing(int index, Core::Card *card)
 {
@@ -43,10 +44,11 @@ int Board::playing(int index, Core::Card *card)
     return index;
 }
 
-Board::Board(Core::Game *game, sf::FloatRect board_rect)
+Board::Board(Core::Game *game, sf::FloatRect board_rect, bool AI)
     : Object("board")
 {
     this->game = game;
+
     this->board_rect = board_rect;
     target_player = NULL;
 
@@ -140,6 +142,11 @@ void Board::nextTurn()
     Core::Player * p = game->startTurn();
     current_player_zone->getHand()->addCard(new Card(p->pickCard()));
     current_player_zone->getHand()->reveal();
+
+    if(p->getName() == "player 2") {
+        int cardToPlay = ia->chooseCard();
+        std::cout << "LOLO" << std::endl;
+    }
 
     // Rotate board
     /*transform.rotate(180.0f, sf::Vector2f(board_rect.left + board_rect.width / 2.0f,

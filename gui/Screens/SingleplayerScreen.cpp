@@ -8,6 +8,7 @@ SingleplayerScreen::SingleplayerScreen()
 {
     game = NULL;
     board = NULL;
+    isAI = false;
 }
 
 SingleplayerScreen::~SingleplayerScreen()
@@ -30,19 +31,19 @@ void SingleplayerScreen::loadContent()
     if(instance->getPrevious()->getName() == "singleplayermenu")
         nb_players = SingleplayermenuScreen::players_number;
     else if(instance->getPrevious()->getName() == "singleplayermodechoice") {
+        this->isAI = true;
         nb_players = SingleplayerModeChoiceScreen::players_number;
     }
     else
-        nb_players = 2;
+        nb_players = 2; // 2 by default
 
     // Init game
     game = new Core::Game(nb_players);
-    ia = new IA::IA_intel(game);
     game->startRound();
 
     // Board
     sf::Vector2u size = getSize();
-    board = new Board(game, sf::FloatRect(0, 0, size.x, size.y));
+    board = new Board(game, sf::FloatRect(0, 0, size.x, size.y), isAI);
 }
 
 void SingleplayerScreen::input(sf::Event evt)

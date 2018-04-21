@@ -6,12 +6,16 @@
 SingleplayerModeChoiceScreen::SingleplayerModeChoiceScreen()
     : Screen("singleplayermodechoice")
 {   
+    this->play_vs_humans_button = NULL;
+    this->play_solo_vs_ai_button = NULL;
 }
 
 SingleplayerModeChoiceScreen::~SingleplayerModeChoiceScreen()
 {
-    delete this->play_vs_humans_button;
-    delete this->play_solo_vs_ai_button;
+    if(this->play_vs_humans_button != NULL)
+        delete this->play_vs_humans_button;
+    if(this->play_solo_vs_ai_button != NULL)
+        delete this->play_solo_vs_ai_button;
 }
 
 void SingleplayerModeChoiceScreen::loadContent()
