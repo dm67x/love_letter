@@ -1,6 +1,5 @@
 #include "Board.h"
 #include "MainWindow.h"
-<<<<<<< HEAD
 #include "Message.h"
 #include "ScreenManager.h"
 #include <iostream>
@@ -52,22 +51,68 @@ Board::Board(Core::Game *game, sf::FloatRect board_rect, bool AI)
 
     this->board_rect = board_rect;
     target_player = NULL;
-=======
-
-Board::Board(Core::Game *game, sf::FloatRect bounds)
-    : Object("board")
-{
-    this->game = game;
-    this->bounds = bounds;
-
-    top = left = right = bottom = false;
->>>>>>> gui
 
     sf::Vector2f deck_position;
-    deck_position.x = bounds.left + bounds.width / 2.0f;
-    deck_position.y = bounds.top + bounds.height / 2.0f;
+    deck_position.x = board_rect.left + board_rect.width / 2.0f;
+    deck_position.y = board_rect.top + board_rect.height / 2.0f;
     deck = new Deck(game->getDeck());
     deck->setPosition(deck_position);
+
+    // Players zones
+    std::vector<Core::Player *> players = game->getPlayers();
+    Core::Player * current = game->startTurn();
+
+    sf::FloatRect zone_bounds;
+    zone_bounds.top = board_rect.top + (board_rect.height * 3) / 4.0f;
+    zone_bounds.left = board_rect.left + board_rect.width / 4.0f;
+    zone_bounds.width = board_rect.width / 2.0f;
+    zone_bounds.height = board_rect.height / 4.0f;
+
+    PlayerZone * zone;
+
+    unsigned int i = 0, y = 0;
+    for (; i < players.size(); i++)
+    {
+        zone = new PlayerZone(players[i], zone_bounds);
+
+        if (current == players[i]) {
+            // BOTTOM
+            current_zone = i;
+        } else {
+            switch (y) {
+            // TOP
+            case 0:
+                zone->rotate(180.0f);
+                zone->setPosition(board_rect.left + board_rect.width / 2.0f,
+                                  board_rect.top + zone_bounds.height / 2.0f);
+                break;
+
+            // RIGHT
+            case 1:
+                zone->rotate(270.0f);
+                zone->setPosition(board_rect.left + board_rect.width - zone_bounds.height / 2.0f,
+                                  board_rect.top + board_rect.height / 2.0f);
+                break;
+
+            // LEFT
+            case 2:
+                zone->rotate(90.0f);
+                zone->setPosition(board_rect.left + zone_bounds.height / 2.0f,
+                                  board_rect.top + board_rect.height / 2.0f);
+                break;
+            }
+            y++;
+        }
+
+        zones.push_back(zone);
+        zones.back()->getHand()->playing(&Board::playing, this);
+    }
+
+    current_player_zone = zones[current_zone];
+
+    // Give card to current player (initialization)
+    deck->pickCard();
+    current_player_zone->getHand()->addCard(new Card(current->pickCard()));
 }
 
 Board::~Board()
@@ -80,48 +125,13 @@ Board::~Board()
     delete deck;
 }
 
-void Board::addPlayer(Core::Player * player, enum ZONE where)
+void Board::clear()
 {
-    PlayerZone * zone;
-    sf::FloatRect zone_bounds;
-    sf::FloatRect board_rect = getBounds();
 
-    zone_bounds.top = board_rect.top + (board_rect.height * 3) / 4.0f;
-    zone_bounds.left = board_rect.left + board_rect.width / 4.0f;
-    zone_bounds.width = board_rect.width / 2.0f;
-    zone_bounds.height = board_rect.height / 4.0f;
-
-    zone = new PlayerZone(player, zone_bounds);
-
-    switch (where) {
-    case BOTTOM:
-        break;
-
-    case TOP:
-        zone->rotate(180.0f);
-        zone->setPosition(board_rect.left + board_rect.width / 2.0f,
-                          board_rect.top + zone_bounds.height / 2.0f);
-        break;
-
-    case LEFT:
-        zone->rotate(90.0f);
-        zone->setPosition(board_rect.left + zone_bounds.height / 2.0f,
-                          board_rect.top + board_rect.height / 2.0f);
-        break;
-
-    case RIGHT:
-        zone->rotate(270.0f);
-        zone->setPosition(board_rect.left + board_rect.width - zone_bounds.height / 2.0f,
-                          board_rect.top + board_rect.height / 2.0f);
-        break;
-    }
-
-    zones.push_back(zone);
 }
 
 void Board::nextTurn()
 {
-<<<<<<< HEAD
     unsigned int nb_players = game->getPlayers().size();
     current_player_zone->getHand()->mask();
     current_zone = (current_zone + 1) % nb_players;
@@ -138,19 +148,20 @@ void Board::nextTurn()
         std::cout << "LOLO" << std::endl;
     }
 
-=======
->>>>>>> gui
     // Rotate board
     /*transform.rotate(180.0f, sf::Vector2f(board_rect.left + board_rect.width / 2.0f,
                                          board_rect.top + board_rect.height / 2.0f));*/
 }
 
+void Board::input(sf::Event evt)
+{
+    current_player_zone->input(evt);
+}
+
 void Board::update(float dt)
 {
-    for (unsigned int i = 0; i < zones.size(); i++) {
-        zones[i]->update(dt);
-        zones[i]->getHand()->mask();
-    }
+    current_player_zone->update(dt);
+    current_player_zone->getHand()->reveal();
 }
 
 void Board::draw(sf::RenderTarget &target, sf::RenderStates states) const

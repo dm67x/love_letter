@@ -2,7 +2,6 @@
 #define SCREEN_H
 
 #include <SFML/Graphics.hpp>
-#include "core/card.h"
 
 class Screen
 {
@@ -23,10 +22,7 @@ public:
     inline bool isContentLoaded() const { return content_loaded; }
     sf::Vector2u getSize();
 
-    virtual int playing_card(int index, Core::Card *card);
-
     virtual void loadContent();
-    virtual void unloadContent();
     virtual void input(sf::Event evt);
     virtual void update(float dt);
     virtual void draw(sf::RenderWindow & window) = 0;

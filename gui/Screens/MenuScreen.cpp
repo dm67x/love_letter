@@ -10,7 +10,7 @@ MenuScreen::MenuScreen()
 
 MenuScreen::~MenuScreen()
 {
-    delete localgame_button;
+    delete singleplayer_button;
     delete multiplayer_button;
     delete credits_button;
 }
@@ -30,10 +30,10 @@ void MenuScreen::loadContent()
                         size.y / (bg_texture.getSize().y * 1.0f));
 
     // Singleplayer button
-    localgame_button = new MenuButton("Local",
+    singleplayer_button = new MenuButton("Singleplayer",
         sf::Vector2f(size.x / 2, 375.0f * background.getScale().y));
-    localgame_button->onClick(&singleplayerButtonClicked);
-    sf::FloatRect sp_button_rect = localgame_button->getBounds();
+    singleplayer_button->onClick(&singleplayerButtonClicked);
+    sf::FloatRect sp_button_rect = singleplayer_button->getBounds();
 
     // Multiplayer button
     multiplayer_button = new MenuButton("Multiplayer",
@@ -55,7 +55,7 @@ void MenuScreen::loadContent()
 
 void MenuScreen::input(sf::Event evt)
 {
-    localgame_button->input(evt);
+    singleplayer_button->input(evt);
     multiplayer_button->input(evt);
     credits_button->input(evt);
     quit_button->input(evt);
@@ -63,7 +63,7 @@ void MenuScreen::input(sf::Event evt)
 
 void MenuScreen::update(float dt)
 {
-    localgame_button->update(dt);
+    singleplayer_button->update(dt);
     multiplayer_button->update(dt);
     credits_button->update(dt);
     quit_button->update(dt);
@@ -74,7 +74,7 @@ void MenuScreen::draw(sf::RenderWindow &window)
     window.clear(sf::Color::Black);
 
     window.draw(background);
-    window.draw(*localgame_button);
+    window.draw(*singleplayer_button);
     window.draw(*multiplayer_button);
     window.draw(*credits_button);
     window.draw(*quit_button);

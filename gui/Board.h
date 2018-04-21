@@ -8,40 +8,32 @@
 #include <vector>
 #include "IA/ia_intel.h"
 
-enum ZONE { LEFT, RIGHT, BOTTOM, TOP };
-
 class Board : public Object
 {
 
 private:
     Core::Game * game;
-<<<<<<< HEAD
     IA::IA_intel * ia;
     std::vector<PlayerZone *> zones;
-=======
->>>>>>> gui
     Deck * deck;
-    sf::FloatRect bounds;
+    sf::FloatRect board_rect;
+    PlayerZone * current_player_zone;
+    unsigned int current_zone;
 
-    // zones
-    std::vector<PlayerZone *> zones;
-    bool top, left, right, bottom;
+    int playing(int index, Core::Card * card);
+
+    Core::Player * target_player;
+    sf::Transform transform;
 
 public:
-<<<<<<< HEAD
     Board(Core::Game * game, sf::FloatRect board_rect, bool AI);
-=======
-    Board(Core::Game * game, sf::FloatRect bounds);
->>>>>>> gui
     ~Board();
 
-    inline sf::FloatRect getBounds() const { return bounds; }
-    inline std::vector<PlayerZone *> getZones() const { return zones; }
-    inline Deck * getDeck() const { return deck; }
-
-    void addPlayer(Core::Player * player, enum ZONE where);
+    void addPlayer(PlayerZone * player);
+    void clear();
     void nextTurn();
 
+    void input(sf::Event evt);
     void update(float dt);
     void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 

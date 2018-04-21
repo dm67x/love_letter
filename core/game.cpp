@@ -26,11 +26,14 @@ Game::Game(unsigned int nb_players)
 
     // init players
     for (unsigned int i = 1; i <= nb_players; i++)
-        players.push_back(new Player("player " + std::to_string(i)));
+            players.push_back(new Player("player " + std::to_string(i)));
 }
 
 Game::~Game()
 {
+    delete deck;
+    delete action;
+
     for (std::vector<Player *>::iterator i = players.begin(); i != players.end(); i++) {
         delete *i;
     }
@@ -191,10 +194,8 @@ void Game::update()
 
         winner->givePoint();
         for (unsigned int i = 0; i < players.size(); i++) {
-            if (players[i] == winner) {
+            if (players[i] == winner)
                 current_winner = i;
-                break;
-            }
         }
 
         if (winner->getPoints() == max_points) {

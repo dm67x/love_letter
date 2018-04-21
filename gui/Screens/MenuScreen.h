@@ -11,7 +11,7 @@ private:
     sf::Sprite love_letter;
     sf::Texture love_letter_texture;
 
-    Button * localgame_button;
+    Button * singleplayer_button;
     static void singleplayerButtonClicked();
 
     Button * multiplayer_button;

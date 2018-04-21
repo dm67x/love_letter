@@ -3,8 +3,7 @@
 
 namespace Core {
 
-Player::Player(string name)
-{
+Player::Player(string name){
     this->name = name;
     dead = shield = false;
     points = 0;
@@ -105,10 +104,6 @@ void Player::clear()
     hand[0] = hand[1] = NULL;
     played_cards.clear();
     dead = shield = false;
-}
-
-void Player::reset() {
-    clear();
     points = 0;
 }
 

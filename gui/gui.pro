@@ -21,6 +21,7 @@ SOURCES += \
     Screens/MenuScreen.cpp \
     Button.cpp \
     Screens/CreditsScreen.cpp \
+    Screens/SingleplayerScreen.cpp \
     Elements/Card.cpp \
     Elements/Deck.cpp \
     Elements/Hand.cpp \
@@ -36,11 +37,7 @@ SOURCES += \
     Screens/JoinGame.cpp \
     Buttons/TextArea.cpp \
     Screens/NextPlayerMessageScreen.cpp \
-<<<<<<< HEAD
     Screens/SingleplayerModeChoiceScreen.cpp
-=======
-    Screens/LocalGameScreen.cpp
->>>>>>> gui
 
 # CORE LIBRARY
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../core/release/ -lcore
@@ -75,6 +72,7 @@ HEADERS += \
     Screens/MenuScreen.h \
     Button.h \
     Screens/CreditsScreen.h \
+    Screens/SingleplayerScreen.h \
     Elements/Card.h \
     Elements/Deck.h \
     Elements/Hand.h \
@@ -90,8 +88,4 @@ HEADERS += \
     Screens/JoinGame.h \
     Buttons/TextArea.h \
     Screens/NextPlayerMessageScreen.h \
-<<<<<<< HEAD
     Screens/SingleplayerModeChoiceScreen.h
-=======
-    Screens/LocalGameScreen.h
->>>>>>> gui

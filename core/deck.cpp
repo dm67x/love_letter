@@ -2,8 +2,6 @@
 #include <algorithm>
 #include <iterator>
 #include <iostream>
-#include <ctime>
-#include <cstdlib>
 
 #include "deck.h"
 #include "cards/all.h"
@@ -28,10 +26,9 @@ Deck::Deck()
 // Shuffle the deck
 void Deck::shuffle_me()
 {
-    srand(time(0));
-    vector<Card*> V( cards.begin(), cards.end() );
-    shuffle( V.begin(), V.end(), mt19937{ random_device{}() } );
-    cards.assign( V.begin(), V.end() );
+   vector<Card*> V( cards.begin(), cards.end() );
+   shuffle( V.begin(), V.end(), mt19937{ random_device{}() } );
+   cards.assign( V.begin(), V.end() );
 }
 
 // Pick card from deck
