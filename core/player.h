@@ -42,8 +42,13 @@ public:
     // discard (or play) the card with index "index"
     // if index = -1 then don't activate effect of discarded card
     void discard(int index = -1);
+<<<<<<< HEAD
     void clear(); // reinitialize
     int hasCard(string card_name);
+=======
+    void clear(); // reinitialize (not points)
+    void reset(); // reinit all (including points)
+>>>>>>> gui
 
 };
 
