@@ -14,7 +14,7 @@ SOURCES += \
     Animations/PickAnimation.cpp \
     Animations/ScaleAnimation.cpp \
     Animation.cpp \
-    Main.cpp \
+    main.cpp \
     MainWindow.cpp \
     Screen.cpp \
     ScreenManager.cpp \
@@ -25,11 +25,11 @@ SOURCES += \
     Elements/Deck.cpp \
     Elements/Hand.cpp \
     Elements/PlayerZone.cpp \
-    Board.cpp \
     Buttons/MenuButton.cpp \
     DebugBounds.cpp \
+    Board.cpp \
     Screens/MultiplayerScreen.cpp \
-    Screens/SingleplayermenuScreen.cpp \
+    Screens/SinglePlayerMenuScreen.cpp \
     Message.cpp \
     Object.cpp \
     Screens/CreateGame.cpp \
@@ -71,7 +71,7 @@ HEADERS += \
     Buttons/MenuButton.h \
     DebugBounds.h \
     Screens/MultiplayerScreen.h \
-    Screens/SingleplayermenuScreen.h \
+    Screens/SinglePlayerMenuScreen.h \
     Message.h \
     Object.h \
     Screens/CreateGame.h \

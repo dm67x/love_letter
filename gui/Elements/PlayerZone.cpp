@@ -42,6 +42,11 @@ PlayerZone::~PlayerZone()
         delete hand;
 }
 
+void PlayerZone::clear()
+{
+    hand->updateCards();
+}
+
 void PlayerZone::input(sf::Event evt)
 {
     hand->input(evt, getTransform());

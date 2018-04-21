@@ -2,7 +2,7 @@
 #include "MainWindow.h"
 #include "Screens/MenuScreen.h"
 #include "Screens/LocalGameScreen.h"
-#include "Screens/SingleplayermenuScreen.h"
+#include "Screens/SinglePlayerMenuScreen.h"
 #include "Screens/MultiplayerScreen.h"
 #include "Screens/CreateGame.h"
 #include "Screens/JoinGame.h"
@@ -11,11 +11,12 @@
 
 int main(void)
 {
-    sf::RenderWindow * window = MainWindow::getInstance()->getWindow();
+    MainWindow * mainWindow = MainWindow::getInstance();
+    sf::RenderWindow * window = mainWindow->getWindow();
     window->setFramerateLimit(60);
 
 #if FULLSCREEN
-    window->setFullscreen();
+    mainWindow->setFullscreen();
 #endif
 
     // ScreenManager

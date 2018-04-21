@@ -53,16 +53,26 @@ void LocalGameScreen::nextPlayerTurn()
     // rotate board
     board->nextTurn();
 
-    unsigned int nb_players = game->getPlayers().size();
-    current_zone->getHand()->mask();
-    current_zone_index = (current_zone_index + 1) % nb_players;
-    current_zone = board->getZones()[current_zone_index];
-
     // Next player
+    current_zone->getHand()->mask();
     board->getDeck()->pickCard();
     Core::Player * p = game->startTurn();
+    current_zone = getCurrentZone(p);
     current_zone->getHand()->addCard(new Card(p->pickCard()));
     current_zone->getHand()->reveal();
+}
+
+PlayerZone * LocalGameScreen::getCurrentZone(Core::Player * p)
+{
+    PlayerZone * zone = NULL;
+    std::vector<PlayerZone *> zones = board->getZones();
+    for (auto it = zones.begin(); it != zones.end(); it++) {
+        if (p == (*it)->getPlayer()) {
+            zone = (*it);
+            break;
+        }
+    }
+    return zone;
 }
 
 LocalGameScreen::LocalGameScreen()
@@ -121,7 +131,6 @@ void LocalGameScreen::loadContent()
             y++;
         } else {
             board->addPlayer(players[i], BOTTOM);
-            current_zone_index = i;
         }
 
         board->getZones().back()
@@ -129,7 +138,7 @@ void LocalGameScreen::loadContent()
                 ->playing(&Screen::playing_card, static_cast<Screen *>(this));
     }
 
-    current_zone = board->getZones()[current_zone_index];
+    current_zone = getCurrentZone(current);
 
     // Give card to current player (initialization)
     board->getDeck()->pickCard();
@@ -160,10 +169,12 @@ void LocalGameScreen::update(float dt)
     board->update(dt);
 
     // Update every time hand of current player
+    current_zone->update(dt);
     current_zone->getHand()->reveal();
 
     if (game->roundOver()) {
         game->startRound();
+        board->resetDeck();
         Core::Player * current = game->startTurn();
         current_zone = board->getZones()[game->getCurrentWinner()];
         current_zone->getHand()->addCard(new Card(current->pickCard()));

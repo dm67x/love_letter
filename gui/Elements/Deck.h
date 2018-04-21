@@ -16,6 +16,7 @@ private:
 public:
     Deck(Core::Deck * deck);
 
+    void refresh();
     Card * pickCard(); // pick card from top of deck
     void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 

@@ -18,10 +18,10 @@ private:
 
     // Zones
     PlayerZone * current_zone;
-    int current_zone_index;
 
     // Next turn
     void nextPlayerTurn();
+    PlayerZone * getCurrentZone(Core::Player * p);
 
 public:
     LocalGameScreen();

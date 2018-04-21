@@ -1,4 +1,4 @@
-#include "SingleplayermenuScreen.h"
+#include "SinglePlayerMenuScreen.h"
 #include "ScreenManager.h"
 #include "MainWindow.h"
 #include "Buttons/MenuButton.h"
