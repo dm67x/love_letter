@@ -89,7 +89,7 @@ void Hand::input(sf::Event evt, sf::Transform transf)
     for (int i = 0; i < 2; i++)
     {
         Card * card = cards[i];
-        if (card && card->getCard()->isPlayable()) {
+        if (card) {
             sf::Transform transform = transf * getTransform();
             sf::Vector2f card_pos = card->getPosition();
             sf::Vector2f card_dim = card->getDimensions();
@@ -99,9 +99,12 @@ void Hand::input(sf::Event evt, sf::Transform transf)
                               card_dim.x, card_dim.y));
 
             if (card_bounds.contains(evt.mouseButton.x, evt.mouseButton.y)) {
-                if (evt.type == sf::Event::MouseButtonReleased
-                        && evt.mouseButton.button == sf::Mouse::Left) {
+                if (evt.type == sf::Event::MouseButtonPressed
+                        && evt.mouseButton.button == sf::Mouse::Left && card->getCard()->isPlayable()) {
                     selected_card = i;
+                } else if (evt.type == sf::Event::MouseButtonPressed
+                           && evt.mouseButton.button == sf::Mouse::Right) {
+                    // Move center & scale more
                 }
             }
         }

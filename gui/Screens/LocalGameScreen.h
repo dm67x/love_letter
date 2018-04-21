@@ -23,6 +23,9 @@ private:
     void nextPlayerTurn();
     PlayerZone * getCurrentZone(Core::Player * p);
 
+    // For guess
+    std::vector<Card *> guess_cards;
+
 public:
     LocalGameScreen();
     ~LocalGameScreen();

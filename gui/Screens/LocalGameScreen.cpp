@@ -2,6 +2,7 @@
 #include "SinglePlayerMenuScreen.h"
 #include "ScreenManager.h"
 #include "MainWindow.h"
+#include "core/cards/all.h"
 
 int LocalGameScreen::playing_card(int index, Core::Card *card)
 {
@@ -16,6 +17,7 @@ int LocalGameScreen::playing_card(int index, Core::Card *card)
                 sf::FloatRect rect = transf.transformRect(zones[i]->getBounds());
                 if (rect.contains(static_cast<sf::Vector2f>(mpos))) {
                     if (zones[i] == current_zone && !card->targetHimself()) break;
+                    if (zones[i]->getPlayer()->hasShield()) break;
                     target_player = zones[i]->getPlayer();
                     target_selected = true;
                     break;
@@ -35,8 +37,20 @@ int LocalGameScreen::playing_card(int index, Core::Card *card)
     }
 
     // Guess
+    if (!guessed && card->needGuess()) {
+        for (auto it = guess_cards.begin(); it != guess_cards.end(); it++) {
+            (*it)->show();
+        }
+    }
+
+    if (guessed) {
+        for (auto it = guess_cards.begin(); it != guess_cards.end(); it++) {
+            (*it)->hide();
+        }
+    }
+
     if ((card->needGuess() && guessed && target_selected) ||
-            (card->needTarget() && target_selected) || (!card->needTarget())) {
+            (!card->needGuess() && card->needTarget() && target_selected) || (!card->needTarget())) {
         current_zone->getPlayer()->discard(index);
         game->update();
         if (!game->roundOver()) {
@@ -143,6 +157,25 @@ void LocalGameScreen::loadContent()
     // Give card to current player (initialization)
     board->getDeck()->pickCard();
     current_zone->getHand()->addCard(new Card(current->pickCard()));
+
+    // Guessed cards
+    guess_cards.push_back(new Card(new Core::Priest()));
+    guess_cards.push_back(new Card(new Core::Baron()));
+    guess_cards.push_back(new Card(new Core::Handmaid()));
+    guess_cards.push_back(new Card(new Core::Prince()));
+    guess_cards.push_back(new Card(new Core::King()));
+    guess_cards.push_back(new Card(new Core::Countess()));
+    guess_cards.push_back(new Card(new Core::Princess()));
+
+    for (unsigned int i = 0; i < guess_cards.size(); i++) {
+        guess_cards[i]->setScale(0.4f, 0.4f);
+        guess_cards[i]->hide();
+        guess_cards[i]->reveal();
+        sf::Vector2f dimensions = guess_cards[i]->getDimensions();
+        guess_cards[i]->setPosition(
+                    (dimensions.x + 10) * i + (size.x - (7 * dimensions.x + 60)),
+                    size.y / 2.0f);
+    }
 }
 
 void LocalGameScreen::unloadContent()
@@ -191,4 +224,7 @@ void LocalGameScreen::draw(sf::RenderWindow &window)
 {
     window.clear();
     window.draw(*board);
+    for (auto it = guess_cards.begin(); it != guess_cards.end(); it++) {
+        window.draw(*(*it));
+    }
 }

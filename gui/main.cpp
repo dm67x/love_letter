@@ -12,12 +12,12 @@
 int main(void)
 {
     MainWindow * mainWindow = MainWindow::getInstance();
-    sf::RenderWindow * window = mainWindow->getWindow();
-    window->setFramerateLimit(60);
-
 #if FULLSCREEN
     mainWindow->setFullscreen();
 #endif
+
+    sf::RenderWindow * window = mainWindow->getWindow();
+    window->setFramerateLimit(60);
 
     // ScreenManager
     ScreenManager * screenManager = ScreenManager::getInstance();
