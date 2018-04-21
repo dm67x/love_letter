@@ -13,9 +13,6 @@ private:
     Core::Game * game;
     Board * board;
 
-    IA::IA_intel * ia;
-    bool AI;
-
     // Target & Guess
     int playing_card(int index, Core::Card * card);
     Core::Player * target_player;

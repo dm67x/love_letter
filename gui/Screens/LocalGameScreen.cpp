@@ -64,17 +64,6 @@ void LocalGameScreen::nextPlayerTurn()
     Core::Player * p = game->startTurn();
     current_zone->getHand()->addCard(new Card(p->pickCard()));
     current_zone->getHand()->reveal();
-
-    // If AI, we play directly
-    /*if(this->AI) {
-
-
-        game->update();
-        if (!game->roundOver()) {
-            nextPlayerTurn();
-            ScreenManager::getInstance()->switchTo("nextplayermessage");
-        }
-    }*/
 }
 
 LocalGameScreen::LocalGameScreen()
@@ -83,7 +72,6 @@ LocalGameScreen::LocalGameScreen()
     game = NULL;
     board = NULL;
     target_player = NULL;
-    this->AI = false;
 }
 
 LocalGameScreen::~LocalGameScreen()
