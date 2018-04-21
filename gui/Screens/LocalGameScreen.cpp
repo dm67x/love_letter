@@ -66,16 +66,15 @@ void LocalGameScreen::nextPlayerTurn()
     current_zone->getHand()->reveal();
 
     // If AI, we play directly
-    if(this->AI) {
-        current_zone->getHand()->playing(ia->chooseCard(),
-                                     static_cast<Screen *>(this));
+    /*if(this->AI) {
+
 
         game->update();
         if (!game->roundOver()) {
             nextPlayerTurn();
             ScreenManager::getInstance()->switchTo("nextplayermessage");
         }
-    }
+    }*/
 }
 
 LocalGameScreen::LocalGameScreen()
