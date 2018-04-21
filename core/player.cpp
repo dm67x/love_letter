@@ -1,6 +1,7 @@
 #include "player.h"
 #include "deck.h"
 #include "cards/all.h"
+#include <QDebug>
 
 namespace Core {
 
@@ -115,16 +116,31 @@ void Player::deactivateShield()
 
 void Player::discard(int index)
 {
+    qDebug() << "DISCARD FUNCTION \n";
+
     if (index == -1 && hand[0] != NULL) {
+
+        qDebug() << "IF \n";
+
         // Don't active effect of card
         played_cards.push_back(hand[0]);
         hand[0] = NULL;
     } else if (index >= 0 && hand[index] != NULL) {
+
+        qDebug() << "ELSE IF \n";
+        qDebug() << "index = " << index << "\n";
+
         hand[index]->activeEffect();
         played_cards.push_back(hand[index]);
         hand[index] = NULL;
+
+
+
         // Change position of card in position 1 to 0
         if (index == 0 && hand[1] != NULL) {
+
+            qDebug() << "ELSE IF -- IF \n";
+
             hand[0] = hand[1];
             hand[1] = NULL;
         }

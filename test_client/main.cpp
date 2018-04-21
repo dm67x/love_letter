@@ -31,6 +31,9 @@ int main()
     while (!game->gameOver())
     {
         game->startRound();
+
+        qDebug() << "CURRENT INDEX PLAYER DEBUT " << game->getCurrentPlayerIndex() << "\n";
+
         qDebug() << "game->startRound()";
         // Receive the Deck from Server
         string deck = game->getTCP().receive();
@@ -48,6 +51,8 @@ int main()
         {
             // If it's not my turn, I wait for server to tell me smth
             if(game->getCurrentPlayerIndex() != myNumber){
+                qDebug() << "NOT MY TURN \n";
+
                 played_cards = game->getTCP().receive();
                 qDebug() << "played_cards " << played_cards.c_str() << "\n";
 
@@ -58,6 +63,7 @@ int main()
 
                 qDebug() << "Core::Player * p = game->startTurn(); \n";
                 Core::Player * p = game->startTurn();
+
                 p->pickCard();
 
                 // Show cards to play
@@ -70,43 +76,37 @@ int main()
                 qDebug() << "p->pickCard();";
                 p->pickCard();
 
-                // Played Card
-                if(played_cards.length() == 1){
-                    qDebug() << "played_cards.length() == 1 \n";
-                    qDebug() << "p->discard(atoi(played_cards.c_str())); \n";
-                    p->discard(atoi(played_cards.c_str()));
-                }
-
-
-                qDebug() << "HEY \n";
-
                 // Played Card + Target
                 if(played_cards.length() == 2){
                     qDebug() << "played_cards.length() == 2 \n";
-                    qDebug() << "pickTarget(played_cards.at(1)) \n";
+                    qDebug() << "pickTarget(played_cards.at(1)) : " << played_cards.at(1) << "\n";
                     game->pickTarget(played_cards.at(1));
-                    qDebug() << "p->discard(int(played_cards.at(0))) \n";
-                    p->discard(int(played_cards.at(0)));
                 }
 
                 // Played Card + Target + Guessed Card
                 if(played_cards.length() == 3){
                     qDebug() << "played_cards.length() == 3 \n";
-                    qDebug() << "pickTarget(played_cards.at(1)) \n";
+                    qDebug() << "pickTarget(played_cards.at(1)) :  " << played_cards.at(1) << "\n";
                     game->pickTarget(played_cards.at(1));
-                    qDebug() << "guessCard(played_cards.substr(2)) \n";
+                    qDebug() << "guessCard(played_cards.substr(2)) : " << played_cards.substr(2).c_str() << "\n";
                     game->guessCard(played_cards.substr(2));
-                    qDebug() << "p->discard(int(played_cards.at(0))) \n";
-                    p->discard(int(played_cards.at(0)));
                 }
 
 
+                qDebug() << "p->discard(int(played_cards.at(0)))" << played_cards.at(0) << "\n";
+
+                int card_to_play = played_cards.at(0) - '0';
+                p->discard(card_to_play);
+
+
                 qDebug() << "sleep(50) \n";
-                sleep(50);
+                //sleep(50);
 
             // It is my turn
             }else{
-                printf("IT IS MY TURN \n");
+                qDebug() << "CURRENT INDEX PLAYER " << game->getCurrentPlayerIndex() << "\n";
+
+                qDebug("ITS MY TURN \n");
                 played_cards = ""; //use this to send server infos
 
                 Core::Player * p = game->startTurn();
@@ -116,49 +116,34 @@ int main()
                 std::cout << "0: " << p->getCard()->getName() << std::endl;
                 std::cout << "1: " << p->getCard(1)->getName() << std::endl;
 
-                // Select card to play
-                //std::cout << "Which card to play ?" << std::endl;
-                //int play_card;
-                //std::cin >> play_card;
-
-
-                // MANUALLY CHOOSE FIRST CARD (cin not working under QT console)
+                // MANUALLY CHOOSE FIRST CARD
                 played_cards += "0"; // send to server
-
 
                 if (p->getCard()->getName() == "Guard") {
 
-                    //std::cout << "Choose a target ?" << std::endl;
-                    //int target;
-                    //std::cin >> target;
-
-
+                    // target = 1
                     played_cards += "1"; // send to server
 
-
-                    //std::cout << "Guess a card ?" << std::endl;
-                    //std::string card;
-                    //std::cin >> card;
-
-
-                    played_cards += "0"; // send to server
+                    // card we guess = Baron
+                    played_cards += "Baron"; // send to server
 
                     game->pickTarget(1);
                     game->guessCard("Baron");
                 }
 
-                if(p->getCard()->getName() == "Prince" || p->getCard()->getName() == "Priest" || p->getCard()->getName() == "King"){
+                if(p->getCard()->getName() == "Prince" || p->getCard()->getName() == "Priest"
+                        || p->getCard()->getName() == "King" || p->getCard()->getName() == "Baron"){
                     game->pickTarget(1);
                     played_cards += "1"; // send to server
                 }
 
                 sleep(1);
                 // SEND INFO TO SERVER
-                printf("Sending this : %s : To server \n", played_cards);
+                qDebug() << "sending this to server" << played_cards.c_str() << "\n";
                 game->getTCP().Send(played_cards);
 
-                qDebug() << "sleep(50) \n";
-                sleep(50);
+                //qDebug() << "sleep(50) \n";
+                //sleep(50);
 
                 p->discard(0);
 
