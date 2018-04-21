@@ -40,6 +40,7 @@ public:
     void setCurrentWinner(int index);
 
     int getCurrentWinner();
+    inline int getCurrentPlayerIndex() const { return current_player; }
 
     Player * startTurn();
     Player *getCurrentPlayer();

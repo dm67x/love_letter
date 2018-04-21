@@ -81,9 +81,9 @@ void Hand::updateCards()
     }
 }
 
-void Hand::playing(FUNC func, Board * elem)
+void Hand::playing(FUNC function, Screen * elem)
 {
-    this->function = func;
+    this->function = function;
     this->elem = elem;
 }
 
@@ -113,11 +113,11 @@ void Hand::input(sf::Event evt, sf::Transform transf)
 
 void Hand::update(float dt, sf::Transform transf)
 {
-    updateCards();
-
     if (selected_card != -1) {
         selected_card = (elem->*function)(selected_card, player->getCard(selected_card));
     }
+
+    updateCards();
 
     for (int i = 0; i < 2; i++)
     {
