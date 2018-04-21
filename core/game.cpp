@@ -202,4 +202,16 @@ int Game::getCurrentPlayerIndex(){
     return current_player;
 }
 
+void Game::setDeck(string d){
+    deck->buildDeck(d);
+}
+
+void Game::setFirstCards(string first_cards){
+    for (std::string::size_type i = 0; i < first_cards.size(); i++)
+    {
+        players[i]->clear();
+        players[i]->pickCard_manual(first_cards[i]);
+    }
+}
+
 }

@@ -44,6 +44,9 @@ public:
     void discard(int index = -1);
     void clear(); // reinitialize
 
+    // FOR MULTIPLAYER GAME PURPOSE
+    void pickCard_manual(char c);
+
 };
 
 }

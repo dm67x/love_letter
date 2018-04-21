@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h> //atoi
 #include <iostream> //to_string
+#include <QtDebug>
 #include "test.h"
 
 using namespace std;
@@ -55,10 +56,6 @@ int main()
 
         // add first letter of each card
             // priest = p; prince = y ; princess = z ;
-
-        //printf("AVANT LE FOR !\n");
-
-
         for(unsigned int i = 0; i < cards.size(); i++){
             card = arr[i]->getName();
 
@@ -70,10 +67,20 @@ int main()
                 f = card.at(0);
             }
 
-            cout << "full card name " << card << " \n";
-            //printf("card full name : %s \n", card);
-            printf("first letter : %c \n", f);
             deck += f;
+        }
+
+        // Also add first cards given to players
+        vector<Core::Player *> players = game->getPlayers();
+        for(unsigned int i = 0; i < nb; i++){
+            card = players[i]->getCard()->getName();
+            if(card.compare("Prince") == 0){ //if current card is Prince
+                deck += 'Y';
+            }else if(card.compare("Princess") == 0){ //or Princess
+                deck += 'Z';
+            }else{
+                deck += card.at(0);
+            }
         }
 
 
@@ -88,11 +95,11 @@ int main()
 
         // Send Deck to server
         printf("Sending Deck to server ..\n");
-        sleep(5);
+        sleep(1);
         game->getTCP().Send(deck);
 
         // Server confirms Deck has been broadcasted
-        string res = game->getTCP().receive();
+        //string res = game->getTCP().receive();
 
         //return 0;
 
@@ -177,11 +184,13 @@ int main()
                     rec += "1"; // send to server
                 }
 
-                sleep(5);
-
+                sleep(1);
                 // SEND INFO TO SERVER
                 printf("Sending this : %s : To server \n", rec);
                 game->getTCP().Send(rec);
+
+                qDebug() << "sleep(50) \n";
+                sleep(50);
 
                 p->discard(0);
 

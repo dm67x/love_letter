@@ -14,8 +14,9 @@ HEADERS += \
     src/socket.h \
     src/TCPClient.h \
     src/TCPServer.h \
-    multiplayergame.h \
-    client/client.h
+    client/client.h \
+    server/server_multiple_connections.h \
+    multiplayergame.h
 
 SOURCES += \
     client/client.cpp \
@@ -23,8 +24,8 @@ SOURCES += \
     server/server_multiple_connections.cpp \
     src/TCPClient.cpp \
     src/TCPServer.cpp \
-    multiplayergame.cpp \
-    getting_ip_example.cpp
+    getting_ip_example.cpp \
+    multiplayergame.cpp
 
 
 

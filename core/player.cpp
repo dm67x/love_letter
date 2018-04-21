@@ -1,5 +1,6 @@
 #include "player.h"
 #include "deck.h"
+#include "cards/all.h"
 
 namespace Core {
 
@@ -32,6 +33,38 @@ void Player::kill()
 void Player::reincarnate()
 {
     dead = false;
+}
+// For multiplayer games
+// Manually give a card to a client
+void Player::pickCard_manual(char c){
+    switch (c) {
+    case 'G':
+        hand[0] = new Guard();
+        break;
+    case 'P':
+        hand[0] = new Priest();
+        break;
+    case 'B':
+        hand[0] = new Baron();
+        break;
+    case 'H':
+        hand[0] = new Handmaid();
+        break;
+    case 'Y':
+        hand[0] = new Prince();
+        break;
+    case 'K':
+        hand[0] = new King();
+        break;
+    case 'C':
+        hand[0] = new Countess();
+        break;
+    case 'Z':
+        hand[0] = new Princess();
+        break;
+    default:
+        break;
+    }
 }
 
 Card * Player::pickCard()

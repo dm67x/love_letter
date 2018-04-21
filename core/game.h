@@ -45,6 +45,8 @@ public:
     Player * startTurn();
     Player *getCurrentPlayer();
     Deck * getDeck();
+    void setDeck(string d);
+    void setFirstCards(string first_cards);
 
     unsigned int getMaxPoints();
 

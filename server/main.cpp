@@ -203,7 +203,7 @@ int main(int argc , char *argv[])
 
                     for (int j = 0; j < max_clients; j++){
                         // dont echo back message to client who sent it
-                        if(client_socket[j] != 0){
+                        if(j != i && client_socket[j] != 0){
                             printf("sending to %d \n", j);
                             int r = send(client_socket[j], buffer, strlen(buffer), 0);
                             printf("r = %d\n",r);
