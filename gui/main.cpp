@@ -12,12 +12,13 @@
 
 int main(void)
 {
-    sf::RenderWindow * window = MainWindow::getInstance()->getWindow();
-    window->setFramerateLimit(60);
+    MainWindow * mainWindow = MainWindow::getInstance();
 
 #if FULLSCREEN
-    window->setFullscreen();
+    mainWindow->setFullscreen();
 #endif
+
+    mainWindow->getWindow()->setFramerateLimit(60);
 
     // ScreenManager
     ScreenManager * screenManager = ScreenManager::getInstance();
@@ -34,16 +35,16 @@ int main(void)
     screenManager->add(new SingleplayerModeChoiceScreen());
 
     sf::Clock clock;
-    while (window->isOpen())
+    while (mainWindow->getWindow()->isOpen())
     {
         sf::Time elapsed;
         sf::Event evt;
-        while (window->pollEvent(evt))
+        while (mainWindow->getWindow()->pollEvent(evt))
         {
             switch (evt.type)
             {
             case sf::Event::Closed:
-                window->close();
+                mainWindow->getWindow()->close();
                 break;
 
             case sf::Event::Resized:
@@ -57,13 +58,13 @@ int main(void)
         screenManager->getCurrent()->update(elapsed.asSeconds());
         clock.restart();
 
-        window->clear();
-        screenManager->getCurrent()->draw(*window);
-        window->display();
+        mainWindow->getWindow()->clear();
+        screenManager->getCurrent()->draw(*mainWindow->getWindow());
+        mainWindow->getWindow()->display();
     }
 
     delete screenManager;
-    delete window;
+    delete mainWindow;
 
     return 0;
 }

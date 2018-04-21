@@ -87,18 +87,8 @@ void LocalGameScreen::loadContent()
 {
     Screen::loadContent();
 
-    int nb_players;
-    ScreenManager *sm = ScreenManager::getInstance();
-
-    if(sm->getPrevious()->getName() == "singleplayermenu")
-            nb_players = SingleplayermenuScreen::players_number;
-    else if(sm->getPrevious()->getName() == "singleplayermodechoice") {
-        this->AI = true;
-        nb_players = SingleplayerModeChoiceScreen::players_number;
-    }
-
     // Init game
-    game = new Core::Game(nb_players);
+    game = new Core::Game(SingleplayerModeChoiceScreen::players_number);
     game->startRound();
 
     // Board
