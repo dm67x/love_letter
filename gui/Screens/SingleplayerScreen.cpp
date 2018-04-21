@@ -1,5 +1,6 @@
 #include "SingleplayerScreen.h"
 #include "SinglePlayerMenuScreen.h"
+#include "SingleplayerModeChoiceScreen.h"
 #include "ScreenManager.h"
 
 SingleplayerScreen::SingleplayerScreen()
@@ -22,8 +23,21 @@ void SingleplayerScreen::loadContent()
 {
     Screen::loadContent();
 
+    int nb_players;
+
+    ScreenManager * instance = ScreenManager::getInstance();
+
+    if(instance->getPrevious()->getName() == "singleplayermenu")
+        nb_players = SingleplayermenuScreen::players_number;
+    else if(instance->getPrevious()->getName() == "singleplayermodechoice") {
+        nb_players = SingleplayerModeChoiceScreen::players_number;
+    }
+    else
+        nb_players = 2;
+
     // Init game
-    game = new Core::Game(SingleplayermenuScreen::players_number);
+    game = new Core::Game(nb_players);
+    ia = new IA::IA_intel(game);
     game->startRound();
 
     // Board

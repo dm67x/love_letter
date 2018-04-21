@@ -1,14 +1,16 @@
 TEMPLATE = lib
+CONFIG += staticlib static
+QMAKE_CXXFLAGS += -std=c++11
 
 HEADERS += \
-    ia.h \
     ia_dummy.h \
-    utils.h
+    utils.h \
+    ia_intel.h
 
 SOURCES += \
-    ia.cpp \
     ia_dummy.cpp \
-    utils.cpp
+    utils.cpp \
+    ia_intel.cpp
 
 # CORE LIBRARY
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../core/release/ -lcore

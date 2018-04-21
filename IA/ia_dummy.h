@@ -1,11 +1,13 @@
-#ifndef IA_H
-#define IA_H
+#ifndef IA_DUMMY
+#define IA_DUMMY
 
 #include "card.h"
 #include "player.h"
 #include <vector>
 
 using namespace std;
+
+namespace IA {
 
 class IA_Dummy : public Core::Player
 {
@@ -26,4 +28,6 @@ public:
     int choosePlayer(vector<Player *> players); //returns index of chosen player
 };
 
-#endif // IA_H
+}
+
+#endif // IA_DUMMY

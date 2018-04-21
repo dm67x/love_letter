@@ -3,8 +3,8 @@
 namespace Core {
 
 // Start new Game with nb_players
-Game::Game(unsigned int nb_players){
-
+Game::Game(unsigned int nb_players)
+{
     action = Action::getInstance();
     deck = Deck::getInstance();
 

@@ -4,6 +4,7 @@
 #include "Screen.h"
 #include "core/game.h"
 #include "Board.h"
+#include "IA/ia_intel.h"
 
 class SingleplayerScreen : public Screen
 {
@@ -11,6 +12,7 @@ class SingleplayerScreen : public Screen
 private:
     Core::Game * game;
     Board * board;
+    IA::IA_intel * ia;
 
 public:
     SingleplayerScreen();
