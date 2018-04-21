@@ -21,7 +21,6 @@ SOURCES += \
     Screens/MenuScreen.cpp \
     Button.cpp \
     Screens/CreditsScreen.cpp \
-    Screens/SingleplayerScreen.cpp \
     Elements/Card.cpp \
     Elements/Deck.cpp \
     Elements/Hand.cpp \
@@ -36,7 +35,8 @@ SOURCES += \
     Screens/CreateGame.cpp \
     Screens/JoinGame.cpp \
     Buttons/TextArea.cpp \
-    Screens/NextPlayerMessageScreen.cpp
+    Screens/NextPlayerMessageScreen.cpp \
+    Screens/LocalGameScreen.cpp
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../core/release/ -lcore
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../core/debug/ -lcore
@@ -63,7 +63,6 @@ HEADERS += \
     Screens/MenuScreen.h \
     Button.h \
     Screens/CreditsScreen.h \
-    Screens/SingleplayerScreen.h \
     Elements/Card.h \
     Elements/Deck.h \
     Elements/Hand.h \
@@ -78,4 +77,5 @@ HEADERS += \
     Screens/CreateGame.h \
     Screens/JoinGame.h \
     Buttons/TextArea.h \
-    Screens/NextPlayerMessageScreen.h
+    Screens/NextPlayerMessageScreen.h \
+    Screens/LocalGameScreen.h

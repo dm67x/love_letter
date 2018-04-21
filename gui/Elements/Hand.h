@@ -5,10 +5,9 @@
 #include "Card.h"
 #include "core/player.h"
 #include "DebugBounds.h"
+#include "Screen.h"
 
-class Board;
-
-typedef int (Board::*FUNC)(int, Core::Card*);
+typedef int (Screen::*FUNC)(int, Core::Card*);
 
 class Hand : public Object
 {
@@ -21,7 +20,7 @@ private:
     bool guessed;
 
     FUNC function;
-    Board * elem;
+    Screen * elem;
     int selected_card; // for update
 
     // Debug
@@ -35,8 +34,7 @@ public:
     void reveal();
     void mask();
     void updateCards();
-
-    void playing(FUNC func, Board * elem);
+    void playing(FUNC function, Screen * elem);
 
     void input(sf::Event evt, sf::Transform transf);
     void update(float dt, sf::Transform transf);
