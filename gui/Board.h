@@ -31,6 +31,8 @@ public:
     inline std::vector<PlayerZone *> getZones() const { return zones; }
     inline Deck * getDeck() const { return deck; }
 
+    int playing(int index, Core::Card *card);
+
     void resetDeck();
     void addPlayer(Core::Player * player, enum ZONE where);
     void nextTurn();

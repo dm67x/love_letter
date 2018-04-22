@@ -30,6 +30,8 @@ public:
     Hand(Core::Player * player, sf::FloatRect bounds);
     ~Hand();
 
+    void setSelectedCard(int value);
+
     void addCard(Card * card);
     void reveal();
     void mask();

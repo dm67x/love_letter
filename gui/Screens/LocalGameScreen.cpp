@@ -2,6 +2,7 @@
 #include "SinglePlayerMenuScreen.h"
 #include "ScreenManager.h"
 #include "MainWindow.h"
+#include "SingleplayerModeChoiceScreen.h"
 #include "core/cards/all.h"
 
 #include <iostream>
@@ -15,8 +16,6 @@ int LocalGameScreen::playing_card(int index, Core::Card *card)
             protected_players++;
         }
     }
-
-    std::cout << card->getName() << std::endl;
 
     // Handmaid or prince can target himself
     if (card->getValue() == 5 || card->getValue() == 4)
@@ -49,6 +48,7 @@ int LocalGameScreen::playing_card(int index, Core::Card *card)
         current_zone->getPlayer()->discardWithoutEffect(index);
         state = NORMAL;
         game->update();
+
         if (!game->roundOver()) {
             nextPlayerTurn();
             ScreenManager::getInstance()->switchTo("nextplayermessage");

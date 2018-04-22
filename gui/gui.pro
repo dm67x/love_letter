@@ -39,14 +39,25 @@ SOURCES += \
     Screens/LocalGameScreen.cpp \
     DialogBox.cpp \
     Dialogs/GuessDialog.cpp \
-    Screens/RulesScreen.cpp
+    Screens/RulesScreen.cpp \
+    Screens/SingleplayerModeChoiceScreen.cpp \
+    Screens/LocalGameScreen.cpp \
+    Screens/LocalAIGameScreen.cpp
 
+# CORE LIBRARY
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../core/release/ -lcore
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../core/debug/ -lcore
 else:unix:!macx: LIBS += -L$$OUT_PWD/../core/ -lcore
 
+# IA LIBRARY
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../IA/release/ -lIA
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../IA/debug/ -lIA
+else:unix:!macx: LIBS += -L$$OUT_PWD/../IA/ -lIA
+
 INCLUDEPATH += $$PWD/..
-DEPENDPATH += $$PWD/../core
+DEPENDPATH += \
+    $$PWD/../core \
+    $$PWD/../IA
 QMAKE_CXXFLAGS += -std=c++11
 
 win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../core/release/libcore.a
@@ -81,6 +92,8 @@ HEADERS += \
     Screens/JoinGame.h \
     Buttons/TextArea.h \
     Screens/NextPlayerMessageScreen.h \
+    Screens/SingleplayerModeChoiceScreen.h \
+    Screens/LocalAIGameScreen.h \
     Screens/LocalGameScreen.h \
     GameState.h \
     DialogBox.h \

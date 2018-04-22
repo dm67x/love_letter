@@ -99,7 +99,7 @@ void MenuScreen::draw(sf::RenderWindow &window)
 
 void MenuScreen::singleplayerButtonClicked()
 {
-    ScreenManager::getInstance()->switchTo("singleplayermenu");
+    ScreenManager::getInstance()->switchTo("singleplayermodechoice");
 }
 
 void MenuScreen::multiplayerButtonClicked()
