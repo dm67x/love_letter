@@ -17,6 +17,9 @@ private:
     Deck * deck;
     sf::FloatRect bounds;
 
+    sf::Sprite board_bg;
+    sf::Texture board_bg_texture;
+
     // zones
     std::vector<PlayerZone *> zones;
 

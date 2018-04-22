@@ -3,7 +3,7 @@
 
 Card::Card(Core::Card *card)
     : Object("card")
-{
+{    
     this->card = card;
     is_reveal = false;
     animation = NULL;

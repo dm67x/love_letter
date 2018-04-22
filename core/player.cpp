@@ -27,7 +27,7 @@ void Player::kill()
     dead = true;
     // discard last card in hand because "i'm dead"
     if (hand[0])
-        discard();
+        discardWithoutEffect(0);
 }
 
 void Player::reincarnate()
@@ -91,11 +91,7 @@ void Player::deactivateShield()
 
 void Player::discard(int index)
 {
-    if (index == -1 && hand[0] != NULL) {
-        // Don't active effect of card
-        played_cards.push_back(hand[0]);
-        hand[0] = NULL;
-    } else if (index >= 0 && hand[index] != NULL) {
+    if (index >= 0 && hand[index] != NULL) {
         Card * selected = hand[index];
         played_cards.push_back(selected);
         hand[index] = NULL;
@@ -105,6 +101,19 @@ void Player::discard(int index)
             hand[1] = NULL;
         }
         selected->activeEffect();
+    }
+}
+
+void Player::discardWithoutEffect(int index)
+{
+    if (index >= 0 && hand[index] != NULL) {
+        played_cards.push_back(hand[index]);
+        hand[index] = NULL;
+        // Change position of card in position 1 to 0
+        if (index == 0 && hand[1] != NULL) {
+            hand[0] = hand[1];
+            hand[1] = NULL;
+        }
     }
 }
 

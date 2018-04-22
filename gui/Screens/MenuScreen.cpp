@@ -3,6 +3,8 @@
 #include "MainWindow.h"
 #include "Buttons/MenuButton.h"
 
+#include <iostream>
+
 MenuScreen::MenuScreen()
     : Screen("menu")
 {
@@ -22,7 +24,12 @@ void MenuScreen::loadContent()
     sf::Vector2u size = getSize();
 
     // Background
-    bg_texture.loadFromFile("data/back_menu_credits.jpg");
+    if (!bg_texture.loadFromFile("data/ui/ui_board_large.png")) {
+        std::cerr << "error cannot found texture file" << std::endl;
+        exit(1);
+    }
+
+    bg_texture.setSmooth(true);
     background.setTexture(bg_texture);
     background.setOrigin(bg_texture.getSize().x / 2.0f, bg_texture.getSize().y / 2.0f);
     background.setPosition(size.x / 2.0f, size.y / 2.0f);
@@ -31,7 +38,7 @@ void MenuScreen::loadContent()
 
     // Singleplayer button
     localgame_button = new MenuButton("Local",
-        sf::Vector2f(size.x / 2, 375.0f * background.getScale().y));
+        sf::Vector2f(size.x / 2, 100.0f * background.getScale().y));
     localgame_button->onClick(&singleplayerButtonClicked);
     sf::FloatRect sp_button_rect = localgame_button->getBounds();
 

@@ -36,7 +36,9 @@ SOURCES += \
     Screens/JoinGame.cpp \
     Buttons/TextArea.cpp \
     Screens/NextPlayerMessageScreen.cpp \
-    Screens/LocalGameScreen.cpp
+    Screens/LocalGameScreen.cpp \
+    DialogBox.cpp \
+    Dialogs/GuessDialog.cpp
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../core/release/ -lcore
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../core/debug/ -lcore
@@ -79,4 +81,6 @@ HEADERS += \
     Buttons/TextArea.h \
     Screens/NextPlayerMessageScreen.h \
     Screens/LocalGameScreen.h \
-    GameState.h
+    GameState.h \
+    DialogBox.h \
+    Dialogs/GuessDialog.h

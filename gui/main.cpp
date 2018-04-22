@@ -18,7 +18,6 @@ int main(void)
 
     sf::RenderWindow * window = mainWindow->getWindow();
     window->setFramerateLimit(60);
-    window->setKeyRepeatEnabled(false);
 
     // ScreenManager
     ScreenManager * screenManager = ScreenManager::getInstance();

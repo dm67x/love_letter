@@ -47,15 +47,15 @@ void PlayerZone::clear()
     hand->updateCards();
 }
 
-void PlayerZone::input(sf::Event evt)
+void PlayerZone::input(sf::Event evt, sf::Transform transform)
 {
-    hand->input(evt, getTransform());
+    hand->input(evt, transform * getTransform());
 }
 
-void PlayerZone::update(float dt)
+void PlayerZone::update(float dt, sf::Transform transform)
 {
     player_name.setString(player->getName() + " ~ " + std::to_string(player->getPoints()));
-    hand->update(dt, getTransform());
+    hand->update(dt, transform * getTransform());
 }
 
 void PlayerZone::draw(sf::RenderTarget &target, sf::RenderStates states) const

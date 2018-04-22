@@ -99,7 +99,7 @@ void Hand::input(sf::Event evt, sf::Transform transf)
                               card_dim.x, card_dim.y));
 
             if (card_bounds.contains(evt.mouseButton.x, evt.mouseButton.y)) {
-                if (evt.type == sf::Event::MouseButtonPressed
+                if (evt.type == sf::Event::MouseButtonReleased
                         && evt.mouseButton.button == sf::Mouse::Left && card->getCard()->isPlayable()) {
                     selected_card = i;
                 } else if (evt.type == sf::Event::MouseButtonPressed

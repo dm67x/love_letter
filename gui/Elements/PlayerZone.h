@@ -30,8 +30,8 @@ public:
 
     void clear();
 
-    void input(sf::Event evt);
-    void update(float dt);
+    void input(sf::Event evt, sf::Transform transform);
+    void update(float dt, sf::Transform transform);
     void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 
 };
