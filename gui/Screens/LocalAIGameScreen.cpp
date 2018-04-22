@@ -246,7 +246,7 @@ void LocalAIGameScreen::unloadContent()
 void LocalAIGameScreen::input(sf::Event evt)
 {
     board->input(evt);
-    current_zone->input(evt);
+    current_zone->input(evt, board->getTransform());
 
     if (evt.type == sf::Event::KeyPressed && evt.key.code == sf::Keyboard::T
             && game->getDeck()->getCards().size() > 0)
@@ -259,7 +259,7 @@ void LocalAIGameScreen::update(float dt)
     board->update(dt);
 
     // Update every time hand of current player
-    current_zone->update(dt);
+    current_zone->update(dt, board->getTransform());
     current_zone->getHand()->reveal();
 
     if (game->roundOver()) {

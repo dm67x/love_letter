@@ -41,7 +41,6 @@ SOURCES += \
     Dialogs/GuessDialog.cpp \
     Screens/RulesScreen.cpp \
     Screens/SingleplayerModeChoiceScreen.cpp \
-    Screens/LocalGameScreen.cpp \
     Screens/LocalAIGameScreen.cpp
 
 # CORE LIBRARY
@@ -99,3 +98,16 @@ HEADERS += \
     DialogBox.h \
     Dialogs/GuessDialog.h \
     Screens/RulesScreen.h
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../IA/release/ -lIA
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../IA/debug/ -lIA
+else:unix:!macx: LIBS += -L$$OUT_PWD/../IA/ -lIA
+
+INCLUDEPATH += $$PWD/../IA
+DEPENDPATH += $$PWD/../IA
+
+win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../IA/release/libIA.a
+else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../IA/debug/libIA.a
+else:win32:!win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../IA/release/IA.lib
+else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../IA/debug/IA.lib
+else:unix:!macx: PRE_TARGETDEPS += $$OUT_PWD/../IA/libIA.a
