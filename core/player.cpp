@@ -1,5 +1,7 @@
 #include "player.h"
 #include "deck.h"
+#include "cards/all.h"
+#include <QDebug>
 
 namespace Core {
 
@@ -99,6 +101,130 @@ void Player::discard(int index)
     }
 }
 
+void Player::kill()
+{
+    dead = true;
+    // discard last card in hand because "i'm dead"
+    if (hand[0])
+        discard();
+}
+
+void Player::reincarnate()
+{
+    dead = false;
+}
+// For multiplayer games
+// Manually give a card to a client
+void Player::pickCard_manual(char c){
+    switch (c) {
+    case 'G':
+        hand[0] = new Guard();
+        break;
+    case 'P':
+        hand[0] = new Priest();
+        break;
+    case 'B':
+        hand[0] = new Baron();
+        break;
+    case 'H':
+        hand[0] = new Handmaid();
+        break;
+    case 'Y':
+        hand[0] = new Prince();
+        break;
+    case 'K':
+        hand[0] = new King();
+        break;
+    case 'C':
+        hand[0] = new Countess();
+        break;
+    case 'Z':
+        hand[0] = new Princess();
+        break;
+    default:
+        break;
+    }
+}
+
+Card * Player::pickCard()
+{
+    Card * picked_card = Deck::getInstance()->pickCard();
+    if (hand[0] == NULL)
+        hand[0] = picked_card;
+    else
+        hand[1] = picked_card;
+
+    // if picked_card is the countess and you have king or prince in hand you must discard countess
+    if (hand[0] && hand[0]->getValue() == 7 && (hand[1]->getValue() == 5 || hand[1]->getValue() == 6))
+        discard(0);
+    else if (hand[1] && hand[1]->getValue() == 7 && (hand[0]->getValue() == 5 || hand[0]->getValue() == 6))
+        discard(1);
+
+    return picked_card;
+}
+
+void Player::switchHand(Player & p)
+{
+    if (!p.isDead() && !isDead()) {
+        Card * my_card = hand[0];
+        hand[0] = p.getCard();
+        p.setCard(my_card);
+    }
+}
+
+void Player::setCard(Card * c)
+{
+    hand[0] = c;
+}
+
+void Player::givePoint()
+{
+    points++;
+}
+
+void Player::activateShield()
+{
+    shield = true;
+}
+
+void Player::deactivateShield()
+{
+    shield = false;
+}
+
+void Player::discard(int index)
+{
+    qDebug() << "DISCARD FUNCTION \n";
+
+    if (index == -1 && hand[0] != NULL) {
+
+        qDebug() << "IF \n";
+
+        // Don't active effect of card
+        played_cards.push_back(hand[0]);
+        hand[0] = NULL;
+    } else if (index >= 0 && hand[index] != NULL) {
+
+        qDebug() << "ELSE IF \n";
+        qDebug() << "index = " << index << "\n";
+
+        hand[index]->activeEffect();
+        played_cards.push_back(hand[index]);
+        hand[index] = NULL;
+
+
+
+        // Change position of card in position 1 to 0
+        if (index == 0 && hand[1] != NULL) {
+
+            qDebug() << "ELSE IF -- IF \n";
+
+            hand[0] = hand[1];
+            hand[1] = NULL;
+        }
+    }
+}
+
 void Player::clear()
 {
     hand[0] = hand[1] = NULL;
@@ -118,3 +244,4 @@ int Player::hasCard(string card_name){
 }
 
 }
+

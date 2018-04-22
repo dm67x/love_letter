@@ -45,6 +45,9 @@ public:
     void clear(); // reinitialize
     int hasCard(string card_name);
 
+    // FOR MULTIPLAYER GAME PURPOSE
+    void pickCard_manual(char c);
+
 };
 
 }

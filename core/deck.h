@@ -25,6 +25,7 @@ public:
     Card * pickCard();
     void removeCard();
     void clear();
+    void buildDeck(string d);
 
 };
 
