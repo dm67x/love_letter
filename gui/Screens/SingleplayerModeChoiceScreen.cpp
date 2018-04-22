@@ -34,7 +34,7 @@ void SingleplayerModeChoiceScreen::loadContent()
 
     // Play vs human(s)
     play_vs_humans_button = new MenuButton("Play vs humans",
-        sf::Vector2f(size.x / 2, 375.0f * background.getScale().y));
+        sf::Vector2f(size.x / 2, 375.0f * background.getScale().y + space_between_menu));
     play_vs_humans_button->onClick(&play_vs_humansButtonClicked);
     sf::FloatRect pvh_rect = play_vs_humans_button->getBounds();
 
