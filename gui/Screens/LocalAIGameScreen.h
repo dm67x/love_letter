@@ -5,6 +5,7 @@
 #include "core/game.h"
 #include "Board.h"
 #include "IA/ia_intel.h"
+#include "GameState.h"
 
 
 class LocalAIGameScreen : public Screen
@@ -14,21 +15,30 @@ private:
     Core::Game * game;
     Board * board;
 
+    // State
+    enum GameState state;
+
     // AI
     IA::IA_intel * ia;
 
     // Target & Guess
     int playing_card(int index, Core::Card * card);
+    void playing_card_AI(int index, Core::Card *card);
     Core::Player * target_player;
 
     // Zones
     PlayerZone * current_zone;
-    int current_zone_index;
 
     // Next turn
     void nextPlayerTurn();
+    PlayerZone * getCurrentZone(Core::Player * p);
 
-    void playing_card_AI(int index, Core::Card *card);
+    // For guess
+    std::vector<Card *> guess_cards;
+
+    // Threads (target & guess)
+    void target_func(Core::Card *card);
+    void guess_func(Core::Card *card);
 
 public:
     LocalAIGameScreen();

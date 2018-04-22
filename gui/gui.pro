@@ -89,6 +89,6 @@ HEADERS += \
     Buttons/TextArea.h \
     Screens/NextPlayerMessageScreen.h \
     Screens/SingleplayerModeChoiceScreen.h \
-    Screens/LocalAIGameScreen.h
+    Screens/LocalAIGameScreen.h \
     Screens/LocalGameScreen.h \
     GameState.h

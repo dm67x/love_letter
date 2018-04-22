@@ -20,9 +20,16 @@ int LocalGameScreen::playing_card(int index, Core::Card *card)
     }
 
     if (state == NORMAL || (!card->needGuess() && state == TARGET_END)) {
+        if(card->getName() == "Priest") {
+            getCurrentZone(target_player)->getHand()->reveal();
+            sf::sleep(sf::seconds(2));
+            getCurrentZone(target_player)->getHand()->mask();
+        }
+
         current_zone->getPlayer()->discard(index);
         state = NORMAL;
         game->update();
+
         if (!game->roundOver()) {
             nextPlayerTurn();
             ScreenManager::getInstance()->switchTo("nextplayermessage");
@@ -148,7 +155,7 @@ void LocalGameScreen::loadContent()
     Screen::loadContent();
 
     // Init game
-    game = new Core::Game(SingleplayerModeChoiceScreen::players_number);
+    game = new Core::Game(SingleplayermenuScreen::players_number);
     game->startRound();
 
     // Board
