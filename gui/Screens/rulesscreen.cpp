@@ -21,7 +21,7 @@ void RulesScreen::loadContent()
     sf::Color text_color = sf::Color(226, 26, 57);
 
     // Background
-    bg_texture.loadFromFile("data/back_menu_rules.jpg");
+    bg_texture.loadFromFile("data/back_menu_credits.jpg");
     background.setTexture(bg_texture);
     background.setOrigin(bg_texture.getSize().x / 2.0f, bg_texture.getSize().y / 2.0f);
     background.setPosition(size.x / 2.0f, size.y / 2.0f);
@@ -54,17 +54,20 @@ void RulesScreen::loadContent()
 
     // Rules text
     text_rules.setFont(font);
-    text_rules.setString("In this card game your goal is that the person "
-                         "(the card) closest to the princess (with higher value) holds your love letter \n \
-                         at the end of the day, so it reaches her first (and so you win). \n \
-                         To select a card to throw, a target player and his card, double click the card chosen. \n \
-                         May the best player win the heart of the princess Annette");
-    text_rules.setCharacterSize(20);
-    text_rules.setFillColor(text_color);
+    text_rules.setString("In this card game your goal is that the person\n"
+                         "(the card) closest to the princess (with higher value) holds your love letter\n"
+                         "at the end of the day, so it reaches her first (and so you win).\n"
+                         "To select a card to throw, a target player and his card, double click the card chosen.\n"
+                         "May the best player win the heart of the princess Annette");
+    text_rules.setCharacterSize(23);
+    text_rules.setFillColor(sf::Color::Black);
 
     sf::FloatRect text_rect_rules = text_rules.getLocalBounds();
-    text_rules.setPosition((getSize().x - text_rect_dev1.width) / 2,
-                          text_title.getGlobalBounds().top + text_title.getGlobalBounds().height + space);
+    text_rules.setOrigin(text_rect_rules.left + text_rect_rules.width / 2.0f,
+                         text_rect_rules.top + text_rect_rules.height / 2.0f);
+    text_rules.setPosition(getSize().x / 2,
+                          text_title.getGlobalBounds().top + text_title.getGlobalBounds().height +
+                           text_rect_rules.height / 2.0f + space);
 
 }
 
@@ -82,5 +85,5 @@ void RulesScreen::draw(sf::RenderWindow &window)
     window.draw(love_letter);
     window.draw(text_seiji);
     window.draw(text_title);
-
+    window.draw(text_rules);
 }
