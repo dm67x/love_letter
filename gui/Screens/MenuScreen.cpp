@@ -15,6 +15,7 @@ MenuScreen::~MenuScreen()
     delete localgame_button;
     delete multiplayer_button;
     delete credits_button;
+    delete rules_button;
 }
 
 void MenuScreen::loadContent()
@@ -48,9 +49,15 @@ void MenuScreen::loadContent()
     multiplayer_button->onClick(&multiplayerButtonClicked);
     sf::FloatRect mp_button_rect = multiplayer_button->getBounds();
 
+    // Rules button
+    rules_button = new MenuButton("Rules",
+        sf::Vector2f(size.x / 2, mp_button_rect.top + mp_button_rect.height + space_between_menu));
+    rules_button->onClick(&rulesButtonClicked);
+    sf::FloatRect rules_button_rect = rules_button->getBounds();
+
     // Credits button
     credits_button = new MenuButton("Credits",
-        sf::Vector2f(size.x / 2, mp_button_rect.top + mp_button_rect.height + space_between_menu));
+        sf::Vector2f(size.x / 2, rules_button_rect.top + rules_button_rect.height + space_between_menu));
     credits_button->onClick(&creditsButtonClicked);
     sf::FloatRect credits_button_rect = credits_button->getBounds();
 
@@ -64,6 +71,7 @@ void MenuScreen::input(sf::Event evt)
 {
     localgame_button->input(evt);
     multiplayer_button->input(evt);
+    rules_button->input(evt);
     credits_button->input(evt);
     quit_button->input(evt);
 }
@@ -72,6 +80,7 @@ void MenuScreen::update(float dt)
 {
     localgame_button->update(dt);
     multiplayer_button->update(dt);
+    rules_button->update(dt);
     credits_button->update(dt);
     quit_button->update(dt);
 }
@@ -83,6 +92,7 @@ void MenuScreen::draw(sf::RenderWindow &window)
     window.draw(background);
     window.draw(*localgame_button);
     window.draw(*multiplayer_button);
+    window.draw(*rules_button);
     window.draw(*credits_button);
     window.draw(*quit_button);
 }
@@ -95,6 +105,11 @@ void MenuScreen::singleplayerButtonClicked()
 void MenuScreen::multiplayerButtonClicked()
 {
     ScreenManager::getInstance()->switchTo("multiplayermenu");
+}
+
+void MenuScreen::rulesButtonClicked()
+{
+    ScreenManager::getInstance()->switchTo("rules");
 }
 
 void MenuScreen::creditsButtonClicked()
