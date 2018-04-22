@@ -4,6 +4,7 @@
 #include "Screen.h"
 #include "core/game.h"
 #include "Board.h"
+#include "GameState.h"
 
 class LocalGameScreen : public Screen
 {
@@ -12,16 +13,26 @@ private:
     Core::Game * game;
     Board * board;
 
+    // State
+    enum GameState state;
+
     // Target & Guess
     int playing_card(int index, Core::Card * card);
     Core::Player * target_player;
 
     // Zones
     PlayerZone * current_zone;
-    int current_zone_index;
 
     // Next turn
     void nextPlayerTurn();
+    PlayerZone * getCurrentZone(Core::Player * p);
+
+    // For guess
+    std::vector<Card *> guess_cards;
+
+    // Threads (target & guess)
+    void target_func(Core::Card *card);
+    void guess_func(Core::Card *card);
 
 public:
     LocalGameScreen();

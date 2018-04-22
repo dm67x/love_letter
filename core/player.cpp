@@ -1,5 +1,7 @@
 #include "player.h"
 #include "deck.h"
+#include "cards/all.h"
+#include <QDebug>
 
 namespace Core {
 
@@ -43,11 +45,19 @@ Card * Player::pickCard()
     else
         hand[1] = picked_card;
 
-    // if picked_card is the countess and you have king or prince in hand you must discard countess
-    if (hand[0] && hand[0]->getValue() == 7 && (hand[1]->getValue() == 5 || hand[1]->getValue() == 6))
-        discard(0);
-    else if (hand[1] && hand[1]->getValue() == 7 && (hand[0]->getValue() == 5 || hand[0]->getValue() == 6))
-        discard(1);
+    // If countess in hand
+    if ((hand[0] && hand[0]->getValue() == 7) || (hand[1] && hand[1]->getValue() == 7)) {
+        if (hand[0] && (hand[0]->getValue() == 6 || hand[0]->getValue() == 5)) {
+            hand[0]->setActive(false);
+        } else if (hand[1] && (hand[1]->getValue() == 6 || hand[1]->getValue() == 5)) {
+            hand[1]->setActive(false);
+        }
+    } else {
+        if (hand[0])
+            hand[0]->setActive(true);
+        if (hand[1])
+            hand[1]->setActive(true);
+    }
 
     return picked_card;
 }
@@ -99,6 +109,38 @@ void Player::discard(int index)
         selected->activeEffect();
     }
 }
+// For multiplayer games
+// Manually give a card to a client
+void Player::pickCard_manual(char c){
+    switch (c) {
+    case 'G':
+        hand[0] = new Guard();
+        break;
+    case 'P':
+        hand[0] = new Priest();
+        break;
+    case 'B':
+        hand[0] = new Baron();
+        break;
+    case 'H':
+        hand[0] = new Handmaid();
+        break;
+    case 'Y':
+        hand[0] = new Prince();
+        break;
+    case 'K':
+        hand[0] = new King();
+        break;
+    case 'C':
+        hand[0] = new Countess();
+        break;
+    case 'Z':
+        hand[0] = new Princess();
+        break;
+    default:
+        break;
+    }
+}
 
 void Player::clear()
 {
@@ -123,3 +165,4 @@ int Player::hasCard(string card_name){
 }
 
 }
+

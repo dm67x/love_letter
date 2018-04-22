@@ -1,7 +1,8 @@
 #ifndef TEST_H
 #define TEST_H
 
-#include "core/game.h"
+#include "../network/multiplayergame.h"
+//#include "core/game.h"
 
 class Test
 {

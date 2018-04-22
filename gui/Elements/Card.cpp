@@ -8,6 +8,7 @@ Card::Card(Core::Card *card)
     is_reveal = false;
     animation = NULL;
     hover = false;
+    m_show = true;
 
     // shader
     hover_shader.loadFromFile("data/hover.frag", sf::Shader::Fragment);
@@ -96,6 +97,16 @@ void Card::setHover(bool hover)
     this->hover = hover;
 }
 
+void Card::show()
+{
+    m_show = true;
+}
+
+void Card::hide()
+{
+    m_show = false;
+}
+
 void Card::update(float dt)
 {
     if (animation) {
@@ -111,10 +122,12 @@ void Card::draw(sf::RenderTarget &target, sf::RenderStates states) const
     if (hover)
         states.shader = &hover_shader;
 
-    target.draw(card_sprite, states);
-    if (is_reveal) {
-        target.draw(title, states);
-        target.draw(description, states);
-        target.draw(value, states);
+    if (m_show) {
+        target.draw(card_sprite, states);
+        if (is_reveal) {
+            target.draw(title, states);
+            target.draw(description, states);
+            target.draw(value, states);
+        }
     }
 }

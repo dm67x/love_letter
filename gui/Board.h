@@ -19,7 +19,6 @@ private:
 
     // zones
     std::vector<PlayerZone *> zones;
-    bool top, left, right, bottom;
 
 public:
     Board(Core::Game * game, sf::FloatRect bounds);
@@ -31,6 +30,7 @@ public:
 
     int playing(int index, Core::Card *card);
 
+    void resetDeck();
     void addPlayer(Core::Player * player, enum ZONE where);
     void nextTurn();
 

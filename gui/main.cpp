@@ -2,7 +2,7 @@
 #include "MainWindow.h"
 #include "Screens/MenuScreen.h"
 #include "Screens/LocalGameScreen.h"
-#include "Screens/SingleplayermenuScreen.h"
+#include "Screens/SinglePlayerMenuScreen.h"
 #include "Screens/MultiplayerScreen.h"
 #include "Screens/CreateGame.h"
 #include "Screens/JoinGame.h"
@@ -20,6 +20,7 @@ int main(void)
 #endif
 
     mainWindow->getWindow()->setFramerateLimit(60);
+
     // ScreenManager
     ScreenManager * screenManager = ScreenManager::getInstance();
 

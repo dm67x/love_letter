@@ -38,6 +38,7 @@ public:
     void pickTarget(int target_index);
     void guessCard(string name);
     void setCurrentWinner(int index);
+    int getCurrentPlayerIndex();
 
     int getCurrentWinner();
     inline int getCurrentPlayerIndex() const { return current_player; }
@@ -45,6 +46,8 @@ public:
     Player * startTurn();
     Player *getCurrentPlayer();
     Deck * getDeck();
+    void setDeck(string d);
+    void setFirstCards(string first_cards);
 
     unsigned int getMaxPoints();
 

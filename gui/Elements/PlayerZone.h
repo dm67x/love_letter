@@ -28,6 +28,8 @@ public:
     inline Core::Player * getPlayer() const { return player; }
     inline sf::FloatRect getBounds() const { return bounds; }
 
+    void clear();
+
     void input(sf::Event evt);
     void update(float dt);
     void draw(sf::RenderTarget &target, sf::RenderStates states) const;

@@ -42,9 +42,12 @@ public:
     // discard (or play) the card with index "index"
     // if index = -1 then don't activate effect of discarded card
     void discard(int index = -1);
-    int hasCard(string card_name);
     void clear(); // reinitialize (not points)
     void reset(); // reinit all (including points)
+    int hasCard(string card_name);
+
+    // FOR MULTIPLAYER GAME PURPOSE
+    void pickCard_manual(char c);
 
 };
 

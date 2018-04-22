@@ -22,7 +22,6 @@ Deck * Deck::getInstance()
 
 Deck::Deck()
 {
-    clear();
 }
 
 // Shuffle the deck
@@ -71,6 +70,34 @@ void Deck::clear()
 void Deck::removeCard()
 {
     removed_cards.push_back(pickCard());
+}
+
+// Manually build the Deck with a given string
+void Deck::buildDeck(string d){
+    cards.clear();
+    for(std::string::size_type i = 0; i < d.size(); ++i) {
+        switch (d[i]) {
+        case 'G':
+            cards.push_back(new Guard());
+            break;
+        case 'P':
+            cards.push_back(new Priest());
+        case 'B':
+            cards.push_back(new Baron());
+        case 'H':
+            cards.push_back(new Handmaid());
+        case 'Y':
+            cards.push_back(new Prince());
+        case 'K':
+            cards.push_back(new King());
+        case 'C':
+            cards.push_back(new Countess());
+        case 'Z':
+            cards.push_back(new Princess());
+        default:
+            break;
+        }
+    }
 }
 
 }

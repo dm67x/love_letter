@@ -7,8 +7,6 @@ Board::Board(Core::Game *game, sf::FloatRect bounds)
     this->game = game;
     this->bounds = bounds;
 
-    top = left = right = bottom = false;
-
     sf::Vector2f deck_position;
     deck_position.x = bounds.left + bounds.width / 2.0f;
     deck_position.y = bounds.top + bounds.height / 2.0f;
@@ -24,6 +22,14 @@ Board::~Board()
     }
 
     delete deck;
+}
+
+void Board::resetDeck()
+{
+    deck->refresh();
+    for (auto it = zones.begin(); it != zones.end(); it++) {
+        (*it)->clear();
+    }
 }
 
 void Board::addPlayer(Core::Player * player, enum ZONE where)
@@ -75,7 +81,7 @@ void Board::nextTurn()
 void Board::update(float dt)
 {
     for (unsigned int i = 0; i < zones.size(); i++) {
-        zones[i]->update(dt);
+        zones[i]->getHand()->updateCards();
         zones[i]->getHand()->mask();
     }
 }
