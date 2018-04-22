@@ -1,7 +1,7 @@
 TEMPLATE = app
 CONFIG += window
 CONFIG -= qt
-DEFINES += FULLSCREEN
+DEFINES +=
 
 win32: LIBS += -L$$PWD/../lib/SFML/windows/lib -lsfml-graphics -lfreetype -lsfml-window -lopengl32 -lgdi32 -lsfml-system -lwinmm
 unix: LIBS += -L$$PWD/../lib/SFML/linux/lib -lsfml-graphics -lsfml-window -lsfml-system
@@ -37,7 +37,8 @@ SOURCES += \
     Buttons/TextArea.cpp \
     Screens/NextPlayerMessageScreen.cpp \
     Screens/SingleplayerModeChoiceScreen.cpp \
-    Screens/LocalGameScreen.cpp
+    Screens/LocalGameScreen.cpp \
+    Screens/LocalAIGameScreen.cpp
 
 # CORE LIBRARY
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../core/release/ -lcore
@@ -88,4 +89,5 @@ HEADERS += \
     Buttons/TextArea.h \
     Screens/NextPlayerMessageScreen.h \
     Screens/SingleplayerModeChoiceScreen.h \
-    Screens/LocalGameScreen.h
+    Screens/LocalGameScreen.h \
+    Screens/LocalAIGameScreen.h

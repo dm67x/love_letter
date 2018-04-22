@@ -9,6 +9,7 @@
 #include "Screens/CreditsScreen.h"
 #include "Screens/NextPlayerMessageScreen.h"
 #include "Screens/SingleplayerModeChoiceScreen.h"
+#include "Screens/LocalAIGameScreen.h"
 
 int main(void)
 {
@@ -19,7 +20,6 @@ int main(void)
 #endif
 
     mainWindow->getWindow()->setFramerateLimit(60);
-
     // ScreenManager
     ScreenManager * screenManager = ScreenManager::getInstance();
 
@@ -33,6 +33,7 @@ int main(void)
     screenManager->add(new CreditsScreen());
     screenManager->add(new NextPlayerMessageScreen());
     screenManager->add(new SingleplayerModeChoiceScreen());
+    screenManager->add(new LocalAIGameScreen());
 
     sf::Clock clock;
     while (mainWindow->getWindow()->isOpen())

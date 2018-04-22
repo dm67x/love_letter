@@ -10,7 +10,7 @@
 
 namespace IA {
 
-class IA_intel : public Core::Player
+class IA_intel
 {
 
 private:
@@ -18,7 +18,8 @@ private:
     int id;
     Core::Deck * deck;
     Core::Game * game;
-    Core::Player *opponent;
+    Core::Player * ai;
+    Core::Player * opponent;
     vector<Core::Card *> probableCards;
     vector<double> probabilities;
 

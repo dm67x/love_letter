@@ -9,13 +9,13 @@ namespace IA {
 int IA_intel::number_of_objects = 0;
 
 IA_intel::IA_intel(Core::Game * g)
-    : Player("Computer" + id)
 {
     number_of_objects++;
     id = number_of_objects;
 
-    deck = Core::Deck::getInstance();
+    deck = g->getDeck();
     game = g;
+    ai = g->getPlayers().at(1);
     opponent = g->getPlayers().at(0);
 
     probableCards.push_back(new Core::Guard());
@@ -34,7 +34,7 @@ IA_intel::IA_intel(Core::Game * g)
 
 void IA_intel::updateProbabilities()
 {
-    int index;
+    int index = -1;
     // if opponent played  a King
     if(opponent->getPlayedCards().back()->isTheSameCardAs("King")){
         index =  opponent->getCard(0)->getValue() - 1;
@@ -77,11 +77,11 @@ int IA_intel::getIndexSecondMostProbableCard(int max)
 
 double IA_intel::calculateProbability(Core::Card *c)
 {
-  int count1 = std::count (getPlayedCards().begin(), getPlayedCards().end(), c);
-  int count2 = std::count(opponent->getPlayedCards().begin(),
-                          opponent->getPlayedCards().end(),c);
-  return (c->getNbCopies()-(count1+count2)) /
-            (deck->getCards().size() + deck->getRemovedCards().size());
+    int count1 = ai->getPlayedCards().size();
+    int count2 = opponent->getPlayedCards().size();
+    double d = ((double)c->getNbCopies()-((double)count1+(double)count2)) /
+            ((double)deck->getCards().size() + (double)deck->getRemovedCards().size());
+    return d;
 }
 
 
@@ -91,97 +91,102 @@ int IA_intel::chooseCard(){
     int cardToPlay;
     Core::Card * card;
 
-    updateProbabilities();
+    if(!this->opponent->getPlayedCards().empty())
+        updateProbabilities();
 
     indexCard = getIndexMostProbableCard();
     card = probableCards.at(indexCard);
 
 
     //if IA has the Princess, return the other card
-    if((res = hasCard("Princess")) != -1 ){
+    if((res = ai->hasCard("Princess")) != -1 ){
         cardToPlay = (res+1)%2;
     }
 
     //if IA has a pair of the same card, then return whatever
-    else if(getCard(0) &&
-            getCard(1) &&
-            getCard(0)->isTheSameCardAs(getCard(1)->getName())){
+    else if(ai->getCard(0) &&
+            ai->getCard(1) &&
+            ai->getCard(0)->isTheSameCardAs(ai->getCard(1)->getName())){
        cardToPlay = 0;
     }
 
     //if we know the card of the other player with a 100% certainty
     else if(probabilities[indexCard] == 1){
-        if((res = hasCard("Guard")) != -1 &&
+        if((res = ai->hasCard("Guard")) != -1 &&
                 !card->isTheSameCardAs("Guard") &&
                 !opponent->hasShield()){
             cardToPlay = res;
         }
 
         else if(card->isTheSameCardAs("Princess") &&
-                (res = hasCard("Prince")) != -1 ){
+                (res = ai->hasCard("Prince")) != -1 ){
             cardToPlay = res;
         }
 
-        else if((res = hasCard("Baron")) != -1){
-            if(getCard((res+1)%2)->getValue() > card->getValue())
+        else if((res = ai->hasCard("Baron")) != -1){
+            if(ai->getCard((res+1)%2)->getValue() > card->getValue())
                 cardToPlay = res;
             else cardToPlay = (res+1)%2;
         }
         //if last turn
         else if(deck->getCards().empty()){
-            if((res = hasCard("King")) != -1 &&
-                    card->getValue() > getCard((res+1)%2)->getValue()){
+            if((res = ai->hasCard("King")) != -1 &&
+                    card->getValue() > ai->getCard((res+1)%2)->getValue()){
                 cardToPlay = res;
             }
 
             else cardToPlay =
-                    getCard(0)->getValue() < getCard(1)->getValue() ? 0 : 1;
+                    ai->getCard(0)->getValue() < ai->getCard(1)->getValue() ? 0 : 1;
+        }
+        else {
+            srand( time(NULL) );
+            cardToPlay = rand() % 2;
         }
     }
 
     // if last turn and we dont know the opponnents card
     else if(deck->getCards().empty()){
-        cardToPlay = getCard(0)->getValue() < getCard(1)->getValue() ? 0 : 1;
+        cardToPlay = ai->getCard(0)->getValue() < ai->getCard(1)->getValue() ? 0 : 1;
     }
 
     //play Baron if the other card is a King, Countess or a Princess
-    else if((res = hasCard("Baron")) != -1 &&
-            getCard((res+1)%2)->getValue() >= 6 ){
+    else if((res = ai->hasCard("Baron")) != -1 &&
+            ai->getCard((res+1)%2)->getValue() >= 6 ){
         cardToPlay = res;
     }
 
     //always play Priest
-    else if((res=hasCard("Priest")) != -1){
+    else if((res=ai->hasCard("Priest")) != -1){
         cardToPlay = res;
     }
 
     //always play Handmaid
-    else if((res=hasCard("Handmaid")) != -1){
+    else if((res=ai->hasCard("Handmaid")) != -1){
         cardToPlay = res;
     }
 
     //if I have a Prince and a King, play the Prince
-    else if((res = hasCard("Prince")) != -1 && hasCard("King") != -1 ){
+    else if((res = ai->hasCard("Prince")) != -1 && ai->hasCard("King") != -1 ){
         cardToPlay = res;
     }
 
-    else{
+    else {
         srand( time(NULL) );
         cardToPlay = rand() % 2;
     }
 
     // if priest chosen to play
-    if(getCard(cardToPlay)->isTheSameCardAs("Priest")){
+    if(ai->getCard(cardToPlay)->isTheSameCardAs("Priest")){
         res =  opponent->getCard(0)->getValue() - 1;
         probabilities[res] = 1;
     }
 
-    if(getCard(cardToPlay)->isTheSameCardAs("King")){
+    if(ai->getCard(cardToPlay)->isTheSameCardAs("King")){
         res =  opponent->getCard(0)->getValue() - 1;
         probabilities[res] = 1;
     }
 
-    if(getCard(cardToPlay)->isTheSameCardAs("Guard") &&
+    if(ai->getCard(cardToPlay)->isTheSameCardAs("Guard") &&
             card->isTheSameCardAs("Guard")){
         //search for the second most probable card
         indexCard = getIndexSecondMostProbableCard(indexCard);

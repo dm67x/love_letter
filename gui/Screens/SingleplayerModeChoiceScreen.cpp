@@ -67,10 +67,10 @@ void SingleplayerModeChoiceScreen::draw(sf::RenderWindow &window)
 
 void SingleplayerModeChoiceScreen::play_vs_humansButtonClicked()
 {
-    ScreenManager::getInstance()->switchTo("singleplayermenu");
+    ScreenManager::getInstance()->switchTo("localgame");
 }
 
 void SingleplayerModeChoiceScreen::play_solo_vs_aiButtonClicked()
 {
-    ScreenManager::getInstance()->switchTo("localgame");
+    ScreenManager::getInstance()->switchTo("localaigame");
 }

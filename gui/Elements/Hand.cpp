@@ -2,6 +2,7 @@
 #include "MainWindow.h"
 #include "Animations/MoveAnimation.h"
 #include "ScreenManager.h"
+#include <iostream>
 
 Hand::Hand(Core::Player * player, sf::FloatRect bounds)
     : Object("hand")
@@ -145,6 +146,11 @@ void Hand::update(float dt, sf::Transform transf)
             card->update(dt);
         }
     }
+}
+
+void Hand::setSelectedCard(int value)
+{
+    this->selected_card = value;
 }
 
 void Hand::draw(sf::RenderTarget &target, sf::RenderStates states) const

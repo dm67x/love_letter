@@ -1,16 +1,21 @@
-#ifndef LOCALGAMESCREEN_H
-#define LOCALGAMESCREEN_H
+#ifndef LOCALAIGAMESCREEN_H
+#define LOCALAIGAMESCREEN_H
 
 #include "Screen.h"
 #include "core/game.h"
 #include "Board.h"
+#include "IA/ia_intel.h"
 
-class LocalGameScreen : public Screen
+
+class LocalAIGameScreen : public Screen
 {
 
 private:
     Core::Game * game;
     Board * board;
+
+    // AI
+    IA::IA_intel * ia;
 
     // Target & Guess
     int playing_card(int index, Core::Card * card);
@@ -23,9 +28,11 @@ private:
     // Next turn
     void nextPlayerTurn();
 
+    void playing_card_AI(int index, Core::Card *card);
+
 public:
-    LocalGameScreen();
-    ~LocalGameScreen();
+    LocalAIGameScreen();
+    ~LocalAIGameScreen();
 
     void loadContent();
     void unloadContent();
@@ -35,4 +42,4 @@ public:
 
 };
 
-#endif // LOCALGAMESCREEN_H
+#endif // LOCALAIGAMESCREEN_H
