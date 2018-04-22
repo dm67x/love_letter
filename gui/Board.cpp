@@ -19,7 +19,7 @@ Board::Board(Core::Game *game, sf::FloatRect bounds)
     deck->setPosition(deck_position);
 
     // Board background
-    if (!board_bg_texture.loadFromFile("data/board_back.jpg")) {
+    if (!board_bg_texture.loadFromFile("data/board_royal.jpg")) {
         std::cerr << "cannot load data file" << std::endl;
         exit(1);
     }
@@ -109,7 +109,7 @@ void Board::update(float dt)
 void Board::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
     states.transform *= getTransform();
-    //target.draw(board_bg, states);
+    target.draw(board_bg, states);
     target.draw(*deck);
     for (unsigned int i = 0; i < zones.size(); i++)
         target.draw(*zones[i], states);

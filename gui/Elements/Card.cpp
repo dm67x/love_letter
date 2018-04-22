@@ -15,8 +15,40 @@ Card::Card(Core::Card *card)
     hover_shader.setUniform("texture", sf::Shader::CurrentTexture);
 
     // textures
-    texture.loadFromFile("data/guard.jpg");
-    back_texture.loadFromFile("data/custom_dos.jpg");
+    switch (card->getValue()) {
+    case 1:
+        texture.loadFromFile("data/guard.jpg");
+        break;
+
+    case 2:
+        texture.loadFromFile("data/priest.jpg");
+        break;
+
+    case 3:
+        texture.loadFromFile("data/baron.jpg");
+        break;
+
+    case 4:
+        texture.loadFromFile("data/handmaid.jpg");
+        break;
+
+    case 5:
+        texture.loadFromFile("data/prince.jpg");
+        break;
+
+    case 6:
+        texture.loadFromFile("data/king.jpg");
+        break;
+
+    case 7:
+        texture.loadFromFile("data/countess.jpg");
+        break;
+
+    case 8:
+        texture.loadFromFile("data/princess.jpg");
+        break;
+    }
+    back_texture.loadFromFile("data/back_card.jpg");
 
     card_sprite.setTexture(back_texture);
 
@@ -57,7 +89,7 @@ Card::Card(Core::Card *card)
 
     // value
     value.setFont(font);
-    value.setFillColor(sf::Color::White);
+    value.setFillColor(sf::Color::Black);
     std::ostringstream oss;
     oss << card->getValue();
     value.setString(oss.str());

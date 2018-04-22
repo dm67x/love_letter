@@ -150,7 +150,7 @@ void Hand::update(float dt, sf::Transform transf)
 void Hand::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
     states.transform *= getTransform();
-    target.draw(*debug, states);
+    //target.draw(*debug, states);
 
     if (cards[0])
         target.draw(*cards[0], states);
