@@ -6,52 +6,21 @@
 
 int LocalGameScreen::playing_card(int index, Core::Card *card)
 {
-    bool target_selected = false, guessed = false;
     // Target
-    if (!target_selected && card->needTarget()) {
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-            sf::Vector2i mpos = sf::Mouse::getPosition(*MainWindow::getInstance()->getWindow());
-            std::vector<PlayerZone *> zones = board->getZones();
-            for (unsigned int i = 0; i < zones.size(); i++) {
-                sf::Transform transf = zones[i]->getTransform();
-                sf::FloatRect rect = transf.transformRect(zones[i]->getBounds());
-                if (rect.contains(static_cast<sf::Vector2f>(mpos))) {
-                    if (zones[i] == current_zone && !card->targetHimself()) break;
-                    if (zones[i]->getPlayer()->hasShield()) break;
-                    target_player = zones[i]->getPlayer();
-                    target_selected = true;
-                    break;
-                }
-            }
-        }
-
-        // Find index of target
-        auto players = game->getPlayers();
-        for (unsigned int i = 0; i < players.size(); i++) {
-            if (players[i] == target_player) {
-                game->pickTarget(i);
-                break;
-            }
-        }
-        target_player = NULL;
+    if ((state == NORMAL || state == TARGET_START) && card->needTarget()) {
+        state = TARGET_START;
+        target_func(card);
     }
 
     // Guess
-    if (!guessed && card->needGuess()) {
-        for (auto it = guess_cards.begin(); it != guess_cards.end(); it++) {
-            (*it)->show();
-        }
+    if ((state == TARGET_END || state == GUESS_START) && card->needGuess()) {
+        state = GUESS_START;
+        guess_func(card);
     }
 
-    if (guessed) {
-        for (auto it = guess_cards.begin(); it != guess_cards.end(); it++) {
-            (*it)->hide();
-        }
-    }
-
-    if ((card->needGuess() && guessed && target_selected) ||
-            (!card->needGuess() && card->needTarget() && target_selected) || (!card->needTarget())) {
+    if (state == NORMAL || (!card->needGuess() && state == TARGET_END)) {
         current_zone->getPlayer()->discard(index);
+        state = NORMAL;
         game->update();
         if (!game->roundOver()) {
             nextPlayerTurn();
@@ -89,12 +58,79 @@ PlayerZone * LocalGameScreen::getCurrentZone(Core::Player * p)
     return zone;
 }
 
+void LocalGameScreen::target_func(Core::Card * card)
+{
+    bool target_selected = false;
+
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+        sf::Vector2i mpos = sf::Mouse::getPosition(*MainWindow::getInstance()->getWindow());
+        std::vector<PlayerZone *> zones = board->getZones();
+        for (unsigned int i = 0; i < zones.size(); i++) {
+            sf::Transform transf = zones[i]->getTransform();
+            sf::FloatRect rect = transf.transformRect(zones[i]->getBounds());
+            if (rect.contains(static_cast<sf::Vector2f>(mpos))) {
+                if (zones[i] == current_zone && !card->targetHimself()) break;
+                if (zones[i]->getPlayer()->hasShield()) break;
+                target_player = zones[i]->getPlayer();
+                target_selected = true;
+                break;
+            }
+        }
+    }
+
+    // Find index of target
+    if (target_selected) {
+        auto players = game->getPlayers();
+        for (unsigned int i = 0; i < players.size(); i++) {
+            if (players[i] == target_player) {
+                game->pickTarget(i);
+                state = TARGET_END;
+                break;
+            }
+        }
+        target_player = NULL;
+    }
+}
+
+void LocalGameScreen::guess_func(Core::Card *card)
+{
+    bool guessed = false;
+    for (auto it = guess_cards.begin(); it != guess_cards.end(); it++) {
+        (*it)->show();
+    }
+
+    // Get mouse click on card
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+        sf::Vector2i mpos = sf::Mouse::getPosition(*MainWindow::getInstance()->getWindow());
+        for (auto it = guess_cards.begin(); it != guess_cards.end(); it++) {
+            sf::Vector2f position = (*it)->getPosition();
+            sf::Vector2f dimension = (*it)->getDimensions();
+            sf::FloatRect rect = sf::FloatRect(position.x - dimension.x / 2.0f,
+                                               position.y - dimension.y / 2.0f,
+                                               dimension.x, dimension.y);
+            if (rect.contains(static_cast<sf::Vector2f>(mpos))) {
+                game->guessCard((*it)->getCard()->getName());
+                guessed = true;
+                break;
+            }
+        }
+    }
+
+    if (guessed) {
+        for (auto it = guess_cards.begin(); it != guess_cards.end(); it++) {
+            (*it)->hide();
+        }
+        state = NORMAL;
+    }
+}
+
 LocalGameScreen::LocalGameScreen()
     : Screen("localgame")
 {
     game = NULL;
     board = NULL;
     target_player = NULL;
+    state = NORMAL;
 }
 
 LocalGameScreen::~LocalGameScreen()

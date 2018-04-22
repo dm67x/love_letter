@@ -78,4 +78,5 @@ HEADERS += \
     Screens/JoinGame.h \
     Buttons/TextArea.h \
     Screens/NextPlayerMessageScreen.h \
-    Screens/LocalGameScreen.h
+    Screens/LocalGameScreen.h \
+    GameState.h
