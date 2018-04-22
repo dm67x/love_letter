@@ -1,7 +1,7 @@
 #include "ScreenManager.h"
 #include "MainWindow.h"
 #include "Screens/MenuScreen.h"
-#include "Screens/SingleplayerScreen.h"
+#include "Screens/LocalGameScreen.h"
 #include "Screens/SinglePlayerMenuScreen.h"
 #include "Screens/MultiplayerScreen.h"
 #include "Screens/CreateGame.h"
@@ -11,19 +11,21 @@
 
 int main(void)
 {
-    sf::RenderWindow * window = MainWindow::getInstance()->getWindow();
-    window->setFramerateLimit(60);
-
+    MainWindow * mainWindow = MainWindow::getInstance();
 #if FULLSCREEN
-    window->setFullscreen();
+    mainWindow->setFullscreen();
 #endif
+
+    sf::RenderWindow * window = mainWindow->getWindow();
+    window->setFramerateLimit(60);
+    window->setKeyRepeatEnabled(false);
 
     // ScreenManager
     ScreenManager * screenManager = ScreenManager::getInstance();
 
     // Add screens
     screenManager->add(new MenuScreen());
-    screenManager->add(new SingleplayerScreen());
+    screenManager->add(new LocalGameScreen());
     screenManager->add(new SingleplayermenuScreen());
     screenManager->add(new MultiplayerScreen());
     screenManager->add(new CreateGame());
@@ -42,6 +44,9 @@ int main(void)
             {
             case sf::Event::Closed:
                 window->close();
+                break;
+
+            case sf::Event::Resized:
                 break;
             }
 

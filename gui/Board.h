@@ -7,31 +7,31 @@
 #include "core/game.h"
 #include <vector>
 
+enum ZONE { LEFT, RIGHT, BOTTOM, TOP };
+
 class Board : public Object
 {
 
 private:
     Core::Game * game;
-    std::vector<PlayerZone *> zones;
     Deck * deck;
-    sf::FloatRect board_rect;
-    PlayerZone * current_player_zone;
-    unsigned int current_zone;
+    sf::FloatRect bounds;
 
-    int playing(int index, Core::Card * card);
-
-    Core::Player * target_player;
-    sf::Transform transform;
+    // zones
+    std::vector<PlayerZone *> zones;
 
 public:
-    Board(Core::Game * game, sf::FloatRect board_rect);
+    Board(Core::Game * game, sf::FloatRect bounds);
     ~Board();
 
-    void addPlayer(PlayerZone * player);
-    void clear();
+    inline sf::FloatRect getBounds() const { return bounds; }
+    inline std::vector<PlayerZone *> getZones() const { return zones; }
+    inline Deck * getDeck() const { return deck; }
+
+    void resetDeck();
+    void addPlayer(Core::Player * player, enum ZONE where);
     void nextTurn();
 
-    void input(sf::Event evt);
     void update(float dt);
     void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 

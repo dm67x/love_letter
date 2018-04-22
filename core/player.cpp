@@ -5,7 +5,8 @@
 
 namespace Core {
 
-Player::Player(string name){
+Player::Player(string name)
+{
     this->name = name;
     dead = shield = false;
     points = 0;
@@ -44,11 +45,19 @@ Card * Player::pickCard()
     else
         hand[1] = picked_card;
 
-    // if picked_card is the countess and you have king or prince in hand you must discard countess
-    if (hand[0] && hand[0]->getValue() == 7 && (hand[1]->getValue() == 5 || hand[1]->getValue() == 6))
-        discard(0);
-    else if (hand[1] && hand[1]->getValue() == 7 && (hand[0]->getValue() == 5 || hand[0]->getValue() == 6))
-        discard(1);
+    // If countess in hand
+    if ((hand[0] && hand[0]->getValue() == 7) || (hand[1] && hand[1]->getValue() == 7)) {
+        if (hand[0] && (hand[0]->getValue() == 6 || hand[0]->getValue() == 5)) {
+            hand[0]->setActive(false);
+        } else if (hand[1] && (hand[1]->getValue() == 6 || hand[1]->getValue() == 5)) {
+            hand[1]->setActive(false);
+        }
+    } else {
+        if (hand[0])
+            hand[0]->setActive(true);
+        if (hand[1])
+            hand[1]->setActive(true);
+    }
 
     return picked_card;
 }
@@ -138,6 +147,10 @@ void Player::clear()
     hand[0] = hand[1] = NULL;
     played_cards.clear();
     dead = shield = false;
+}
+
+void Player::reset() {
+    clear();
     points = 0;
 }
 

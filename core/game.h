@@ -41,6 +41,7 @@ public:
     int getCurrentPlayerIndex();
 
     int getCurrentWinner();
+    inline int getCurrentPlayerIndex() const { return current_player; }
 
     Player * startTurn();
     Player *getCurrentPlayer();

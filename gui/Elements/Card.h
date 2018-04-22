@@ -26,6 +26,8 @@ private:
     sf::Shader hover_shader;
     bool hover;
 
+    bool m_show;
+
 public:
     Card(Core::Card * card);
     ~Card();
@@ -40,6 +42,8 @@ public:
     void reveal();
     void mask();
     void setHover(bool hover);
+    void show();
+    void hide();
 
     void update(float dt);
     void draw(sf::RenderTarget &target, sf::RenderStates states) const;

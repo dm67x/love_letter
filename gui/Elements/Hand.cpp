@@ -62,7 +62,6 @@ void Hand::updateCards()
     Card * card;
 
     if (cards[0] && c1 && c1->getValue() != cards[0]->getCard()->getValue()) {
-        delete cards[0];
         card = new Card(c1);
         card->setScale(0.5f, 0.5f);
         card->setPosition(bounds.left, bounds.top + bounds.height);
@@ -70,20 +69,18 @@ void Hand::updateCards()
     }
 
     if (cards[1] && c2 && c2->getValue() != cards[1]->getCard()->getValue()) {
-        delete cards[1];
         card = new Card(c2);
         card->setScale(0.5f, 0.5f);
         card->setPosition(bounds.left + bounds.width, bounds.top + bounds.height);
         cards[1] = card;
     } else if (c2 == NULL) {
-        delete cards[1];
         cards[1] = NULL;
     }
 }
 
-void Hand::playing(FUNC func, Board * elem)
+void Hand::playing(FUNC function, Screen * elem)
 {
-    this->function = func;
+    this->function = function;
     this->elem = elem;
 }
 
@@ -102,9 +99,12 @@ void Hand::input(sf::Event evt, sf::Transform transf)
                               card_dim.x, card_dim.y));
 
             if (card_bounds.contains(evt.mouseButton.x, evt.mouseButton.y)) {
-                if (evt.type == sf::Event::MouseButtonReleased
-                        && evt.mouseButton.button == sf::Mouse::Left) {
+                if (evt.type == sf::Event::MouseButtonPressed
+                        && evt.mouseButton.button == sf::Mouse::Left && card->getCard()->isPlayable()) {
                     selected_card = i;
+                } else if (evt.type == sf::Event::MouseButtonPressed
+                           && evt.mouseButton.button == sf::Mouse::Right) {
+                    // Move center & scale more
                 }
             }
         }
@@ -113,16 +113,16 @@ void Hand::input(sf::Event evt, sf::Transform transf)
 
 void Hand::update(float dt, sf::Transform transf)
 {
-    updateCards();
-
     if (selected_card != -1) {
         selected_card = (elem->*function)(selected_card, player->getCard(selected_card));
     }
 
+    updateCards();
+
     for (int i = 0; i < 2; i++)
     {
         Card * card = cards[i];
-        if (card) {
+        if (card && card->getCard()->isPlayable()) {
             sf::Transform transform = transf * getTransform();
             sf::Vector2f card_pos = card->getPosition();
             sf::Vector2f card_dim = card->getDimensions();

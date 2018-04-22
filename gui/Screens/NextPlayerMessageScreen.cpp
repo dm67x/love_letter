@@ -1,6 +1,6 @@
 #include "NextPlayerMessageScreen.h"
 #include "ScreenManager.h"
-#include "../../core/game.h"
+#include "core/game.h"
 
 NextPlayerMessageScreen::NextPlayerMessageScreen()
     : Screen("nextplayermessage")
