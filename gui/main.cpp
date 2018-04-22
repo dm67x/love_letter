@@ -8,17 +8,20 @@
 #include "Screens/JoinGame.h"
 #include "Screens/CreditsScreen.h"
 #include "Screens/NextPlayerMessageScreen.h"
+#include "Screens/RulesScreen.h"
+#include "Screens/SingleplayerModeChoiceScreen.h"
+#include "Screens/LocalAIGameScreen.h"
 
 int main(void)
 {
     MainWindow * mainWindow = MainWindow::getInstance();
+
 #if FULLSCREEN
     mainWindow->setFullscreen();
 #endif
 
     sf::RenderWindow * window = mainWindow->getWindow();
     window->setFramerateLimit(60);
-    window->setKeyRepeatEnabled(false);
 
     // ScreenManager
     ScreenManager * screenManager = ScreenManager::getInstance();
@@ -32,18 +35,21 @@ int main(void)
     screenManager->add(new JoinGame());
     screenManager->add(new CreditsScreen());
     screenManager->add(new NextPlayerMessageScreen());
+    screenManager->add(new RulesScreen());
+    screenManager->add(new SingleplayerModeChoiceScreen());
+    screenManager->add(new LocalAIGameScreen());
 
     sf::Clock clock;
-    while (window->isOpen())
+    while (mainWindow->getWindow()->isOpen())
     {
         sf::Time elapsed;
         sf::Event evt;
-        while (window->pollEvent(evt))
+        while (mainWindow->getWindow()->pollEvent(evt))
         {
             switch (evt.type)
             {
             case sf::Event::Closed:
-                window->close();
+                mainWindow->getWindow()->close();
                 break;
 
             case sf::Event::Resized:
@@ -57,13 +63,13 @@ int main(void)
         screenManager->getCurrent()->update(elapsed.asSeconds());
         clock.restart();
 
-        window->clear();
-        screenManager->getCurrent()->draw(*window);
-        window->display();
+        mainWindow->getWindow()->clear();
+        screenManager->getCurrent()->draw(*mainWindow->getWindow());
+        mainWindow->getWindow()->display();
     }
 
     delete screenManager;
-    delete window;
+    delete mainWindow;
 
     return 0;
 }

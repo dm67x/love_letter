@@ -4,6 +4,8 @@
 #include <list>
 #include "card.h"
 
+namespace IA {
+
 class Utils
 {
 
@@ -14,5 +16,7 @@ public:
 private:
     Utils();
 };
+
+}
 
 #endif // UTILS_H

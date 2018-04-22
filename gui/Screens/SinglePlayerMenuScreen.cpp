@@ -129,6 +129,4 @@ void SingleplayermenuScreen::four_playersButtonClicked()
 void SingleplayermenuScreen::playButtonClicked()
 {
     ScreenManager::getInstance()->switchTo("localgame");
-    // TODO: trouver le moyen de faire passer en argument
-    // le nombre de joueurs sélectionné
 }

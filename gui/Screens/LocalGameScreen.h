@@ -5,6 +5,7 @@
 #include "core/game.h"
 #include "Board.h"
 #include "GameState.h"
+#include "Dialogs/GuessDialog.h"
 
 class LocalGameScreen : public Screen
 {
@@ -28,7 +29,7 @@ private:
     PlayerZone * getCurrentZone(Core::Player * p);
 
     // For guess
-    std::vector<Card *> guess_cards;
+    GuessDialog * guess_dialog;
 
     // Threads (target & guess)
     void target_func(Core::Card *card);

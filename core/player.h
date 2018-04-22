@@ -41,7 +41,8 @@ public:
     void deactivateShield(); // shield = false
     // discard (or play) the card with index "index"
     // if index = -1 then don't activate effect of discarded card
-    void discard(int index = -1);
+    void discard(int index);
+    void discardWithoutEffect(int index);
     void clear(); // reinitialize (not points)
     void reset(); // reinit all (including points)
     int hasCard(string card_name);

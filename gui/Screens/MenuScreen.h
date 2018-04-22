@@ -17,6 +17,9 @@ private:
     Button * multiplayer_button;
     static void multiplayerButtonClicked();
 
+    Button * rules_button;
+    static void rulesButtonClicked();
+
     Button * credits_button;
     static void creditsButtonClicked();
 

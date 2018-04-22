@@ -4,8 +4,7 @@
 namespace Core {
 
 Baron::Baron()
-    : Card("Baron", 3, 2, "You and another player secretly compare hands. \
-         The player with the lower value is out of the round.")
+    : Card("Baron", 3, 2, "You and another player secretly compare hands. The player with the lower value is out of the round.")
 {
 }
 

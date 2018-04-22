@@ -2,6 +2,7 @@
 #include "MainWindow.h"
 #include "Animations/MoveAnimation.h"
 #include "ScreenManager.h"
+#include <iostream>
 
 Hand::Hand(Core::Player * player, sf::FloatRect bounds)
     : Object("hand")
@@ -99,7 +100,7 @@ void Hand::input(sf::Event evt, sf::Transform transf)
                               card_dim.x, card_dim.y));
 
             if (card_bounds.contains(evt.mouseButton.x, evt.mouseButton.y)) {
-                if (evt.type == sf::Event::MouseButtonPressed
+                if (evt.type == sf::Event::MouseButtonReleased
                         && evt.mouseButton.button == sf::Mouse::Left && card->getCard()->isPlayable()) {
                     selected_card = i;
                 } else if (evt.type == sf::Event::MouseButtonPressed
@@ -147,10 +148,15 @@ void Hand::update(float dt, sf::Transform transf)
     }
 }
 
+void Hand::setSelectedCard(int value)
+{
+    this->selected_card = value;
+}
+
 void Hand::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
     states.transform *= getTransform();
-    target.draw(*debug, states);
+    //target.draw(*debug, states);
 
     if (cards[0])
         target.draw(*cards[0], states);

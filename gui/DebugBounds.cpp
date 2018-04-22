@@ -4,8 +4,8 @@ DebugBounds::DebugBounds(sf::FloatRect bounds)
     : Object("debug_bounds")
 {
     rect.setFillColor(sf::Color::Transparent);
-    rect.setOutlineColor(sf::Color::Red);
-    rect.setOutlineThickness(1.0f);
+    rect.setOutlineColor(sf::Color::Black);
+    rect.setOutlineThickness(3.0f);
     rect.setPosition(bounds.left, bounds.top);
     rect.setSize(sf::Vector2f(bounds.width, bounds.height));
 }
