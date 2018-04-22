@@ -17,6 +17,8 @@ private:
     sf::Text score_number;
     sf::FloatRect bounds;
 
+    bool mask;
+
     // Debug
     DebugBounds * debug;
 
@@ -27,8 +29,10 @@ public:
     inline Hand * getHand() const { return hand; }
     inline Core::Player * getPlayer() const { return player; }
     inline sf::FloatRect getBounds() const { return bounds; }
+    inline bool isMasked() const { return mask; }
 
     void clear();
+    void setMask(bool value);
 
     void input(sf::Event evt, sf::Transform transform);
     void update(float dt, sf::Transform transform);

@@ -4,8 +4,7 @@
 namespace Core {
 
 Handmaid::Handmaid()
-    : Card("Handmaid", 4, "Until your next turn, \
-        ignore all effects from other players cards.")
+    : Card("Handmaid", 4, "Until your next turn, ignore all effects from other players cards.")
 {
 }
 

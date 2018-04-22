@@ -7,6 +7,7 @@ PlayerZone::PlayerZone(Core::Player * player, sf::FloatRect bounds)
 {
     this->player = player;
     this->bounds = bounds;
+    mask = true;
 
     setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
     setPosition(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
@@ -47,6 +48,11 @@ void PlayerZone::clear()
     hand->updateCards();
 }
 
+void PlayerZone::setMask(bool value)
+{
+    mask = value;
+}
+
 void PlayerZone::input(sf::Event evt, sf::Transform transform)
 {
     hand->input(evt, transform * getTransform());
@@ -56,6 +62,12 @@ void PlayerZone::update(float dt, sf::Transform transform)
 {
     player_name.setString(player->getName() + " ~ " + std::to_string(player->getPoints()));
     hand->update(dt, transform * getTransform());
+    hand->updateCards();
+    if (mask) {
+        hand->mask();
+    } else {
+        hand->reveal();
+    }
 }
 
 void PlayerZone::draw(sf::RenderTarget &target, sf::RenderStates states) const

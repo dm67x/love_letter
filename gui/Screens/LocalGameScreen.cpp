@@ -64,12 +64,11 @@ void LocalGameScreen::nextPlayerTurn()
     board->nextTurn();
 
     // Next player
-    current_zone->getHand()->mask();
+    current_zone->setMask(true);
     board->getDeck()->pickCard();
     Core::Player * p = game->startTurn();
     current_zone = getCurrentZone(p);
     current_zone->getHand()->addCard(new Card(p->pickCard()));
-    current_zone->getHand()->reveal();
 }
 
 PlayerZone * LocalGameScreen::getCurrentZone(Core::Player * p)
@@ -101,6 +100,10 @@ void LocalGameScreen::target_func(Core::Card * card)
                 if (zones[i]->getPlayer()->hasShield()) break;
                 target_player = zones[i]->getPlayer();
                 target_selected = true;
+                if (card->getValue() == 2) {
+                    // Priest
+                    zones[i]->setMask(false);
+                }
                 break;
             }
         }
@@ -267,7 +270,7 @@ void LocalGameScreen::update(float dt)
 
     // Update every time hand of current player
     current_zone->update(dt, board->getTransform());
-    current_zone->getHand()->reveal();
+    current_zone->setMask(false);
 
     if (game->roundOver()) {
         game->startRound();

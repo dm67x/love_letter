@@ -103,8 +103,6 @@ void Board::update(float dt)
 {
     for (unsigned int i = 0; i < zones.size(); i++) {
         zones[i]->update(dt, getTransform());
-        zones[i]->getHand()->updateCards();
-        zones[i]->getHand()->mask();
     }
 }
 

@@ -38,22 +38,35 @@ Card::Card(Core::Card *card)
     // description
     description.setFont(font);
     description.setFillColor(sf::Color::Black);
-    description.setString(card->getDescription());
     description.setCharacterSize(24);
+
+    // line wrapper
+    std::string descr = card->getDescription();
+    for (unsigned int i = 1; i < descr.size(); i++) {
+        description.setString(descr.substr(0, i));
+        sf::FloatRect desc = description.getLocalBounds();
+        sf::FloatRect card_b = card_sprite.getLocalBounds();
+        if (desc.left + desc.width >= card_b.left + card_b.width) {
+            descr.insert(i-10, "\n");
+        }
+    }
+
     sf::FloatRect desc_rect = description.getLocalBounds();
     description.setOrigin(desc_rect.left + desc_rect.width / 2, desc_rect.top + desc_rect.height / 2);
-    // TODO SET POSITION
+    description.move(5.0f, texture.getSize().y / 2.0f - 65.0f);
 
     // value
     value.setFont(font);
-    value.setFillColor(sf::Color::Black);
+    value.setFillColor(sf::Color::White);
     std::ostringstream oss;
     oss << card->getValue();
     value.setString(oss.str());
-    value.setCharacterSize(24);
+    value.setCharacterSize(40);
     sf::FloatRect value_rect = value.getLocalBounds();
     value.setOrigin(value_rect.left + value_rect.width / 2, value_rect.top + value_rect.height / 2);
-    // TODO SET POSITION
+    sf::FloatRect card_bounds = card_sprite.getLocalBounds();
+    value.move(card_bounds.left - card_bounds.width / 2.0f + 50.0f,
+               card_bounds.top - card_bounds.height / 2.0f + 50.0f);
 }
 
 Card::~Card()
