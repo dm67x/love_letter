@@ -8,6 +8,7 @@
 #include "Screens/JoinGame.h"
 #include "Screens/CreditsScreen.h"
 #include "Screens/NextPlayerMessageScreen.h"
+#include "Screens/RulesScreen.h"
 
 int main(void)
 {
@@ -18,7 +19,6 @@ int main(void)
 
     sf::RenderWindow * window = mainWindow->getWindow();
     window->setFramerateLimit(60);
-    window->setKeyRepeatEnabled(false);
 
     // ScreenManager
     ScreenManager * screenManager = ScreenManager::getInstance();
@@ -32,6 +32,7 @@ int main(void)
     screenManager->add(new JoinGame());
     screenManager->add(new CreditsScreen());
     screenManager->add(new NextPlayerMessageScreen());
+    screenManager->add(new RulesScreen());
 
     sf::Clock clock;
     while (window->isOpen())
