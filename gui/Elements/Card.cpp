@@ -38,8 +38,19 @@ Card::Card(Core::Card *card)
     // description
     description.setFont(font);
     description.setFillColor(sf::Color::Black);
-    description.setString(card->getDescription());
     description.setCharacterSize(24);
+
+    // line wrapper
+    std::string descr = card->getDescription();
+    for (unsigned int i = 1; i < descr.size(); i++) {
+        description.setString(descr.substr(0, i));
+        sf::FloatRect desc = description.getLocalBounds();
+        sf::FloatRect card_b = card_sprite.getLocalBounds();
+        if (desc.left + desc.width >= card_b.left + card_b.width) {
+            descr.insert(i-1, "\n");
+        }
+    }
+
     sf::FloatRect desc_rect = description.getLocalBounds();
     description.setOrigin(desc_rect.left + desc_rect.width / 2, desc_rect.top + desc_rect.height / 2);
     // TODO SET POSITION
