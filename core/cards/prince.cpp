@@ -4,8 +4,7 @@
 namespace Core {
 
 Prince::Prince()
-    : Card("Prince", 5, "Choose any player (including yourself) to discard \
-        his or her hand and draw a new card.")
+    : Card("Prince", 5, "Choose any player (including yourself) to discard his or her hand and draw a new card.")
 {
 }
 
