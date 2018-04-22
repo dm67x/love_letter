@@ -2,7 +2,7 @@
 #include "MainWindow.h"
 #include "Screens/MenuScreen.h"
 #include "Screens/SingleplayerScreen.h"
-#include "Screens/SingleplayermenuScreen.h"
+#include "Screens/SinglePlayerMenuScreen.h"
 #include "Screens/MultiplayerScreen.h"
 #include "Screens/CreateGame.h"
 #include "Screens/JoinGame.h"
