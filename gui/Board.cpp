@@ -91,11 +91,11 @@ void Board::nextTurn()
 {
     // Rotate board
     if (zones.size() == 2) {
-        rotate(180.0f);
+        //rotate(180.0f);
     } else if (zones.size() == 3) {
 
     } else {
-        rotate(90.0f);
+        //rotate(90.0f);
     }
 }
 
