@@ -58,6 +58,7 @@ void RulesScreen::loadContent()
                          "(the card) closest to the princess (with higher value) holds your love letter\n"
                          "at the end of the day, so it reaches her first (and so you win).\n"
                          "To select a card to throw, a target player and his card, double click the card chosen.\n"
+                         "For the guard press right or left on the keyboard to choose your card guess."
                          "May the best player win the heart of the princess Annette");
     text_rules.setCharacterSize(23);
     text_rules.setFillColor(sf::Color::Black);
